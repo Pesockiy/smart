@@ -1,0 +1,44 @@
+html
+    scroll-behavior: smooth
+    overflow-x: hidden
+    scrollbar-width: none
+    &::-webkit-scrollbar
+        width: 0px
+        background: rgba(255, 255, 255, 0.0)
+
+.isHidden
+    overflow: hidden
+
+html,
+body
+    min-height: 100%
+    height: 100%
+
+body
+    font: 400 #{$fontSizeBase}/1.2 $baseFont
+    letter-spacing: -0.04em
+    color: $whiteColor
+    background: $blackColor url($path + 'icons/body-shape.svg') no-repeat center fixed
+
+button
+    cursor: pointer
+
+section
+    height: 100vh
+
+#__next
+    // height: 100%
+    // min-height: 300vh
+    display: flex
+    flex-direction: column
+
+.outer
+    overflow: hidden
+
+.inner
+    // height: 400vh
+    width: 100vw
+    // display: flex
+    // flex-direction: column
+    // align-items: center
+    // justify-content: center

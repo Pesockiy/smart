@@ -6,11 +6,34 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "svgmin": "svgo src/assets/icons/*.svg --config svgo.config.js",
+    "sprite": "svg-sprite -s --svg-namespace-classnames=true --symbol-dest src/assets/icons --symbol-sprite _sprite.svg src/assets/icons/**/*.svg --symbol-render-scss true --symbol-render-scss-dest ../../common/icon/Icon.scss --symbol-render-scss-template src/styles/_sprite_template.scss"
   },
   "dependencies": {
-    "next": "13.3.0",
+    "class-names": "^1.0.0",
+    "external-svg-loader": "^1.6.1",
+    "file-loader": "^6.2.0",
+    "gsap": "^3.11.5",
+    "next": "^12.3.4",
+    "next-compose-plugins": "^2.2.1",
+    "next-images": "^1.8.5",
+    "next-svgr": "^0.0.2",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.9",
+    "react-input-mask": "^2.0.4",
+    "react-select": "^5.7.2",
+    "sass": "^1.62.0",
+    "scss-reset": "^1.2.2",
+    "svg-url-loader": "^8.0.0",
+    "svgmin": "^0.1.0",
+    "swiper": "^9.2.0"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^7.0.0",
+    "react-responsive": "^9.0.2",
+    "svg-sprite": "^2.0.2",
+    "svgo": "^3.0.2"
   }
 }

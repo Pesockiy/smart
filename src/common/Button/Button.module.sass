@@ -1,0 +1,46 @@
+.button
+    +borderGradient(1px,  14px, var(--gradient))
+    +buttonFont
+    // +mxAuto
+    +dFlex
+
+    padding: 15px 20px
+    text-decoration: none
+    color: $whiteColor
+    font-weight: 600
+    letter-spacing: 0.3px
+
+    @media screen and (max-width: 768px)
+        width: 100%
+
+    &::before
+        z-index: -1
+        transition: opacity .2s ease-in-out
+        background-image: var(--gradient)
+
+    &.primary,
+    &.outlined
+        --gradient: #{$accentGradient}
+
+    &.secondary,
+    &.disabled
+        --gradient: #{$grayGradient}
+
+    &.disabled
+        color: $textGrayColor
+        pointer-events: none
+        cursor: default
+
+    &:not(.primary):not(.secondary)
+        background-color: $blackColor
+
+    &:not(.outlined):not(.disabled)
+        &:hover::before
+            opacity: 0
+
+    &:not(:not(.outlined))
+        &::before
+            opacity: 0
+        &:hover::before
+            opacity: 1
+

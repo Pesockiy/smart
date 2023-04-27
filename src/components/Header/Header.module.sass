@@ -1,0 +1,55 @@
+
+.header
+    position: sticky
+    inset: 0
+    z-index: 99
+
+    padding: 37px 0 33px
+    transition: background-color .3s
+
+    .headerLangButton
+        width: 125px
+        align-items: center
+        justify-content: space-between
+        padding: 8px 10px 8px 12px
+
+        border-radius: 8px
+        background-color: $darkGrayColor
+
+    .headerInner
+        display: flex
+        align-items: center
+        justify-content: space-between
+
+    .headerNav
+        column-gap: 30px
+
+    .headerLeft,
+    .headerRight,
+    .headerNav
+        display: inherit
+        align-items: inherit
+
+    .headerLeft
+        +colGap(100px)
+
+    .headerRight
+        +colGap(50px)
+
+    .headerBlocks
+        +mxAuto
+        display: grid
+        gap: 20px
+        padding: 30px
+        max-width: max-content
+
+        border-radius: 20px
+        backdrop-filter: blur(4px)
+
+    .headerButton
+        padding-left: 35px
+        padding-right: 35px
+        letter-spacing: 0.3px
+
+.headerScroled
+    background-color: $blackColor

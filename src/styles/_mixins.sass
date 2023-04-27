@@ -1,0 +1,79 @@
+
+=mxAuto
+    margin-left: auto
+    margin-right: auto
+
+=borderGradient($borderWidth: 0, $borderRadius: 0, $grad: '', $textColor: #fff, $trs: opacity .3s )
+    $reset: linear-gradient(#fff 0 0)
+
+    position: relative
+    z-index: 0
+    // width: 100%
+
+    color: $textColor
+
+    border: solid $borderWidth transparent
+    border-radius: $borderRadius
+    background-color: transparent
+    background-repeat: no-repeat
+
+    &::after,
+    &::before
+        content: ''
+        position: absolute
+        inset: calc(-1 * $borderWidth)
+        z-index: -1
+
+        border-radius: inherit
+        border: inherit
+        transition: $trs
+
+    &::after
+        background: $grad border-box
+        -webkit-text-fill-color: transparent
+        -webkit-mask: $reset text, $reset padding-box, $reset
+        -webkit-mask-composite: xor
+
+=textGradient($grad)
+    background-image: $grad
+    -webkit-background-clip: text
+    -webkit-text-fill-color: transparent
+    background-clip: text
+    text-fill-color: transparent
+
+=dFlex($inline: false, $jc: center, $ai: center, $gap: 0)
+    display: if($inline, inline-flex, flex)
+    justify-content: $jc
+    align-items: $ai
+    gap: $gap
+
+=dGrid($inline: false,$min: 200px, $fit: false, $gap: 0)
+    display: if($inline, inline-grid, grid)
+    grid-template-columns: repeat(if($fit, auto-fit, auto-fill), minmax($min, 1fr))
+
+=colGap($val)
+    column-gap: $val
+
+=clamp($prop, $min, $res, $max)
+    #{$prop}: clamp($min, $res, $max)
+
+=posCenter
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+
+=cover
+    display: block
+    width: 100%
+    height: 100%
+    object-fit: cover
+    object-position: center
+
+=trs($props)
+    transition: $props
+
+=buttonFont()
+    font: 600 #{$fontSizeBase}/1.24 $baseFont
+
+=headingFont($w: 600, $f: $headingFont, $l: 1.24)
+    font: $w clamp(var(--min, 40px), 7vw, var(--max, 64px))/$l $f

@@ -1,0 +1,36 @@
+.heroSliderItem
+    +borderGradient(1px, 20px, $grayGradient)
+    display: flex
+    align-items: center
+    height: 120px
+    border-radius: 20px
+    opacity: 0.4
+    transition: opacity .3s
+
+.isActive
+    opacity: 1
+
+    .heroSliderHeading
+        color: $whiteColor
+
+.heroSliderVideoWrap
+    +borderGradient(1px, 20px, $grayGradient)
+    overflow: hidden
+    flex: 0 0 168px
+    height: 100%
+    border-radius: 16px
+
+.heroSliderTextWrap
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    padding: 8px 12px
+
+.heroSliderVideo
+    height: 100%
+    object-fit: cover
+
+.heroSliderNumberSlide
+
+.heroSliderHeading
+    color: $whiteColorDarken

@@ -1,0 +1,34 @@
+.modal
+    +dFlex(false, flex-strart, flex-start)
+
+    position: fixed
+    z-index: 100
+    inset: 0
+
+    background: rgba(38, 37, 41, 0.8)
+
+.modalDialog
+    overflow: hidden
+    position: relative
+    max-width: 960px
+    border-radius: 20px
+    // pointer-events: none
+
+.modalButton
+    padding: 10px
+    top: 24px
+    right: 24px
+    cursor: pointer
+    position: absolute
+    pointer-events: initial
+
+.center
+    justify-content: center
+    align-items: center
+
+.overlay
+    position: fixed
+    z-index: 99
+    inset: 0
+
+    background-color: rgba($blackColor, .8)
