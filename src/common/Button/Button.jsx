@@ -13,11 +13,18 @@ export default function Button({
   as = "button",
   variant = "",
   href = "",
+  base = false,
 }) {
-  const classes = cx(styles[variant], styles.button, className, {
-    [styles.disabled]: disabled,
-    [styles.outlined]: outlined,
-  });
+  const classes = cx(
+    styles[variant],
+    styles.button,
+    {
+      [styles.disabled]: disabled,
+      [styles.outlined]: outlined,
+      [styles.base]: base,
+    },
+    className
+  );
 
   if (href) {
     return (

@@ -4,19 +4,15 @@ import cx from "class-names";
 import styles from "./Chip.module.sass";
 
 const Chip = ({
-  size,
-  type,
   label,
   color,
-  variant,
+  variant = "primary",
   className,
   as = "span",
   onClick = () => {},
 }) => {
   const classes = cx(styles[variant], styles.chip, className, {
     [styles.color]: color,
-    // [styles.disabled]: disabled,
-    // [styles.outlined]: outlined,
   });
 
   const TagName = as;

@@ -1,7 +1,6 @@
 .wrapper
     display: grid
     grid-template-columns: repeat(3, minmax(120px, 1fr))
-    // grid-template-columns: repeat(10, minmax(40px, 1fr))
 
 .wrapperLeftOffset
     width: calc($xl - $adaptiveGutters / 2 + 20px)
@@ -16,20 +15,25 @@
     .wrapperContent
         padding-left: 110px
 
-
 .wrapperSideBlock
     grid-area: 2 / 2 / 4 / 1
     height: 100%
     span
         position: relative
         top: -40px
+        color: #636479
 
 .wrapperContent
     grid-area: 2 / 1 / 2 / -1
 
 .wrapperSideText
-    // position: fixed
-    // left: 0
-    // top: 50%
-    transform: rotate(90deg) translate(50%, -100%)
+    position: fixed
+    left: $offsetLeft
+    top: 50%
+    transform: rotate(90deg) translate(-50%, -100%)
     transform-origin: 0 0
+    opacity: 0.2
+
+.wrapperSideLine
+    transform: translateY(-5px)
+    background: linear-gradient(180deg, #636479 0%, rgba(99, 100, 121, 0) 100%)

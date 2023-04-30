@@ -1,0 +1,26 @@
+.SectionContainer
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    min-height: 100vh
+    padding-bottom: 80px
+
+.SectionContainerWrap
+    display: grid
+    grid-template-columns: repeat(3, minmax(120px, 1fr))
+
+.SectionContainerTop
+    +dFlex(false, space-between, center)
+    gap: 52px 70px
+    flex-wrap: wrap
+    flex-basis: auto
+
+.SectionContainerTop,
+.SectionContainerTopBlock
+    flex-basis: calc(100% - 110px)
+
+.SectionContainerTopBlock
+    margin-bottom: 20px
+
+

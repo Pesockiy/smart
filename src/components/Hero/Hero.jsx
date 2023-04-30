@@ -1,159 +1,84 @@
-import React, { useRef, forwardRef } from "react";
+import React, { forwardRef, useRef, useState, useEffect } from "react";
 import cx from "class-names";
 
-// import VideoPoster from "../../../public/images/Video.jpg";
-
-import styles from "./Hero.module.sass";
+import { useToggle } from "@/hooks";
 
 import Heading from "@/common/Heading/Heading";
 import Text from "@/common/Text/Text";
 import Img from "@/common/Img/Img";
-import Container from "@/common/Container/Container";
 import Button from "@/common/Button/Button";
+import ButtonVideo from "@/common/ButtonVideo/ButtonVideo";
 import Line from "@/common/Line/Line";
 import Chip from "@/common/Chip/Chip";
 import Video from "@/common/Video/Video";
 import Modal from "@/common/Modal/Modal";
 import HeroSlider from "@/components/HeroSlider/HeroSlider";
-import Wrapper from "@/components/Wrapper/Wrapper";
-import { Icon } from "@/common/Icon/Icon";
+import SectionContainer from "@/components/SectionContainer/SectionContainer";
 
-import { useToggle } from "@/hooks";
+import { slides } from "@/mock";
 
-const {
-  hero,
-  heroTop,
-  heroTextWrap,
-  heroVideoWrap,
-  heroSlider,
-  heroImg,
-  heroTitle,
-  heroButtons,
-  heroVideoChip,
-  heroSubtitle,
-  heroTextsBottom,
-  heroAccentTitle,
-  heroButton,
-  heroTopBlock,
-  heroWrap,
-  heroSideBlock,
-  heroSideText,
-  heroVideoWrapBig,
-} = styles;
+import VideoPoster from "../../../public/images/Video.jpg";
 
-const slides = [
-  { title: "Smart Strength" },
-  { title: "Smart Re-HIIT" },
-  { title: "Smart Cold HIIT" },
-  { title: "Smart Charge" },
-  { title: "Smart Charge" },
-  { title: "Smart Charge" },
-  { title: "Smart Charge" },
-  { title: "Smart Charge" },
-  { title: "Smart Charge" },
-  { title: "Smart Charge" },
-  { title: "Smart Charge" },
-  { title: "Smart Charge" },
-];
+import styles from "./Hero.module.sass";
 
-const Hero = forwardRef(
-  (
-    {
-      wrapper,
-      slider = false,
-      rtl = false,
-      verticalCenter = true,
-      bigMedia = false,
-    },
-    ref
-  ) => {
-    const [isVideo, toggleVideo] = useToggle(false);
-    const playerRef = useRef(null);
+const Hero = () => {
+  const toggleModalHandler = () => setModalActive((prev) => !prev);
 
-    return (
-      <section className={hero} ref={ref}>
-        <Wrapper
-          wrapper={wrapper}
-          className={heroWrap}
-          // component="section"
-        >
-          <Icon icon="Play"/>
-          <Container
-            disableGutters={wrapper}
-            className={heroTop}
-            style={{
-              flexDirection: rtl ? "row-reverse" : "row",
-              alignItems: verticalCenter ? "center" : "flex-start",
-            }}
-          >
-            <div
-              className={heroTextWrap}
-              style={{ gap: verticalCenter && "40px" }}
-            >
-              <div className={heroSubtitle}>
-                Stop wasting time <Line inline /> <span> Get Smart Fit</span>
-              </div>
-              <Heading size="xxl" className={heroTitle}>
-                Personal Training{" "}
-                <Text as="span" gradient={true} className={heroAccentTitle}>
-                  For 20 Minutes
-                </Text>{" "}
-                Three Times a Week
-              </Heading>
-              <div className={heroTextsBottom}>
-                <Text>
-                  Our method builds strength, optimises hormones, and burns fat
-                  so we can elevate our clients to their maximum potential.
-                </Text>
-                <div className={heroButtons}>
-                  <Button outlined variant="primary" className={heroButton}>
-                    Book a free workout
-                  </Button>
-                  <Button variant="primary" className={heroButton}>
-                    Book a free workout
-                  </Button>
-                </div>
-              </div>
+  return (
+    <section className={cx(styles.hero)}>
+      <SectionContainer
+        wrapper={false}
+        rtl={false}
+        vCenter={true}
+        count="01"
+        subtitle={"Stop wasting time "}
+      >
+        <div className={styles.heroTextWrap}>
+          <div className={styles.heroSubtitle}>
+            Stop wasting time <Line inline /> <span> Get Smart Fit</span>
+          </div>
+          <Heading size="xxl" className={styles.heroTitle}>
+            Personal Training{" "}
+            <Text as="span" gradient={true}>
+              For 20 Minutes
+            </Text>{" "}
+            Three Times a Week
+          </Heading>
+          <div className={styles.heroTextsBottom}>
+            <Text>
+              Our method builds strength, optimises hormones, and burns fat so
+              we can elevate our clients to their maximum potential.
+            </Text>
+            <div className={styles.heroButtons}>
+              <Button className={styles.heroButton} variant="primary" outlined>
+                Book a free workout
+              </Button>
+              <Button variant="primary" className={styles.heroButton}>
+                Book a free workout
+              </Button>
+              <ButtonVideo>sfsd</ButtonVideo>
             </div>
-            <div
-              className={cx(heroVideoWrap, { [heroVideoWrapBig]: bigMedia })}
-              style={{ justifyContent: rtl ? "start" : "end" }}
-            >
-              {/* <Img
-                className={heroImg}
-                src={VideoPoster}
-                alt="alt"
-                width="100%"
-                height="100%"
-              /> */}
-              <Chip
-                onClick={toggleVideo}
-                label="Video"
-                className={heroVideoChip}
-              />
-            </div>
-          </Container>
+          </div>
+        </div>
 
-          {isVideo && (
-            <Modal center>
-              <Video
-                ref={playerRef}
-                play={true}
-                params={{
-                  controls: "controls",
-                  autoplay: true,
-                  loop: true,
-                  muted: true,
-                  src: "/1.mp4",
-                }}
-              />
-            </Modal>
-          )}
-        </Wrapper>
-        {slider && <HeroSlider sliderData={slides} className={heroSlider} />}
-      </section>
-    );
-  }
-);
+        <div className={cx(styles.heroVideoWrap)}>
+          <Img
+            className={styles.heroImg}
+            src={VideoPoster}
+            alt="alt"
+            width="100%"
+            height="100%"
+          />
+          <Chip
+            onClick={toggleModalHandler}
+            label="Video"
+            className={styles.heroVideoChip}
+          />
+        </div>
+      </SectionContainer>
+      <HeroSlider sliderData={slides} className={styles.heroSlider} />
+    </section>
+  );
+};
 
 export default Hero;

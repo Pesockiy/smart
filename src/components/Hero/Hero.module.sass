@@ -1,53 +1,7 @@
-.hero
-    // padding-top: 80px
-    min-height: 100vh
-    display: flex
-    flex-direction: column
-    justify-content: center
-    // justify-content: start
-    align-items: center
-    padding-bottom: 80px
-    // padding-top: 50px
-
-
-.heroWrap
-    display: grid
-    grid-template-columns: repeat(3, minmax(120px, 1fr))
-    // padding-top: 80px
-    // padding-bottom: 180px
-
-.heroTop
-    // grid-area: 2 / 1 / 2 / -1
-    +dFlex(false, space-between, center)
-    // gap: 67px 52px
-    gap: 52px 70px
-    flex-wrap: wrap
-    flex-basis: auto
-
-.heroTop,
-.heroTopBlock
-    flex-basis: calc(100% - 110px)
-
-.heroTopBlock
-    // grid-area: 1 / 1 / 1 / -1
-    // align-self: end
-    margin-bottom: 20px
-
-// .heroSideBlock
-//     grid-area: 1 / 1 / 4 / 1
-//     flex-basis: 110px
-//     height: 100%
-//     span
-
-.heroSideText
-    height: 100%
-    transform: rotate(90deg)
-    transform-origin: 0 0
-
 .heroTextWrap
     +dFlex(false, space-between, flex-start)
-    // gap: 40px
     flex-direction: column
+    gap: 40px 24px
     flex: 1 1 45%
     max-width: 585px
 
@@ -64,20 +18,12 @@
     img
         width: 100%
 
-.heroVideoWrapBig
-    max-width: 762px
-
-.heroTitle
-    // margin-bottom: 40px
-
-.heroAccentTitle
-    display: block
-
 .heroTextsBottom
     +dFlex(false, flex-start)
-    gap: 20px 24px
+    gap: 20px 54px
     flex-wrap: wrap
     align-items: center
+    line-height: 1.57
     p
         flex: 1 1 40%
 
@@ -90,15 +36,10 @@
     width: fit-content
     gap: 15px
 
-.heroButton
-    flex-shrink: 0
-    // width: auto
-
 .heroVideoChip
     position: absolute
     top: 24px
     right: 24px
-    background-color: $blueColor
 
 .heroSubtitle
     +dFlex(false, flex-start, baseline)
@@ -108,7 +49,5 @@
         color: $whiteColor
 
 .heroSlider
-    // grid-area: 1 / 1 / 4 / 1
     align-self: start
     max-width: 100%
-    

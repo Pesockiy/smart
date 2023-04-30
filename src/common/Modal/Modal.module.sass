@@ -5,7 +5,10 @@
     z-index: 100
     inset: 0
 
-    background: rgba(38, 37, 41, 0.8)
+    background-color: rgba($blackColor, .8)
+    &.center
+        justify-content: center
+        align-items: center
 
 .modalDialog
     overflow: hidden
@@ -21,14 +24,3 @@
     cursor: pointer
     position: absolute
     pointer-events: initial
-
-.center
-    justify-content: center
-    align-items: center
-
-.overlay
-    position: fixed
-    z-index: 99
-    inset: 0
-
-    background-color: rgba($blackColor, .8)

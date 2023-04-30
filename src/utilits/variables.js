@@ -20,3 +20,5 @@ export const navLinks = [
         path: "/franchise",
     },
 ];
+
+export const getProgress = (a, b) => Math.round(+a / +b * 100);

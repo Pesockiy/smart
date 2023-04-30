@@ -1,14 +1,20 @@
 .button
-    +borderGradient(1px,  14px, var(--gradient))
     +buttonFont
-    // +mxAuto
     +dFlex
 
-    padding: 15px 20px
+    padding: 14.5px 16px
     text-decoration: none
     color: $whiteColor
     font-weight: 600
     letter-spacing: 0.3px
+
+    &:not(.base)
+        +borderGradient(1px,  14px, var(--gradient))
+
+    &.base
+        &::before,
+        &::after
+            display: none
 
     @media screen and (max-width: 768px)
         width: 100%
@@ -31,7 +37,7 @@
         pointer-events: none
         cursor: default
 
-    &:not(.primary):not(.secondary)
+    &:not(.primary):not(.secondary):not(.base)
         background-color: $blackColor
 
     &:not(.outlined):not(.disabled)
@@ -43,4 +49,3 @@
             opacity: 0
         &:hover::before
             opacity: 1
-

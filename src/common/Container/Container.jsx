@@ -1,36 +1,42 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import cx from "class-names";
 
 import styles from "./Container.module.sass";
 
-const Container = ({
-  style = {},
-  fixed = false,
-  className = "",
-  maxWidth = "lg",
-  children = null,
-  component = "div",
-  disableGutters = false,
-}) => {
-  const TagName = component;
-
-  const classes = cx(
-    styles.container,
+const Container = forwardRef(
+  (
     {
-      [styles.disableGutters]: disableGutters,
-      [styles.maxWidth]: maxWidth,
+      style = {},
+      fixed = false,
+      className = "",
+      maxWidth = "lg",
+      children = null,
+      component = "div",
+      disableGutters = false,
     },
-    className
-  );
+    ref
+  ) => {
+    const TagName = component;
 
-  return (
-    <TagName
-      className={classes}
-      style={{ maxWidth: fixed && "100%" , ...style }}
-    >
-      {children}
-    </TagName>
-  );
-};
+    const classes = cx(
+      styles.container,
+      {
+        [styles.disableGutters]: disableGutters,
+        [styles.maxWidth]: maxWidth,
+      },
+      className
+    );
+
+    return (
+      <TagName
+        ref={ref}
+        className={classes}
+        style={{ maxWidth: fixed && "100%", ...style }}
+      >
+        {children}
+      </TagName>
+    );
+  }
+);
 
 export default Container;

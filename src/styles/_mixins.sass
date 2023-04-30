@@ -8,10 +8,8 @@
 
     position: relative
     z-index: 0
-    // width: 100%
 
     color: $textColor
-
     border: solid $borderWidth transparent
     border-radius: $borderRadius
     background-color: transparent
@@ -50,6 +48,7 @@
 =dGrid($inline: false,$min: 200px, $fit: false, $gap: 0)
     display: if($inline, inline-grid, grid)
     grid-template-columns: repeat(if($fit, auto-fit, auto-fill), minmax($min, 1fr))
+    gap: $gap
 
 =colGap($val)
     column-gap: $val
@@ -77,3 +76,11 @@
 
 =headingFont($w: 600, $f: $headingFont, $l: 1.24)
     font: $w clamp(var(--min, 40px), 7vw, var(--max, 64px))/$l $f
+
+=text-overflow($lines: 1)
+    overflow: hidden
+    display: -webkit-box
+    box-orient: vertical
+    text-overflow: ellipsis
+    -webkit-line-clamp: $lines
+    -webkit-box-orient: vertical

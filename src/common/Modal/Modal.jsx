@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import cx from "class-names";
 
-import { useToggle, useOnClickOutside } from "@/hooks";
+import { useToggle } from "@/hooks";
 
 import Portal from "@/components/Portal/Portal";
 import IconClose from "@/assets/icons/Icon-close.svg";
@@ -9,20 +9,16 @@ import styles from "./Modal.module.sass";
 
 const Modal = ({
   className,
-  open,
+  active,
+  closeButton,
   center = false,
-  overlay = false,
-  onClose = () => {},
-  onOnsuccess = () => {},
+  setActive = () => {},
+  onOnSuccess = () => {},
   children,
 }) => {
   const classes = cx(styles.modal, className, {
     [styles.center]: center,
-    [styles.overlay]: overlay,
   });
-
-  const [isVisible, setIsvisible] = useToggle(open);
-  const ref = useRef(null);
 
   useEffect(() => {
     if (open) {
@@ -33,25 +29,18 @@ const Modal = ({
     };
   }, []);
 
-  const closeHandler = (e) => {
-    setIsvisible((prev) => !prev);
-    e.stopPropagation();
-    onClose();
-  };
-
-  // const clickOutside = useOnClickOutside(ref, onClose);
-
-  if (isVisible) return null;
+  const closeHandler = setActive();
 
   return (
     <Portal>
-      <div className={classes} onClick={closeHandler}>
-        {/* <div ref={ref} className={styles.modalDialog} onClick={clickOutside}> */}
-        <div ref={ref} className={styles.modalDialog}>
+      <div className={classes} onClick={setActive}>
+        <div className={styles.modalDialog}>
           {children}
-          <button className={styles.modalButton} onClick={closeHandler}>
-            <IconClose />
-          </button>
+          {closeButton && (
+            <button className={styles.modalButton} onClick={setActive}>
+              <IconClose />
+            </button>
+          )}
         </div>
       </div>
     </Portal>

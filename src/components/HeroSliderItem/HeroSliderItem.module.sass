@@ -2,16 +2,27 @@
     +borderGradient(1px, 20px, $grayGradient)
     display: flex
     align-items: center
+    width: 100%
     height: 120px
     border-radius: 20px
     opacity: 0.4
-    transition: opacity .3s
+    user-select: none
+    transition: opacity .2s ease-in-out
 
-.isActive
-    opacity: 1
+    &.isActive,
+    &:hover
+        opacity: 1
 
-    .heroSliderHeading
-        color: $whiteColor
+    &.isActive
+        .heroSliderHeading
+            color: $whiteColor
+
+        .heroVideoButton
+            pointer-events: initial
+
+    .heroVideoButton
+        transform: scale(.8) translate(-60%, -60%)
+        pointer-events: none
 
 .heroSliderVideoWrap
     +borderGradient(1px, 20px, $grayGradient)
@@ -19,18 +30,32 @@
     flex: 0 0 168px
     height: 100%
     border-radius: 16px
+    cursor: pointer
 
 .heroSliderTextWrap
     display: flex
     flex-direction: column
     justify-content: space-between
+    flex-shrink: 0
+    width: 144px
     padding: 8px 12px
 
 .heroSliderVideo
     height: 100%
     object-fit: cover
-
-.heroSliderNumberSlide
+    transform: scale(1.4)
+    &::after
+        content: ''
+        inset: 0
+        position: absolute
+        background: url("../../assets/icons/shape1.svg") no-repeat center bottom
+        // , linear-gradient(56.68deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 147.05%), rgba(38, 37, 41, 0.3)
 
 .heroSliderHeading
+    letter-spacing: -0.9px
     color: $whiteColorDarken
+
+.heroSliderNumberSlide
+    margin-bottom: 8px
+    font: 400 12px/1.1 $secondFont
+    color: $textGrayColor

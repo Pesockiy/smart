@@ -11,7 +11,7 @@ const Heading = ({
 }) => {
   const TagName = as;
   const classes = cx(styles.heading, styles[size], className);
-  
+
   return <TagName className={classes}>{children}</TagName>;
 };
 

@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-import cx from "class-names";
 import { useSwiper, useSwiperSlide } from "swiper/react";
+import cx from "class-names";
 
 import Heading from "@/common/Heading/Heading";
 import Video from "@/common/Video/Video";
@@ -14,6 +14,7 @@ const {
   heroSliderTextWrap,
   heroSliderNumberSlide,
   heroSliderHeading,
+  heroVideoButton,
 } = styles;
 
 const HeroSliderItem = ({
@@ -36,18 +37,28 @@ const HeroSliderItem = ({
     className
   );
 
+  const slideNextHandler = () => {
+    swiper.slideNext();
+  };
+
   return (
     <div className={classes}>
       <div className={heroSliderVideoWrap}>
         <Video
+          className={heroSliderVideo}
+          buttonClassName={heroVideoButton}
           ref={playerRef}
+          showButtons={true}
           play={swiperSlide.isActive}
-          onEnd={() => swiper.slideNext()}
-          onClick={() => swiper.slideTo(index - 1)}
+          progressBar={swiperSlide.isActive}
+          onEnd={slideNextHandler}
+          onClick={() => {
+            swiper.slideTo(index - 1);
+            swiper.updateSlides();
+          }}
           params={{
-            autoplay: true,
             muted: true,
-            src: `/${index}.mov`,
+            src: `/videos/${index}.mp4`,
           }}
         />
       </div>

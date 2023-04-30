@@ -1,9 +1,10 @@
-import React, { useRef, useEffect, useLayoutEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 import Hero from "@/components/Hero/Hero";
 import ScienceBased from "@/components/ScienceBased/ScienceBased";
+import BenefitFrom from "@/components/BenefitFrom/BenefitFrom";
 
 import "swiper/css";
 
@@ -37,10 +38,9 @@ const Home = () => {
     <div className="outer">
       <div ref={ref2}>
         <div ref={ref1} className="inner">
-          <Hero slider/>
-          <Hero bigMedia={true} wrapper rtl={true} />
-          {/* <Hero bigMedia={true} wrapper/> */}
-          {/* <ScienceBased /> */}
+          <Hero slider />
+          <ScienceBased wrapper />
+          <BenefitFrom wrapper />
         </div>
       </div>
     </div>
