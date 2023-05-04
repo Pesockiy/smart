@@ -10,6 +10,7 @@ const PressView = ({ posts, count, pinned, pageSize = 15 }) => {
   const { currentPage, onPageChange } = useServePagination();
 
   const [pinnedPost] = pinned;
+  const shouldHavePagination = count > pageSize;
 
   const onPageClick = (page) => {
     onPageChange(page);
@@ -22,19 +23,22 @@ const PressView = ({ posts, count, pinned, pageSize = 15 }) => {
 
       <PostsList posts={posts} isImgCover={false} />
 
-      <Pagination
-        totalCount={count}
-        currentPage={currentPage}
-        onPageChange={onPageClick}
-        pageSize={pageSize}
-      />
-
-      <MobilePagination
-        totalCount={count}
-        currentPage={currentPage}
-        onPageChange={onPageClick}
-        pageSize={pageSize}
-      />
+      {shouldHavePagination && (
+        <>
+          <Pagination
+            totalCount={count}
+            currentPage={currentPage}
+            onPageChange={onPageClick}
+            pageSize={pageSize}
+          />
+          <MobilePagination
+            totalCount={count}
+            currentPage={currentPage}
+            onPageChange={onPageClick}
+            pageSize={pageSize}
+          />
+        </>
+      )}
     </>
   );
 };
