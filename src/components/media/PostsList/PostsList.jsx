@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import cx from 'class-names';
+import { useRef } from 'react';
 
 import Img from '@/common/Img/Img';
-import { formatPostDate, truncateTextByLength } from '@/helpers';
 import { PostChip } from '../PostChip/PostChip';
-import styles from './PostsList.module.sass';
-import { useRef } from 'react';
 import Video from '@/common/Video/Video';
+import { formatPostDate, truncateTextByLength } from '@/helpers';
+import styles from './PostsList.module.sass';
 
 const PostsList = ({ posts, isImgCover = true }) => {
   if (posts.length === 0) return <div>No Posts yet.</div>;

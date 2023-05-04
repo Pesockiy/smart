@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+
 import styles from './MediaBtnGroup.module.sass';
 
 const BlogButtonGroup = ({ onClick, defaultIsBlogActive = true }) => {
