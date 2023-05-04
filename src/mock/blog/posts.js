@@ -4,22 +4,34 @@ import PostUrl3 from './images/post3.jpg';
 import PostUrl4 from './images/post4.jpg';
 import PostUrl5 from './images/post5.jpg';
 
-function generatePostsByAmount(amount = 6) {
-  return Array.from({ length: amount }).map((_, idx) => ({
-    id: idx + 1,
-    type: 'post', // NOTE: post, pdf, website, video
-    title: getRandomFromList(titles),
-    description: getRandomFromList(description),
-    image: getRandomFromList(images),
-    createdAt: generateRandomDate({
-      start: new Date(2021, 0, 1),
-      end: new Date(),
-    }),
-    updatedAt: generateRandomDate({
-      start: new Date(2021, 0, 1),
-      end: new Date(),
-    }),
-  }));
+function generatePostsByAmount({
+  amount = 6,
+  types = ['post'],
+  images = blogImages,
+  videos = null,
+}) {
+  return Array.from({ length: amount }).map((_, idx) => {
+    const type = getRandomFromList(types);
+
+    return {
+      type,
+      id: idx + 1,
+      title: getRandomFromList(titles),
+      description: getRandomFromList(description),
+      image: getRandomFromList(images),
+      createdAt: generateRandomDate({
+        start: new Date(2021, 0, 1),
+        end: new Date(),
+      }),
+      updatedAt: generateRandomDate({
+        start: new Date(2021, 0, 1),
+        end: new Date(),
+      }),
+      ...(type === 'video' && videos !== null
+        ? { video: getRandomFromList(videos) }
+        : { video: null }),
+    };
+  });
 }
 
 const getRandomFromList = (list) => {
@@ -32,7 +44,7 @@ const generateRandomDate = ({ start, end }) => {
   );
 };
 
-const images = [
+const blogImages = [
   PostUrl1.src,
   PostUrl2.src,
   PostUrl3.src,

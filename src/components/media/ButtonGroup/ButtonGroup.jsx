@@ -1,17 +1,24 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styles from './MediaBtnGroup.module.sass';
 
-const BlogButtonGroup = () => {
-  const [isBlogActive, setIsBlogActive] = useState(true);
+const BlogButtonGroup = ({ onClick, defaultIsBlogActive = true }) => {
+  const [isBlogActive, setIsBlogActive] = useState(defaultIsBlogActive);
+  const lastClickedRef = useRef(null);
 
-  const toggleActive = () => setIsBlogActive(!isBlogActive);
+  const toggleActive = (isActive) => {
+    if (lastClickedRef.current !== isActive) {
+      setIsBlogActive(isActive);
+      onClick(isActive);
+      lastClickedRef.current = isActive;
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
-      <BlogButton isActive={isBlogActive} onClick={toggleActive}>
+      <BlogButton isActive={isBlogActive} onClick={() => toggleActive(true)}>
         Blog
       </BlogButton>
-      <BlogButton isActive={!isBlogActive} onClick={toggleActive}>
+      <BlogButton isActive={!isBlogActive} onClick={() => toggleActive(false)}>
         Press
       </BlogButton>
     </div>

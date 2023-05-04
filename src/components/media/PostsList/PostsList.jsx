@@ -1,22 +1,26 @@
 import Link from 'next/link';
+import cx from 'class-names';
 
 import Img from '@/common/Img/Img';
 import { formatPostDate, truncateTextByLength } from '@/helpers';
+import { PostChip } from '../PostChip/PostChip';
 import styles from './PostsList.module.sass';
+import { useRef } from 'react';
+import Video from '@/common/Video/Video';
 
-const PostsList = ({ posts }) => {
+const PostsList = ({ posts, isImgCover = true }) => {
   if (posts.length === 0) return <div>No Posts yet.</div>;
 
   return (
     <ul className={styles.list}>
       {posts.map((post) => (
-        <PostItem key={post.id} post={post} />
+        <PostItem key={post.id} post={post} isImgCover={isImgCover} />
       ))}
     </ul>
   );
 };
 
-export const PostItem = ({ post }) => {
+export const PostItem = ({ post, isImgCover }) => {
   const description = truncateTextByLength({
     text: post.description,
     length: 20,
@@ -24,15 +28,17 @@ export const PostItem = ({ post }) => {
 
   const createdAt = formatPostDate(post.createdAt);
 
+  const isDefaultType = post.type !== 'post';
+
   return (
     <li className={styles.listItem}>
-      <Img
-        className={styles.image}
-        src={post.image}
-        width={427}
-        height={276}
-        alt={post.title}
-      />
+      {isDefaultType && (
+        <div className={styles.chip}>
+          <PostChip type={post.type} />
+        </div>
+      )}
+
+      <Preview post={post} isImgCover={isImgCover} />
 
       <div className={styles.content}>
         <div className={styles.createdAt}>{createdAt}</div>
@@ -48,6 +54,37 @@ export const PostItem = ({ post }) => {
         </p>
       </div>
     </li>
+  );
+};
+
+const Preview = ({ post, isImgCover }) => {
+  const playerRef = useRef(null);
+
+  const isVideo = post.type === 'video';
+
+  const imgClasses = cx(styles.image, {
+    [styles.cover]: isImgCover,
+    [styles.scaleDown]: !isImgCover,
+  });
+
+  return isVideo ? (
+    <Video
+      showButtons
+      className={styles.videoWrapper}
+      ref={playerRef}
+      params={{
+        muted: true,
+        src: post.video,
+      }}
+    />
+  ) : (
+    <Img
+      className={imgClasses}
+      src={post.image}
+      width={427}
+      height={276}
+      alt={post.title}
+    />
   );
 };
 

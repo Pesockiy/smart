@@ -11,9 +11,13 @@ export const useServePagination = (defaultPage = 1) => {
   const onPageChange = (page) => {
     setCurrentPage(page);
 
-    const params = new URLSearchParams({ page });
-
-    router.push(`?${params}`);
+    router.push(
+      {
+        query: { ...router.query, page },
+      },
+      null,
+      { scroll: false }
+    );
   };
 
   return {

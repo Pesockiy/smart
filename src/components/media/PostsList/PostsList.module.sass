@@ -16,14 +16,18 @@ $blackGradient:linear-gradient(180.43deg, rgba(251, 205, 191, 0.15) -27.54%, rgb
 
 .listItem
   +borderGradient(1px, 20px 20px 14px 14px, #{$greyGradient})
-  display: flex
+  --gradient:linear-gradient(56.68deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 147.05%)
+
   max-width: 427px
+  min-height: 560px
+  position: relative
+  display: flex
   font-family: 'Inter'
   font-style: normal
-  flex-flow: column wrap
+  flex-direction: column
   color: #E5E5EA
-  // TODO: gradient
-  background: linear-gradient(56.68deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 147.05%), rgba(38, 37, 41, 0.3)
+  background-image: var(--gradient)
+  background-color: rgba(38, 37, 41, 0.3)
 
   h2
     margin: 12px 0 16px 0
@@ -37,12 +41,25 @@ $blackGradient:linear-gradient(180.43deg, rgba(251, 205, 191, 0.15) -27.54%, rgb
     line-height: 156%
     letter-spacing: -0.04px
 
+  @media screen and (max-width: #{$sm})
+    max-width: 100%
+
 .content
   flex-grow: 1
   padding: 16px 20px 41px 20px
 
 .image
+  max-height: 276px
+  width: 100%
   border-radius: 20px
+  background-color: #FFFFFF
+
+
+.cover
+  object-fit: cover
+
+.scaleDown
+  object-fit: scale-down
 
 .createdAt
   font-weight: 500
@@ -65,3 +82,15 @@ $blackGradient:linear-gradient(180.43deg, rgba(251, 205, 191, 0.15) -27.54%, rgb
 .readMoreLink
   color: #FF5F28
   text-decoration: none
+
+.chip
+  width: max-content
+  position: absolute
+  right: 16px
+  top: 16px
+  z-index: 2
+
+.videoWrapper
+  max-height: 276px
+  border-radius: 20px
+  overflow: hidden

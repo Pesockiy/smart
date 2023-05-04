@@ -1,0 +1,84 @@
+$greyGradient:linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%)
+$blackGradient:linear-gradient(56.68deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 147.05%)
+
+.wrapper
+  +borderGradient(1px, 20px 20px 14px 14px, #{$greyGradient})
+  display: flex
+  font-family: 'Inter'
+  font-style: normal
+  color: #E5E5EA
+  background-image: #{$blackGradient}
+  background-color: rgba(38, 37, 41, 0.3)
+
+  @media screen and (max-width: #{$sm})
+    flex-direction: column
+
+.imgWrapper
+  position: relative
+
+.chipWrapper
+  width: max-content
+  position: absolute
+  right: 0
+  top: 16px
+  right: 16px
+
+.mainImage
+  max-height: 476px
+  background-color: #FFF
+  border-radius: 20px
+  object-fit: scale-down
+
+.content
+  max-width: 550px
+  padding: 36px
+  font-family: 'Inter'
+  font-style: normal
+  font-weight: 400
+  font-size: 17px
+  line-height: 156%
+
+  p
+    margin: 13px 0 32px 0
+    letter-spacing: -0.04em
+    color: #E5E5EA
+
+.titleLink
+  display: block
+  margin: 12px 0 16px 0
+  font-weight: 600
+  font-size: 21px
+  line-height: 150%
+  letter-spacing: -0.3px
+  text-decoration: none
+  color: #E5E5EA
+
+.createdAt
+  font-weight: 500
+  font-size: 15px
+  line-height: 156%
+  letter-spacing: 0.02em
+  text-transform: uppercase
+  color: #636479
+
+.readMoreBtn
+  --color: #FF5F28
+  padding: 12px 15px
+  border: 1px solid var(--color)
+  border-radius: 14px
+  color: var(--color)
+  font-family: 'Inter'
+  font-style: normal
+  font-weight: 600
+  font-size: 17px
+  line-height: 124%
+  letter-spacing: 0.3px
+
+.videoWrapper
+  min-height: 476px
+  max-width: 765px
+  border-radius: 20px
+  overflow: hidden
+
+  @media screen and (max-width: #{$sm})
+    min-height: initial

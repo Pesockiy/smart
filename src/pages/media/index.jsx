@@ -1,47 +1,60 @@
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+
 import Container from '@/common/Container/Container';
 import Heading from '@/common/Heading/Heading';
-import Popular from '@/components/media/Popular/Popular';
 import BlogButtonGroup from '@/components/media/ButtonGroup/ButtonGroup';
-import MobilePagination from '@/components/media/Pagination/MobilePagination';
-import Pagination from '@/components/media/Pagination';
-import { useServePagination } from '@/hooks/useServePagination';
+import PressView from '@/components/media/Press/Press';
+import BlogView from '@/components/media/Blog/Blog';
 import styles from './Media.module.sass';
-import PostsList from '@/components/media/PostsList/PostsList';
-// FIXME: in case amount of posts less than LIMIT should not show pagination at all;
-// TODO: move to constants
-const DEFAULT_POSTS_LIMIT = 6;
-const DEFAULT_POSTS_PAGE = 1;
-const DEFAULT_POSTS_OFFSET = 0;
 
-const Media = ({ posts, count, popular }) => {
-  const { currentPage, onPageChange } = useServePagination();
+const DEFAULT_POSTS_LIMIT = 6;
+const DEFAULT_PRESS_LIMIT = 15;
+const DEFAULT_PAGE = 1;
+const MEDIA_TYPES = {
+  blog: 'blog',
+  press: 'press',
+};
+
+const Media = ({ posts, count, pinned, type }) => {
+  const router = useRouter();
+
+  const isBlogType =
+    router.query.type === MEDIA_TYPES.blog || router.query.type === undefined;
+
+  const [isBlogActive, setIsBlogActive] = useState(isBlogType);
+
+  const toggleMediaType = (isActive) => {
+    setIsBlogActive(isActive);
+
+    const type = isActive ? MEDIA_TYPES.blog : MEDIA_TYPES.press;
+
+    router.push({
+      pathname: router.pathname,
+      query: { type },
+    });
+  };
+
+  const isBlog = isBlogActive && type === MEDIA_TYPES.blog;
+  const isPress = !isBlogActive && type === MEDIA_TYPES.press;
 
   return (
     <Container className={styles.wrapper}>
       <header className={styles.blogHeader}>
         <Heading className={styles.title}>Media</Heading>
         <div className={styles.btnGroupWrapper}>
-          <BlogButtonGroup />
+          <BlogButtonGroup
+            onClick={toggleMediaType}
+            defaultIsBlogActive={isBlogActive}
+          />
         </div>
       </header>
 
-      <Popular posts={popular.items} />
+      {isBlog && <BlogView posts={posts} count={count} pinned={pinned} />}
 
-      <PostsList posts={posts} />
-
-      <Pagination
-        totalCount={count ?? 0}
-        currentPage={currentPage}
-        onPageChange={onPageChange}
-        pageSize={DEFAULT_POSTS_LIMIT}
-      />
-
-      <MobilePagination
-        totalCount={count ?? 0}
-        currentPage={currentPage}
-        onPageChange={onPageChange}
-        pageSize={DEFAULT_POSTS_LIMIT}
-      />
+      {isPress && (
+        <PressView posts={posts} count={count} pinned={pinned.items} />
+      )}
     </Container>
   );
 };
@@ -50,26 +63,29 @@ export const getServerSideProps = async (context) => {
   const { query } = context;
 
   const page = Number(query.page) || 1;
+  const type = query.type ?? MEDIA_TYPES.blog;
+  const limit =
+    type === MEDIA_TYPES.blog ? DEFAULT_POSTS_LIMIT : DEFAULT_PRESS_LIMIT;
 
   const params = new URLSearchParams({
-    limit: DEFAULT_POSTS_LIMIT,
-    offset: (page - DEFAULT_POSTS_PAGE) * DEFAULT_POSTS_LIMIT,
+    type,
+    limit,
+    offset: (page - DEFAULT_PAGE) * limit,
   });
-  // TODO: promise.all for it
-  const responsePopular = await fetch(
-    `http://localhost:3000/api/posts/popular`
-  );
-  const resultPopular = await responsePopular.json();
 
-  const response = await fetch(`http://localhost:3000/api/posts?${params}`);
-  const result = await response.json();
+  const response = await Promise.all([
+    fetch(`http://localhost:3000/api/posts/pinned?type=${type}`),
+    fetch(`http://localhost:3000/api/posts?${params}`),
+  ]);
+  const [pinned, posts] = await Promise.all(response.map((res) => res.json()));
 
   return {
     props: {
-      posts: result.items,
-      count: result.count,
-      popular: {
-        items: resultPopular.items,
+      type,
+      posts: posts.items,
+      count: posts.count,
+      pinned: {
+        items: pinned.items,
       },
     },
   };

@@ -1,9 +1,11 @@
 $orangeGradient:linear-gradient(185.53deg, #FF5F28 -4.14%, rgba(255, 95, 40, 0) 96.54%)
 $greyGradient:linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%)
 $blackGradient:linear-gradient(180.43deg, rgba(251, 205, 191, 0.15) -27.54%, rgba(251, 205, 191, 0) 100.66%)
-// TODO: Title gradient class
+$backgroundGradient: linear-gradient(56.68deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 147.05%)
+$titleGradient: linear-gradient(268.93deg, #FEDCAE 0%, #E9531A 101.83%)
+
 .title
-  +textGradient(linear-gradient(268.93deg, #FEDCAE 0%, #E9531A 101.83%))
+  +textGradient($titleGradient)
 
 
 .wrapper
@@ -18,7 +20,8 @@ $blackGradient:linear-gradient(180.43deg, rgba(251, 205, 191, 0.15) -27.54%, rgb
   +borderGradient(1px, 20px, #{$greyGradient})
   max-width: 874px
   width: 100%
-  background: linear-gradient(56.68deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 147.05%), rgba(38, 37, 41, 0.3)
+  background-image: #{$backgroundGradient}
+  background-color: rgba(38, 37, 41, 0.3)
   border-radius: 20px
 
   p
@@ -62,16 +65,16 @@ $blackGradient:linear-gradient(180.43deg, rgba(251, 205, 191, 0.15) -27.54%, rgb
   color: #FF5F28
   text-decoration: none
 
-.popularList
+.list
   display: flex
   flex-direction: column
   gap: 20px
 
-.popularItem
+.listItem
   +borderGradient(1px, 20px, #{$greyGradient})
   padding: 20px
-  // TODO: check gradient
-  background: linear-gradient(56.68deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 147.05%), rgba(38, 37, 41, 0.3)
+  background-image: #{$backgroundGradient}
+  background-color: rgba(38, 37, 41, 0.3)
 
 .postInfoWrapper
   display: flex

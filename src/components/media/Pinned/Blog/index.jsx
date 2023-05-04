@@ -2,20 +2,20 @@ import Link from 'next/link';
 
 import Img from '@/common/Img/Img';
 import { formatPostDate, truncateTextByLength } from '@/helpers';
-import styles from './Popular.module.sass';
+import styles from './BlogPinned.module.sass';
 
-const Popular = ({ posts }) => {
+const BlogPinned = ({ posts }) => {
   const [mainPost] = posts;
 
   return (
     <div className={styles.wrapper}>
-      <MainPost post={mainPost} />
-      <PopularPostsList posts={posts.slice(1, posts.length)} />
+      <BlogMainPost post={mainPost} />
+      <BlogPinnedPostsList posts={posts.slice(1, posts.length)} />
     </div>
   );
 };
 
-const MainPost = ({ post }) => {
+const BlogMainPost = ({ post }) => {
   const description = truncateTextByLength({
     text: post.description,
     length: 17,
@@ -53,21 +53,21 @@ const MainPost = ({ post }) => {
   );
 };
 
-const PopularPostsList = ({ posts }) => {
+const BlogPinnedPostsList = ({ posts }) => {
   return (
-    <ul className={styles.popularList}>
+    <ul className={styles.list}>
       {posts.map((post) => (
-        <PopularPostItem key={post.id} post={post} />
+        <BlogPinnedPostItem key={post.id} post={post} />
       ))}
     </ul>
   );
 };
 
-const PopularPostItem = ({ post }) => {
+const BlogPinnedPostItem = ({ post }) => {
   const createdAt = formatPostDate(post.createdAt);
 
   return (
-    <li key={post.id} className={styles.popularItem}>
+    <li key={post.id} className={styles.listItem}>
       <div className={styles.createdAt}>{createdAt}</div>
       <Link className={styles.titleLink} href={`/media/${post.id}`}>
         {post.title}
@@ -76,4 +76,4 @@ const PopularPostItem = ({ post }) => {
   );
 };
 
-export default Popular;
+export default BlogPinned;
