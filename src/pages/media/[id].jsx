@@ -1,12 +1,177 @@
+import { useEffect, useState } from 'react';
 import Container from '@/common/Container/Container';
+import { formatPostDate } from '@/helpers';
+import DecorationDors from '@/assets/icons/decoration-dots.svg';
+import { postMock } from '@/mock/blog/post';
+import Img from '@/common/Img/Img';
+import Video from '@/common/Video/Video';
+import styles from './Post.module.sass';
+import FaceBook from '../../assets/icons/facebook.svg';
+import Instagram from '../../assets/icons/instagram.svg';
+import LinkedIn from '../../assets/icons/linkedin.svg';
+import WhatsUp from '../../assets/icons/whatsup.svg';
+import Twitter from '../../assets/icons/twitter.svg';
+import Copy from '../../assets/icons/copy.svg';
+import { PostItem } from '@/components/media/PostsList/PostsList';
+import { useCopy } from '@/hooks';
 
-const Post = ({ post }) => {
+// TODO: read time;
+// TODO: social media sharing;
+
+const usePostInfiniteScroll = ({ initial }) => {
+  const [currentPosts, setCurrentPosts] = useState(() => [initial.post]);
+  const [nextPostMap, setNextPostMap] = useState(
+    new Map([[initial.post.id, initial.next]])
+  );
+
+  useEffect(() => {
+    let isLoading = false;
+
+    const handleScroll = async () => {
+      if (isLoading) return;
+
+      const { scrollHeight, scrollTop, clientHeight } =
+        document.documentElement;
+
+      const SCROLL_PERCENTAGE = 0.99;
+
+      if (scrollTop + clientHeight >= scrollHeight * SCROLL_PERCENTAGE) {
+        isLoading = true;
+
+        const lastPostId = currentPosts[currentPosts.length - 1].id;
+        const response = await fetch(`/api/posts/${lastPostId}?offset=1`);
+        const { post } = await response.json();
+
+        setCurrentPosts((prev) => prev.concat(post.current));
+        setNextPostMap((prevNextPostMap) => {
+          return new Map([
+            ...prevNextPostMap.entries(),
+            [post.current.id, post.next],
+          ]);
+        });
+
+        isLoading = false;
+      }
+    };
+
+    document.addEventListener('scroll', handleScroll);
+
+    return () => {
+      document.removeEventListener('scroll', handleScroll);
+    };
+  }, [currentPosts]);
+
+  return [currentPosts, nextPostMap];
+};
+
+const PostView = ({ post }) => {
+  const [currentPosts, nextPostMap] = usePostInfiniteScroll({
+    initial: { post: post.current, next: post.next },
+  });
+
+  return (
+    <>
+      {currentPosts.map((item) => {
+        return (
+          <Post key={item.id} post={item} nextPost={nextPostMap.get(item.id)} />
+        );
+      })}
+    </>
+  );
+};
+
+const Post = ({ post, nextPost }) => {
+  const createdAt = formatPostDate(post.createdAt);
   return (
     <Container>
-      <h1>Title: {post.title}</h1>
-      <p>Description: {post.description}</p>
-      <p>Type: {post.type}</p>
+      <header className={styles.postHeader}>
+        <span className={styles.createdAt}>{createdAt}</span>
+
+        <div className={styles.titleWrap}>
+          <h1>{post.title}</h1>
+          <p>ID: {post.id}</p>
+        </div>
+
+        <DecorationDors />
+      </header>
+
+      <ul className={styles.list}>
+        {postMock.items.map((post) => (
+          <li key={post.id}>
+            {post.type === 'big-image' && (
+              <Img
+                className={styles.bigImg}
+                src={post.image}
+                width={1320}
+                height={700}
+                alt="Smart fit"
+              />
+            )}
+
+            {post.type === 'info' && (
+              <div className={styles.smallContainer}>
+                <h2 className={styles.infoTitle}>{post.title}</h2>
+
+                {post.description.map((description, idx) => (
+                  <p key={idx} className={styles.infoDescription}>
+                    {description}
+                  </p>
+                ))}
+
+                {post.video && post.video !== null && (
+                  <VideoPreview src={post.video} />
+                )}
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+
+      <div className={styles.smallContainer}>
+        <SharePost post={post} />
+
+        <div className={styles.nextPostContainer}>
+          <h3 className={styles.infoTitle}>Next Post</h3>
+          <PostItem post={nextPost} isImgCover />
+        </div>
+      </div>
     </Container>
+  );
+};
+
+const socialList = [Instagram, FaceBook, Twitter, LinkedIn, WhatsUp, Copy];
+
+const SharePost = ({ post }) => {
+  const { onCopy } = useCopy();
+
+  return (
+    <div className={styles.socialWrapper}>
+      <span>Share:</span>
+
+      <ul className={styles.socialList}>
+        {socialList.map((Icon, idx) => (
+          <li key={idx}>
+            <Icon
+              className={styles.socialIcon}
+              onClick={() => onCopy(`${window.location.host}/media/${post.id}`)}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+const VideoPreview = ({ src }) => {
+  return (
+    <Video
+      showButtons
+      className={styles.videoWrapper}
+      params={{
+        src,
+        muted: true,
+      }}
+    />
   );
 };
 
@@ -18,9 +183,12 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      post: result.post,
+      post: {
+        current: result.post,
+        next: result.next,
+      },
     },
   };
 };
 
-export default Post;
+export default PostView;

@@ -3,5 +3,15 @@ import useMedia from './useMedia';
 import useOffsetTop from './useScrollTop';
 import useVideo from './useVideo';
 import useOnClickOutside from './useOnClickOutside';
+import useCopy from './useCopy';
+import useIsMounted from './useIsMounted';
 
-export { useToggle, useMedia, useOffsetTop, useVideo, useOnClickOutside };
+export {
+  useToggle,
+  useMedia,
+  useOffsetTop,
+  useVideo,
+  useOnClickOutside,
+  useCopy,
+  useIsMounted,
+};

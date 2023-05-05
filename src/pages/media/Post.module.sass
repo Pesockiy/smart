@@ -1,0 +1,96 @@
+$borderRadius: 20px
+$textGradient: linear-gradient(268.93deg, #FEDCAE 0%, #E9531A 101.83%)
+
+.smallContainer
+  max-width: 650px
+  margin-inline: auto
+
+.postHeader
+  display: flex
+  justify-content: space-between
+  gap: 40px
+  margin-top: 80px
+
+  @media screen and (max-width: #{$md})
+    flex-direction: column
+
+
+.titleWrap
+  display: flex
+  flex-direction: column
+  font-family: 'Nunito'
+  font-style: normal
+  font-weight: 600
+  font-size: 56px
+  line-height: 116%
+
+  h1
+    +textGradient($textGradient)
+
+
+.createdAt
+  font-family: 'Inter'
+  font-style: normal
+  font-weight: 500
+  font-size: 15px
+  line-height: 156%
+  letter-spacing: 0.02em
+  text-transform: uppercase
+  color: #636479
+  white-space: nowrap
+
+.list
+  display: flex
+  flex-direction: column
+  gap: 72px
+  padding: 72px 0
+
+.bigImg
+  border-radius: #{$borderRadius}
+
+.videoWrapper
+  border-radius: #{$borderRadius}
+  overflow: hidden
+  margin-top: 72px
+
+.infoTitle
+  font-family: 'Nunito'
+  font-style: normal
+  font-weight: 700
+  font-size: 48px
+  line-height: 65px
+  color: #E5E5EA
+  margin-bottom: 24px
+
+.infoDescription
+  font-family: 'Inter'
+  font-style: normal
+  font-weight: 400
+  font-size: 17px
+  line-height: 156%
+  letter-spacing: -0.04em
+  color: #E5E5EA
+
+.socialWrapper
+  display: flex
+  align-items: center
+  gap: 60px
+  font-family: 'Inter'
+  font-style: normal
+  font-weight: 400
+  font-size: 27px
+  line-height: 132%
+  letter-spacing: -0.9px
+  color: #FFFFFF
+
+.socialList
+  display: flex
+  align-items: center
+  gap: 38px
+
+.socialIcon
+  &:hover
+    cursor: pointer
+
+.nextPostContainer
+  margin: 72px 0 160px 0

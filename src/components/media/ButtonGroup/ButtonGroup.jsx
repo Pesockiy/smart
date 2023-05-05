@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 
 import styles from './MediaBtnGroup.module.sass';
-
+// FIXME: should be customizable;
 const BlogButtonGroup = ({ onClick, defaultIsBlogActive = true }) => {
   const [isBlogActive, setIsBlogActive] = useState(defaultIsBlogActive);
   const lastClickedRef = useRef(null);

@@ -58,13 +58,10 @@ const InteractionButton = ({ post }) => {
 };
 
 const Preview = ({ post }) => {
-  const playerRef = useRef(null);
-
   return isVideoPost(post) ? (
     <Video
       showButtons
       className={styles.videoWrapper}
-      ref={playerRef}
       params={{
         muted: true,
         src: post.video,

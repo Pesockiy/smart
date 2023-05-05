@@ -1,33 +1,38 @@
 import Link from 'next/link';
 import cx from 'class-names';
-import { useRef } from 'react';
 
 import Img from '@/common/Img/Img';
 import { PostChip } from '../PostChip/PostChip';
 import Video from '@/common/Video/Video';
 import { formatPostDate, truncateTextByLength } from '@/helpers';
 import styles from './PostsList.module.sass';
+import { useRouter } from 'next/router';
 
 const PostsList = ({ posts, isImgCover = true }) => {
   if (posts.length === 0) return <div>No Posts yet.</div>;
 
   return (
     <ul className={styles.list}>
-      {posts.map((post) => (
-        <PostItem key={post.id} post={post} isImgCover={isImgCover} />
+      {posts.map((post, idx) => (
+        <PostItem
+          key={post.id}
+          post={post}
+          isImgCover={isImgCover}
+          positionIdx={idx}
+        />
       ))}
     </ul>
   );
 };
 
-export const PostItem = ({ post, isImgCover }) => {
+export const PostItem = ({ post, isImgCover, positionIdx = null }) => {
+  const router = useRouter();
+
   const description = truncateTextByLength({
     text: post.description,
     length: 20,
   });
-
   const createdAt = formatPostDate(post.createdAt);
-
   const isDefaultType = post.type !== 'post';
 
   return (
@@ -43,9 +48,14 @@ export const PostItem = ({ post, isImgCover }) => {
       <div className={styles.content}>
         <div className={styles.createdAt}>{createdAt}</div>
 
-        <Link className={styles.titleLink} href={`/media/${post.id}`}>
+        <Link
+          className={styles.titleLink}
+          href={`/media/${post.id}`}
+          state={{ positionIdx, id: post.id, page: router.query.page ?? 1 }}
+        >
           {post.title}
         </Link>
+
         <p>
           {description}{' '}
           <Link className={styles.readMoreLink} href={`/media/${post.id}`}>
@@ -58,8 +68,6 @@ export const PostItem = ({ post, isImgCover }) => {
 };
 
 const Preview = ({ post, isImgCover }) => {
-  const playerRef = useRef(null);
-
   const isVideo = post.type === 'video';
 
   const imgClasses = cx(styles.image, {
@@ -71,7 +79,6 @@ const Preview = ({ post, isImgCover }) => {
     <Video
       showButtons
       className={styles.videoWrapper}
-      ref={playerRef}
       params={{
         muted: true,
         src: post.video,

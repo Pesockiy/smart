@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import Container from '@/common/Container/Container';
@@ -7,6 +7,9 @@ import BlogButtonGroup from '@/components/media/ButtonGroup/ButtonGroup';
 import PressView from '@/components/media/Press/Press';
 import BlogView from '@/components/media/Blog/Blog';
 import styles from './Media.module.sass';
+import { useIsMounted } from '@/hooks';
+
+// FIXME: alternative font
 
 const DEFAULT_POSTS_LIMIT = 6;
 const DEFAULT_PRESS_LIMIT = 15;
@@ -18,11 +21,18 @@ const MEDIA_TYPES = {
 
 const Media = ({ posts, count, pinned, type }) => {
   const router = useRouter();
+  const isMounted = useIsMounted();
 
   const isBlogType =
     router.query.type === MEDIA_TYPES.blog || router.query.type === undefined;
 
   const [isBlogActive, setIsBlogActive] = useState(isBlogType);
+  // TODO: sync buttons group with query.type
+  useEffect(() => {
+    if (router.query.type === undefined) {
+      setIsBlogActive(true);
+    }
+  }, [router.query]);
 
   const toggleMediaType = (isActive) => {
     setIsBlogActive(isActive);
@@ -37,6 +47,8 @@ const Media = ({ posts, count, pinned, type }) => {
 
   const isBlog = isBlogActive && type === MEDIA_TYPES.blog;
   const isPress = !isBlogActive && type === MEDIA_TYPES.press;
+
+  if (!isMounted) return null;
 
   return (
     <Container className={styles.wrapper}>
