@@ -14,30 +14,36 @@ import { useIsMounted } from '@/hooks';
 const DEFAULT_POSTS_LIMIT = 6;
 const DEFAULT_PRESS_LIMIT = 15;
 const DEFAULT_PAGE = 1;
-const MEDIA_TYPES = {
-  blog: 'blog',
-  press: 'press',
-};
+
+const options = [
+  { label: 'Blog', value: 'blog' },
+  { label: 'Press', value: 'press' },
+];
+
+const MEDIA_TYPES = options.reduce((prev, curr) => {
+  prev[curr.value] = curr.value;
+  return prev;
+}, {});
 
 const Media = ({ posts, count, pinned, type }) => {
   const router = useRouter();
   const isMounted = useIsMounted();
 
-  const isBlogType =
-    router.query.type === MEDIA_TYPES.blog || router.query.type === undefined;
+  const option = options.find((option) => option.value === router.query.type);
 
-  const [isBlogActive, setIsBlogActive] = useState(isBlogType);
-  // TODO: sync buttons group with query.type
+  const [activeOption, setActiveOption] = useState(option ?? options[0]);
+
   useEffect(() => {
     if (router.query.type === undefined) {
-      setIsBlogActive(true);
+      setActiveOption(options[0]);
     }
   }, [router.query]);
 
-  const toggleMediaType = (isActive) => {
-    setIsBlogActive(isActive);
+  const toggleMediaType = (option) => {
+    setActiveOption(option);
 
-    const type = isActive ? MEDIA_TYPES.blog : MEDIA_TYPES.press;
+    const type =
+      option.value === MEDIA_TYPES.blog ? MEDIA_TYPES.blog : MEDIA_TYPES.press;
 
     router.push({
       pathname: router.pathname,
@@ -45,8 +51,10 @@ const Media = ({ posts, count, pinned, type }) => {
     });
   };
 
-  const isBlog = isBlogActive && type === MEDIA_TYPES.blog;
-  const isPress = !isBlogActive && type === MEDIA_TYPES.press;
+  const isBlogActive =
+    activeOption.value === MEDIA_TYPES.blog && type === MEDIA_TYPES.blog;
+  const isPressActive =
+    activeOption.value === MEDIA_TYPES.press && type === MEDIA_TYPES.press;
 
   if (!isMounted) return null;
 
@@ -54,17 +62,18 @@ const Media = ({ posts, count, pinned, type }) => {
     <Container className={styles.wrapper}>
       <header className={styles.blogHeader}>
         <Heading className={styles.title}>Media</Heading>
-        <div className={styles.btnGroupWrapper}>
-          <BlogButtonGroup
-            onClick={toggleMediaType}
-            defaultIsBlogActive={isBlogActive}
-          />
-        </div>
+
+        <BlogButtonGroup
+          wrapperClassName={styles.btnGroupWrapper}
+          options={options}
+          defaultOption={activeOption}
+          onClick={toggleMediaType}
+        />
       </header>
 
-      {isBlog && <BlogView posts={posts} count={count} pinned={pinned} />}
+      {isBlogActive && <BlogView posts={posts} count={count} pinned={pinned} />}
 
-      {isPress && (
+      {isPressActive && (
         <PressView posts={posts} count={count} pinned={pinned.items} />
       )}
     </Container>

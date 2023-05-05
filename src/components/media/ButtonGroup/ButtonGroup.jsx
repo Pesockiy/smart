@@ -1,27 +1,26 @@
-import { useRef, useState } from 'react';
+import cx from 'class-names';
 
 import styles from './MediaBtnGroup.module.sass';
-// FIXME: should be customizable;
-const BlogButtonGroup = ({ onClick, defaultIsBlogActive = true }) => {
-  const [isBlogActive, setIsBlogActive] = useState(defaultIsBlogActive);
-  const lastClickedRef = useRef(null);
 
-  const toggleActive = (isActive) => {
-    if (lastClickedRef.current !== isActive) {
-      setIsBlogActive(isActive);
-      onClick(isActive);
-      lastClickedRef.current = isActive;
-    }
-  };
+const BlogButtonGroup = ({
+  onClick,
+  options,
+  wrapperClassName = '',
+  defaultOption = null,
+}) => {
+  const className = cx(styles.wrapper, wrapperClassName);
 
   return (
-    <div className={styles.wrapper}>
-      <BlogButton isActive={isBlogActive} onClick={() => toggleActive(true)}>
-        Blog
-      </BlogButton>
-      <BlogButton isActive={!isBlogActive} onClick={() => toggleActive(false)}>
-        Press
-      </BlogButton>
+    <div className={className}>
+      {options.map((option) => {
+        const isActive = defaultOption.value === option.value;
+
+        return (
+          <BlogButton isActive={isActive} onClick={() => onClick(option)}>
+            {option.label}
+          </BlogButton>
+        );
+      })}
     </div>
   );
 };
