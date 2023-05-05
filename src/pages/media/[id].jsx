@@ -1,4 +1,10 @@
 import { useEffect, useState } from 'react';
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from 'next-share';
 import Container from '@/common/Container/Container';
 import { formatPostDate } from '@/helpers';
 import DecorationDors from '@/assets/icons/decoration-dots.svg';
@@ -128,7 +134,7 @@ const Post = ({ post, nextPost }) => {
       </ul>
 
       <div className={styles.smallContainer}>
-        <SharePost post={post} />
+        <SocialNetworksSharing post={post} />
 
         <div className={styles.nextPostContainer}>
           <h3 className={styles.infoTitle}>Next Post</h3>
@@ -139,24 +145,68 @@ const Post = ({ post, nextPost }) => {
   );
 };
 
-const socialList = [Instagram, FaceBook, Twitter, LinkedIn, WhatsUp, Copy];
-
-const SharePost = ({ post }) => {
+const SocialNetworksSharing = ({ post }) => {
   const { onCopy } = useCopy();
 
+  const url = `http://localhost:3000/media/${post.id}`;
+  // FIXME: instagram does not work;
   return (
     <div className={styles.socialWrapper}>
       <span>Share:</span>
 
       <ul className={styles.socialList}>
-        {socialList.map((Icon, idx) => (
-          <li key={idx}>
-            <Icon
-              className={styles.socialIcon}
-              onClick={() => onCopy(`${window.location.host}/media/${post.id}`)}
-            />
-          </li>
-        ))}
+        <li>
+          <button type="button" className={styles.socialIcon}>
+            <Instagram />
+          </button>
+        </li>
+
+        <li>
+          <FacebookShareButton
+            url={url}
+            title={post.title}
+            quote={post.description}
+          >
+            <FaceBook className={styles.socialIcon} />
+          </FacebookShareButton>
+        </li>
+
+        <li>
+          <TwitterShareButton
+            url={url}
+            title={post.title}
+            quote={post.description}
+          >
+            <Twitter className={styles.socialIcon} />
+          </TwitterShareButton>
+        </li>
+
+        <li>
+          <LinkedinShareButton
+            url={url}
+            title={post.title}
+            quote={post.description}
+          >
+            <LinkedIn className={styles.socialIcon} />
+          </LinkedinShareButton>
+        </li>
+
+        <li>
+          <WhatsappShareButton
+            className={styles.socialIcon}
+            url={url}
+            title={post.title}
+            quote={post.description}
+          >
+            <WhatsUp className={styles.socialIcon} />
+          </WhatsappShareButton>
+        </li>
+
+        <li>
+          <button type="button" onClick={() => onCopy(url)}>
+            <Copy className={styles.socialIcon} />
+          </button>
+        </li>
       </ul>
     </div>
   );
