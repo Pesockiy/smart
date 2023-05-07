@@ -26,12 +26,12 @@ const MEDIA_TYPES = options.reduce((prev, curr) => {
   return prev;
 }, {});
 
-const Posts = {
+export const Posts = {
   getById({ id, params }) {
     const searchParams = new URLSearchParams(params);
     return `http://localhost:3000/api/posts/${id}?${searchParams}`;
   },
-  getPinned(params) {
+  pinned(params) {
     const searchParams = new URLSearchParams(params);
     return fetch(`http://localhost:3000/api/posts/pinned?${searchParams}`);
   },
@@ -105,16 +105,11 @@ export const getServerSideProps = async (context) => {
   const limit =
     type === MEDIA_TYPES.blog ? DEFAULT_POSTS_LIMIT : DEFAULT_PRESS_LIMIT;
 
-  const params = new URLSearchParams({
-    type,
-    limit,
-    offset: (page - DEFAULT_PAGE) * limit,
-  });
-
   const response = await Promise.all([
-    fetch(`http://localhost:3000/api/posts/pinned?type=${type}`),
-    fetch(`http://localhost:3000/api/posts?${params}`),
+    Posts.pinned({ type }),
+    Posts.get({ type, limit, offset: (page - DEFAULT_PAGE) * limit }),
   ]);
+
   const [pinned, posts] = await Promise.all(response.map((res) => res.json()));
 
   return {

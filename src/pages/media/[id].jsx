@@ -10,6 +10,7 @@ import { usePostInfiniteScroll } from '@/hooks';
 import styles from './PostPage.module.sass';
 import Text from '@/common/Text/Text';
 import Heading from '@/common/Heading/Heading';
+import calculateReadTime from '@/helpers/calculateReadTime';
 
 // TODO: read time;
 
@@ -32,10 +33,24 @@ const PostView = ({ post }) => {
 const Post = ({ post, nextPost }) => {
   const createdAt = formatPostDate(post.createdAt);
 
+  const text = postMock.items
+    .filter((item) => item.type === 'info')
+    .map((desc) => desc.description)
+    .flat(1)
+    .join(' ');
+
+  const readTime = calculateReadTime({ text, wordsPerMinute: 200 });
+  const readTimeText =
+    readTime > 1 ? `${readTime} min read` : 'less than 1 min read';
+
   return (
     <Container>
-      <header className={styles.postHeader}>
-        <span className={styles.createdAt}>{createdAt}</span>
+      <header className={styles.header}>
+        <div className={styles.info}>
+          <span>{createdAt}</span>
+          <span className={styles.dotDivider}></span>
+          <span>{readTimeText}</span>
+        </div>
 
         <div className={styles.titleWrap}>
           <Heading>
@@ -46,7 +61,7 @@ const Post = ({ post, nextPost }) => {
           <p>ID: {post.id}</p>
         </div>
 
-        <DecorationDors />
+        <DecorationDors className={styles.dots} />
       </header>
 
       <ul className={styles.list}>
@@ -110,6 +125,7 @@ export const getServerSideProps = async (context) => {
   const response = await fetch(
     `http://localhost:3000/api/posts/${context.query.id}`
   );
+
   const result = await response.json();
 
   return {

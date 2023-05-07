@@ -4,25 +4,31 @@ $borderRadius: 20px
   max-width: 650px
   margin-inline: auto
 
-.postHeader
+.header
   display: flex
   justify-content: space-between
-  gap: 40px
+  flex-wrap: wrap
+  gap: 20px
   margin-top: 80px
 
   @media screen and (max-width: #{$md})
     flex-direction: column
 
 .titleWrap
+  max-width: 900px
   display: flex
   flex-direction: column
-  font-family: 'Nunito'
+  font-family: 'Nunito Sans'
   font-style: normal
   font-weight: 600
   font-size: 56px
   line-height: 116%
 
-.createdAt
+.info
+  height: max-content
+  display: flex
+  align-items: center
+  gap: 8px
   font-family: 'Inter'
   font-style: normal
   font-weight: 500
@@ -32,6 +38,12 @@ $borderRadius: 20px
   text-transform: uppercase
   color: #636479
   white-space: nowrap
+
+.dotDivider
+  width: 5px
+  height: 5px
+  border-radius: 5px
+  background-color: #636479
 
 .list
   display: flex
@@ -67,3 +79,7 @@ $borderRadius: 20px
 
 .nextPostContainer
   margin: 72px 0 160px 0
+
+.dots
+  height: 28px
+  width: 28px

@@ -5,5 +5,5 @@ export const formatPostDate = (date) => {
     year: '2-digit',
   });
 
-  return formatter.format(new Date(date)).toUpperCase().replace(',', '/');
+  return formatter.format(new Date(date)).toUpperCase().replace(/,\s/g, '/');
 };
