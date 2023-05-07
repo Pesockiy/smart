@@ -5,6 +5,7 @@ import useVideo from './useVideo';
 import useOnClickOutside from './useOnClickOutside';
 import useCopy from './useCopy';
 import useIsMounted from './useIsMounted';
+import usePostInfiniteScroll from './usePostInfiniteScroll';
 
 export {
   useToggle,
@@ -14,4 +15,5 @@ export {
   useOnClickOutside,
   useCopy,
   useIsMounted,
+  usePostInfiniteScroll,
 };

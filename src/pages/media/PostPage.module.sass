@@ -1,5 +1,4 @@
 $borderRadius: 20px
-$textGradient: linear-gradient(268.93deg, #FEDCAE 0%, #E9531A 101.83%)
 
 .smallContainer
   max-width: 650px
@@ -14,7 +13,6 @@ $textGradient: linear-gradient(268.93deg, #FEDCAE 0%, #E9531A 101.83%)
   @media screen and (max-width: #{$md})
     flex-direction: column
 
-
 .titleWrap
   display: flex
   flex-direction: column
@@ -23,10 +21,6 @@ $textGradient: linear-gradient(268.93deg, #FEDCAE 0%, #E9531A 101.83%)
   font-weight: 600
   font-size: 56px
   line-height: 116%
-
-  h1
-    +textGradient($textGradient)
-
 
 .createdAt
   font-family: 'Inter'
@@ -50,8 +44,8 @@ $textGradient: linear-gradient(268.93deg, #FEDCAE 0%, #E9531A 101.83%)
 
 .videoWrapper
   border-radius: #{$borderRadius}
-  overflow: hidden
   margin-top: 72px
+  overflow: hidden
 
 .infoTitle
   font-family: 'Nunito'
@@ -71,30 +65,5 @@ $textGradient: linear-gradient(268.93deg, #FEDCAE 0%, #E9531A 101.83%)
   letter-spacing: -0.04em
   color: #E5E5EA
 
-.socialWrapper
-  display: flex
-  align-items: center
-  gap: 60px
-  font-family: 'Inter'
-  font-style: normal
-  font-weight: 400
-  font-size: 27px
-  line-height: 132%
-  letter-spacing: -0.9px
-  color: #FFFFFF
-
-.socialList
-  display: flex
-  align-items: center
-  gap: 38px
-
-.socialIcon
-  &:hover
-    cursor: pointer
-
 .nextPostContainer
   margin: 72px 0 160px 0
-
-.socialIcon
-  &:hover
-    opacity: 0.5

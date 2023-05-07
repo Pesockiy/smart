@@ -1,0 +1,34 @@
+.wrapper
+  display: flex
+  align-items: center
+  gap: 16px
+  font-family: 'Inter'
+  font-style: normal
+  font-weight: 400
+  font-size: 27px
+  line-height: 132%
+  letter-spacing: -0.9px
+  color: #FFFFFF
+  flex-wrap: wrap
+
+.title
+  margin-right: 60px
+
+.list
+  max-width: 352px
+  width: 100%
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+  @media screen and (max-width: #{$xs})
+    max-width: 100%
+
+.listItem
+  button
+    display: flex
+
+.icon
+  &:hover
+    cursor: pointer
+    opacity: 0.5

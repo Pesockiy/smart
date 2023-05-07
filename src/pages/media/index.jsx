@@ -6,8 +6,9 @@ import Heading from '@/common/Heading/Heading';
 import BlogButtonGroup from '@/components/media/ButtonGroup/ButtonGroup';
 import PressView from '@/components/media/Press/Press';
 import BlogView from '@/components/media/Blog/Blog';
-import styles from './Media.module.sass';
 import { useIsMounted } from '@/hooks';
+import styles from './MediaPage.module.sass';
+import Text from '@/common/Text/Text';
 
 // FIXME: alternative font
 
@@ -25,12 +26,26 @@ const MEDIA_TYPES = options.reduce((prev, curr) => {
   return prev;
 }, {});
 
+const Posts = {
+  getById({ id, params }) {
+    const searchParams = new URLSearchParams(params);
+    return `http://localhost:3000/api/posts/${id}?${searchParams}`;
+  },
+  getPinned(params) {
+    const searchParams = new URLSearchParams(params);
+    return fetch(`http://localhost:3000/api/posts/pinned?${searchParams}`);
+  },
+  get(params) {
+    const searchParams = new URLSearchParams(params);
+    return fetch(`http://localhost:3000/api/posts?${searchParams}`);
+  },
+};
+
 const Media = ({ posts, count, pinned, type }) => {
   const router = useRouter();
   const isMounted = useIsMounted();
 
   const option = options.find((option) => option.value === router.query.type);
-
   const [activeOption, setActiveOption] = useState(option ?? options[0]);
 
   useEffect(() => {
@@ -61,7 +76,9 @@ const Media = ({ posts, count, pinned, type }) => {
   return (
     <Container className={styles.wrapper}>
       <header className={styles.blogHeader}>
-        <Heading className={styles.title}>Media</Heading>
+        <Heading className={styles.title}>
+          <Text gradient>Media</Text>
+        </Heading>
 
         <BlogButtonGroup
           wrapperClassName={styles.btnGroupWrapper}

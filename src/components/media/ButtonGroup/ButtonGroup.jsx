@@ -1,6 +1,6 @@
 import cx from 'class-names';
 
-import styles from './MediaBtnGroup.module.sass';
+import styles from './ButtonGroup.module.sass';
 
 const BlogButtonGroup = ({
   onClick,
@@ -16,7 +16,11 @@ const BlogButtonGroup = ({
         const isActive = defaultOption.value === option.value;
 
         return (
-          <BlogButton isActive={isActive} onClick={() => onClick(option)}>
+          <BlogButton
+            key={option.value}
+            isActive={isActive}
+            onClick={() => onClick(option)}
+          >
             {option.label}
           </BlogButton>
         );
