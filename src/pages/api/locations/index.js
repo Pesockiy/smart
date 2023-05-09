@@ -3,7 +3,7 @@ export default async function getLocations(req, res) {
     {
       id: 1,
       title: 'CARDIFF',
-      address: '#117 - 111 Chesterfield Dr Cardiff, CA, 92007',
+      address: 'The Smart Fit Method, Chesterfield Drive, Cardiff, CA, USA',
       email: 'cardiff@smartfitmethod.com',
       phone: '(760) 276-6608',
       schedule: {
@@ -15,7 +15,7 @@ export default async function getLocations(req, res) {
     {
       id: 2,
       title: 'COSTA MESA',
-      address: 'Suite E - 2675 Irvine Ave Costa Mesa, CA, 92627',
+      address: 'The Smart Fit Method, Irvine Avenue, Costa Mesa, CA, USA',
       email: 'costamesa@smartfitmethod.com',
       phone: '(760) 276-6608',
       schedule: {
@@ -27,7 +27,7 @@ export default async function getLocations(req, res) {
     {
       id: 3,
       title: 'KOLOA',
-      address: 'Suite D203 - 5460 Koloa Rd Koloa, HI, 96756',
+      address: 'The Smart Fit Method, Koloa Road, Koloa, HI, USA',
       email: 'koloa@smartfitmethod.com',
       phone: '(760) 276-6608',
       schedule: {
@@ -39,7 +39,7 @@ export default async function getLocations(req, res) {
     {
       id: 4,
       title: 'LA JOLLA',
-      address: '#102 - 7863 Girard Ave La Jolla, CA, 92037',
+      address: 'The Smart Fit Method, Girard Avenue, La Jolla, CA, USA',
       email: 'lajolla@smartfitmethod.com',
       phone: '(760) 276-6608',
       schedule: {
@@ -51,7 +51,8 @@ export default async function getLocations(req, res) {
     {
       id: 5,
       title: 'RANCHO SANTA FE',
-      address: 'E5 - 16085 San Dieguito Rd Rancho Santa Fe, CA, 92091',
+      address:
+        'The Smart Fit Method, San Dieguito Road, Rancho Santa Fe, CA, USA',
       email: 'rsf@smartfitmethod.com',
       phone: '(760) 276-6608',
       schedule: {
@@ -63,7 +64,8 @@ export default async function getLocations(req, res) {
     {
       id: 6,
       title: 'YORBA LINDA',
-      address: '302 - 18220 Yorba Linda Blvd Yorba Linda, CA, 92886',
+      address:
+        'The Smart Fit Method, Yorba Linda Boulevard, Yorba Linda, CA, USA',
       email: 'yorbalinda@smartfitmethod.com',
       phone: '(760) 276-6608',
       schedule: {
