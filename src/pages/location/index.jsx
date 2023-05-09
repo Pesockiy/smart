@@ -5,10 +5,8 @@ import {
   MarkerClusterer,
   InfoWindow,
   Autocomplete,
-  InfoBox,
 } from '@react-google-maps/api';
 import { useEffect, useRef, useState } from 'react';
-import { getGeocode, getLatLng } from 'use-places-autocomplete';
 import 'swiper/css/navigation';
 import 'swiper/css';
 
@@ -23,15 +21,21 @@ import PhoneIcon from '@/common/PhoneIcon/PhoneIcon';
 import LocationIcon from '@/common/LocationIcon/LocationIcon';
 import TimeIcon from '@/common/TimeIcon/TimeIcon';
 import CopyIcon from '@/common/CopyIcon/CopyIcon';
-import { useCopy } from '@/hooks';
+import {
+  useCalculateRoutesDistance,
+  useCopy,
+  useGeocoder,
+  useGetLatLngByLocations,
+  usePlaceService,
+} from '@/hooks';
 import LinkIcon from '@/common/LinkIcon/LinkIcon';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Virtual } from 'swiper';
 import Button from '@/common/Button/Button';
 import CloseIcon from '@/common/CloseIcon/CloseIcon';
-import Img from '@/common/Img/Img';
-
-const CENTER = { lat: 33.01982568565792, lng: -117.28095444398336 };
+import { getLatLngByPlace, isEmpty } from '@/helpers';
+// FIXME: button search; calculate distance;
+const DEFAULT_CENTER = { lat: 33.01982568565792, lng: -117.28095444398336 };
 const DEFAULT_ZOOM = 9;
 const DEFAULT_MIN_ZOOM = 4;
 
@@ -43,7 +47,7 @@ const Locations = {
 };
 const libraries = ['places', 'geometry'];
 
-const Location = (props) => {
+const LocationView = (props) => {
   const { isLoaded } = useLoadScript({
     libraries,
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
@@ -57,44 +61,17 @@ const Location = (props) => {
         </Text>
       </Heading>
 
-      {!isLoaded && <div>Loading...</div>}
-
       <div className={styles.wrapper}>
         {isLoaded && (
           <Map
             mapContainerClassName={styles.map}
             locations={props.locations}
             markers={props.locations}
-            isLoaded={isLoaded}
           />
         )}
       </div>
     </Container>
   );
-};
-
-const useGetLatLngByLocations = ({ locations }) => {
-  const [markers, setMarkers] = useState([]);
-
-  useEffect(() => {
-    const getCoordinates = async () => {
-      const geocodePromise = locations.map((location) => {
-        return getGeocode({ address: location.address });
-      });
-      const geocodes = await Promise.all(geocodePromise);
-
-      const coordinatesPromise = geocodes.map((geocode) => {
-        return getLatLng(geocode[0]);
-      });
-      const coordinates = await Promise.all(coordinatesPromise);
-
-      setMarkers(coordinates);
-    };
-
-    getCoordinates();
-  }, [locations]);
-
-  return markers;
 };
 
 const CLUSTERER_OPTIONS = {
@@ -109,18 +86,21 @@ const CLUSTERER_OPTIONS = {
   ],
 };
 
+const isPlaceAvailable = (place) => place !== null;
+
 const Map = ({ mapContainerClassName, locations, markers }) => {
+  const mapRef = useRef(null);
+  const autocompleteRef = useRef(null);
   const [selectedId, setSelectedId] = useState(null);
   const [notFound, setNotFound] = useState(false);
   const [distances, setDistances] = useState([]);
+  const markerPositions = useGetLatLngByLocations({ locations: markers });
+  const geocode = useGeocoder();
+  const getPlaceDetails = usePlaceService();
+  const calculateRoutesDistance = useCalculateRoutesDistance();
 
-  const markersLatLngs = useGetLatLngByLocations({ locations: markers });
-  const distanceServiceRef = useRef(new google.maps.DistanceMatrixService());
   const [currentLatLng, setCurrentLatLng] = useState(null);
   const [place, setPlace] = useState(null);
-
-  const mapRef = useRef(null);
-  const autocompleteRef = useRef(null);
 
   const zoomByPosition = ({ position, zoom = 13 }) => {
     const map = mapRef.current;
@@ -133,114 +113,62 @@ const Map = ({ mapContainerClassName, locations, markers }) => {
 
   const onSelect = async (id) => {
     setPlace(null);
+
     const location = locations.find((l) => l.id === id);
 
-    const geocoder = new google.maps.Geocoder();
-
-    const res = await geocoder.geocode({
-      // address: 'The Smart Fit Method, Chesterfield Drive, Cardiff, CA, USA',
-      // address: 'The Smart Fit Method, Chesterfield Drive, Cardiff, CA, USA',
-      address: location.address,
+    const point = await geocode({ address: location.address });
+    const place = await getPlaceDetails({
+      placeId: point.results[0].place_id,
+      map: mapRef.current,
     });
 
-    const placeService = new google.maps.places.PlacesService(mapRef.current);
-
-    placeService.getDetails(
-      {
-        placeId: res.results[0].place_id,
-        fields: [
-          'photo',
-          'rating',
-          'name',
-          'formatted_address',
-          'reviews',
-          'address_components',
-        ],
-      },
-      (place, status) => {
-        if (status === 'OK') {
-          setPlace(place);
-        }
-      }
-    );
-
+    setPlace(place);
     setSelectedId(id);
   };
 
   const setMyPosition = (position) => {
-    zoomByPosition({ position });
+    zoomByPosition({ position, zoom: 10 });
     setCurrentLatLng(position);
   };
 
   const setToDefaultPosition = () => {
     setCurrentLatLng(null);
-    mapRef.current?.panTo(CENTER);
+    mapRef.current?.panTo(DEFAULT_CENTER);
   };
 
   const onPlaceChanged = async () => {
     const map = mapRef.current;
     const place = autocompleteRef.current.getPlace();
 
-    if (place.place_id) {
-      setNotFound(false);
-
-      const { lat, lng } = await getLatLng(place);
-
-      map.panTo({ lat, lng });
-      map.setZoom(9);
-
-      setCurrentLatLng({ lat, lng });
-
-      // NOTE: distances;
-      const from = { lat, lng };
-      const to = markersLatLngs;
-
-      const request = {
-        origins: [from],
-        destinations: to,
-        travelMode: google.maps.TravelMode.DRIVING,
-        unitSystem: google.maps.UnitSystem.IMPERIAL,
-        avoidHighways: false,
-        avoidTolls: false,
-      };
-
-      const distance = await distanceServiceRef.current.getDistanceMatrix(
-        request
-      );
-
-      const rows = distance.rows[0].elements.map(async (row, idx) => {
-        if (row.status === 'OK') {
-          return row;
-        }
-
-        const geocoder = new google.maps.Geocoder();
-
-        const place = await geocoder.geocode({
-          address: distance.destinationAddresses[idx],
-        });
-
-        const coordinates = place.results[0].geometry.location;
-
-        const distance1 = google.maps.geometry.spherical.computeDistanceBetween(
-          from,
-          coordinates
-        );
-
-        return { distance: { value: distance1 } };
-      });
-
-      const d = await Promise.all(rows);
-
-      const miles = d.map((i) =>
-        Math.ceil((i.distance.value / 1000) * 0.621371)
-      );
-
-      setDistances(miles);
-    } else {
+    if (!place.place_id) {
       setNotFound(true);
+      return;
     }
+
+    const point = getLatLngByPlace(place);
+
+    const miles = await calculateRoutesDistance({
+      from: point,
+      to: markerPositions,
+    });
+
+    map.panTo(point);
+    map.setZoom(9);
+
+    setCurrentLatLng(point);
+    setDistances(miles);
+    setNotFound(false);
   };
-  console.log({ place });
+
+  const calculateDistanceFrom = async ({ from }) => {
+    const miles = await calculateRoutesDistance({
+      from,
+      to: markerPositions,
+    });
+
+    setDistances(miles);
+  };
+
   const onLoad = (autocomplete) => {
     autocompleteRef.current = autocomplete;
   };
@@ -248,11 +176,13 @@ const Map = ({ mapContainerClassName, locations, markers }) => {
   return (
     <div className={styles.w}>
       <div className={styles.sidebar}>
-        <AutocompleteInput
+        <GoogleAutocompleteInput
           onPlaceChanged={onPlaceChanged}
           onLoad={onLoad}
           setMyPosition={setMyPosition}
           setToDefaultPosition={setToDefaultPosition}
+          setNotFound={setNotFound}
+          calculateDistanceFrom={calculateDistanceFrom}
         />
         <LocationsList
           distances={distances}
@@ -266,37 +196,67 @@ const Map = ({ mapContainerClassName, locations, markers }) => {
 
       <div className={styles.mapContainer}>
         {notFound && <PlaceNotFound name="Test" />}
-        {place !== null && (
+
+        {isPlaceAvailable(place) && (
           <PlaceDetails place={place} onClose={() => setPlace(null)} />
         )}
 
-        <GoogleMap
-          zoom={DEFAULT_ZOOM}
-          options={{
-            minZoom: DEFAULT_MIN_ZOOM,
-            styles: locationMapStyles,
-            scrollwheel: false,
-            mapTypeControl: false,
-          }}
+        <MapView
           onLoad={(map) => {
             mapRef.current = map;
           }}
-          center={CENTER}
+          center={DEFAULT_CENTER}
           mapContainerClassName={mapContainerClassName}
         >
-          {currentLatLng && <MyPositionMarker position={currentLatLng} />}
+          <>
+            {currentLatLng && <MyPositionMarker position={currentLatLng} />}
 
-          <ClustererView
-            markers={markersLatLngs}
-            locations={locations}
-            selectedId={selectedId}
-            zoomByPosition={zoomByPosition}
-          />
-        </GoogleMap>
+            <ClustererView
+              markers={markerPositions}
+              locations={locations}
+              selectedId={selectedId}
+              zoomByPosition={zoomByPosition}
+            />
+          </>
+        </MapView>
       </div>
     </div>
   );
 };
+
+function MapView({
+  children,
+  mapContainerClassName,
+  onLoad = () => {},
+  center = DEFAULT_CENTER,
+  zoom = DEFAULT_ZOOM,
+  minZoom = DEFAULT_MIN_ZOOM,
+  styles = locationMapStyles,
+}) {
+  const mapRef = useRef(null);
+
+  const onMapLoad = (map) => {
+    onLoad(map);
+    mapRef.current = map;
+  };
+
+  return (
+    <GoogleMap
+      zoom={zoom}
+      options={{
+        styles,
+        minZoom,
+        scrollwheel: false,
+        mapTypeControl: false,
+      }}
+      onLoad={onMapLoad}
+      center={center}
+      mapContainerClassName={mapContainerClassName}
+    >
+      {children}
+    </GoogleMap>
+  );
+}
 
 function PlaceDetails({ place, onClose }) {
   return (
@@ -324,27 +284,38 @@ function PlaceDetails({ place, onClose }) {
   );
 }
 
-function AutocompleteInput({
+function GoogleAutocompleteInput({
   onLoad,
   onPlaceChanged,
   setMyPosition,
   setToDefaultPosition,
+  setNotFound,
+  calculateDistanceFrom,
 }) {
   const autocompleteRef = useRef(null);
   const inputRef = useRef(null);
   const [searchValue, setSearchValue] = useState('');
-  const [geocoder] = useState(() => new google.maps.Geocoder());
+  const geocode = useGeocoder();
 
   const onSearch = async () => {
-    const res = await geocoder.geocode({ address: searchValue });
-    const coordinates = res.results[0].geometry.location;
+    try {
+      const place = await geocode({ address: searchValue });
 
-    setMyPosition({ lat: coordinates.lat(), lng: coordinates.lng() });
+      await calculateDistanceFrom({ from: getLatLngByPlace(place.results[0]) });
+
+      setNotFound(false);
+      setMyPosition(getLatLngByPlace(place.results[0]));
+    } catch (error) {
+      con;
+      setNotFound(true);
+    }
   };
 
   const onClear = () => {
     setToDefaultPosition();
     setSearchValue('');
+    setNotFound(false);
+
     inputRef.current.value = '';
   };
 
@@ -376,7 +347,7 @@ function AutocompleteInput({
           placeholder="Search your location"
           onChange={(evt) => setSearchValue(evt.target.value)}
         />
-        {searchValue.trim() !== '' && (
+        {!isEmpty(searchValue) && (
           <button className={styles.clearBtn} onClick={onClear}>
             <CloseIcon />
           </button>
@@ -389,7 +360,7 @@ function AutocompleteInput({
   );
 }
 
-function ClustererView({ markers, locations, selectedId, zoomByPosition }) {
+function ClustererView({ markers, locations, zoomByPosition }) {
   const hasMarkers = markers.length > 0;
 
   if (!hasMarkers) return null;
@@ -407,7 +378,6 @@ function ClustererView({ markers, locations, selectedId, zoomByPosition }) {
             locations={locations}
             clusterer={clusterer}
             onClick={onMarkerClick}
-            selectedId={selectedId}
           />
         );
       }}
@@ -415,13 +385,7 @@ function ClustererView({ markers, locations, selectedId, zoomByPosition }) {
   );
 }
 
-const MarkersList = ({
-  markers,
-  clusterer,
-  onClick,
-  locations,
-  selectedId,
-}) => {
+const MarkersList = ({ markers, clusterer, onClick, locations }) => {
   const [activeId, setActiveId] = useState(null);
 
   const icon = {
@@ -440,9 +404,7 @@ const MarkersList = ({
     <>
       {markers.map((marker, idx) => {
         const location = locations[idx];
-
-        const isPopUpActive =
-          selectedId === location.id || location.id === activeId;
+        const isPopUpActive = location.id === activeId;
 
         return (
           <MarkerF
@@ -488,17 +450,24 @@ function MyPositionMarker({ position }) {
 
   return <MarkerF position={position} icon={icon} />;
 }
-
 function LocationsList({ locations, map, onSelect, distances = [] }) {
   const [selectedId, setSelectedId] = useState(null);
+  const geocode = useGeocoder();
+  // TODO: sort by miles;
+  // TODO: distance and location should be together or we should have Map([[locationId, distance]])
+  const locationsWithDistance = locations.map((location, idx) => ({
+    ...location,
+    distance: distances[idx],
+  }));
+
+  const sortedByDistance = [...locationsWithDistance].sort(
+    (prev, current) => prev.distance - current.distance
+  );
 
   const onLocationClick = async (location) => {
-    const geocoder = new google.maps.Geocoder();
+    const place = await geocode({ address: location.address });
 
-    const res = await geocoder.geocode({ address: location.address });
-
-    // The Smart Fit Method, Chesterfield Drive, Cardiff, CA, USA
-    const coordinates = res.results[0].geometry.location;
+    const coordinates = place.results[0].geometry.location;
 
     if (map) {
       map.panTo(coordinates);
@@ -512,13 +481,13 @@ function LocationsList({ locations, map, onSelect, distances = [] }) {
   return (
     <div>
       <ul className={styles.locationList}>
-        {locations.map((location, idx) => (
+        {sortedByDistance.map((location) => (
           <LocationItem
             key={location.id}
             location={location}
             onLocationClick={onLocationClick}
             selectedId={selectedId}
-            distance={distances.length > 0 && distances[idx]}
+            distance={location.distance}
           />
         ))}
       </ul>
@@ -653,4 +622,4 @@ export const getServerSideProps = async () => {
   };
 };
 
-export default Location;
+export default LocationView;
