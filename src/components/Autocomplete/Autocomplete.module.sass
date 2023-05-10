@@ -1,0 +1,259 @@
+
+.autocomplete
+  padding: 16px
+
+.input
+  +borderGradient(1px, 14px, $grayGradient)
+  width: 100%
+  min-height: 48px
+  background-image: linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%)
+  color: #fff
+  padding: 10px 135px 12px 10px
+
+  &:focus
+    border: 1px solid rgba(75, 78, 91, 0.3)
+    background: #141417
+
+  @media screen and (max-width: #{$lg})
+    border: 1px solid rgba(75, 78, 91, 0.3)
+    background: #141417
+
+
+.locationHeader
+  font-family: 'Inter'
+  font-style: normal
+  font-weight: 600
+  font-size: 27px
+  line-height: 132%
+  letter-spacing: -0.3px
+  color: #FFFFFF
+
+.line
+  display: inline-block
+  height: 1px
+  background-color:#E5E5EA
+  width: 100%
+  margin: 12px 0 20px 0
+
+
+.details
+  display: flex
+  flex-direction: column
+  gap: 12px
+
+.detailsItem
+  display: flex
+  gap: 10px
+  border: 1px solid transparent
+  border-radius: 14px
+  padding: 8px
+  transition: all 0.2s ease-out
+  align-items: center
+
+  a,
+  button
+    opacity: 0
+    border: 2px solid transparent
+    padding: 6px
+    width: 35px
+    height: 35px
+    display: flex
+    justify-content: center
+    align-items: center
+
+  button:hover,
+  a:hover
+    cursor: pointer
+    border: 2px solid rgba(75, 78, 91, 0.3)
+    background-color: rgba(20, 20, 23, 0.2)
+    border-radius: 50%
+
+  p
+    flex-grow: 1
+    max-width: 80%
+
+  &:hover a,
+  &:hover button
+    transition: opacity 600ms ease-in-out
+    opacity: 1
+
+  &:hover
+    border: 1px solid #FF5F28
+    background: linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%)
+
+.schedule
+  display: flex
+  flex-direction: column
+
+.arrow
+  transform: rotate(-90deg)
+  width: 30px
+  height: 16px
+
+.locationHeader
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+.notFoundContainer
+  background-color: #E5E5EA
+  font-family: 'IBM Plex Mono'
+  font-style: normal
+  font-weight: 400
+  font-size: 18px
+  line-height: 110%
+  text-align: center
+  color: #141417
+  border-radius: 0 16px 16px 0
+  display: flex
+  justify-content: center
+  align-items: center
+  position: absolute
+  z-index: 2
+  inset: 0
+
+.mapContainer
+  display: flex
+  flex-grow: 1
+  position: relative
+
+.mobileLocationList
+  display: none
+  position: absolute
+  z-index: 4
+  padding: 16px
+  gap: 16px
+  bottom: 0
+
+  @media screen and (max-width: #{$lg})
+    display: flex
+
+.slider
+  display: none
+  position: absolute
+  z-index: 4
+  bottom: 0
+  padding: 16px
+  width: 100%
+
+  @media screen and (max-width: #{$lg})
+    display: block
+
+.slide
+  max-width: 311px
+
+.miles
+  display: flex
+  justify-content: flex-end
+
+.searchWrapper
+  position: relative
+
+.searchBtn
+  --color: #FF5F28
+  position: absolute
+  right: 8px
+  height: 32px
+  background-color: #141417
+  border-radius: 8px
+  border: 1px solid var(--color)
+  color: var(--color)
+  width: 91px
+  top: 50%
+  transform: translateY(-50%)
+
+  &:disabled
+    --color: #808080
+
+.clearBtn
+  position: absolute
+  right: 108px
+  color: #fff
+  top: 50%
+  transform: translateY(-50%)
+
+.googleInfoBox
+  position: absolute
+  z-index: 5
+  top: 50
+  top: 50%
+  transform: translateY(-50%)
+  left: 24px
+  width: 331px
+  height: 455px
+  border-radius: 20px
+  overflow: hidden
+  display: flex
+  flex-direction: column
+  background: linear-gradient(56.68deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0) 147.05%), rgba(38, 37, 41, 0.9)
+
+.infoBoxImg
+  border-radius: 20px
+  width: 100%
+  max-height: 222px
+  height: 100%
+  object-fit: cover
+
+.infoBoxContent
+  padding: 25px
+  font-family: 'Inter'
+  font-style: normal
+  font-weight: 400
+  font-size: 16px
+  flex-grow: 1
+  gap: 10px
+  display: flex
+  flex-direction: column
+
+  h2
+    font-size: 27px
+
+.infoBoxCloseBtn
+  position: absolute
+  right: 24px
+  top: 24px
+  z-index: 10
+
+.arrowBtn
+  border: 2px solid transparent
+  border-radius: 50%
+  width: 40px
+  height: 40px
+  display: flex
+  justify-content: center
+  align-items: center
+  justify-items: center
+  transition: all 0.2s ease-out
+
+  &:hover
+    padding: 9px 9px 9px 12px
+    border: 2px solid rgba(75, 78, 91, 0.3)
+    background-color: rgba(20, 20, 23, 0.2)
+
+.googleDetails
+  display: flex
+  flex-grow: 1
+  gap: 16px
+
+.bookFreeBtn
+  margin: auto
+  width: 100%
+
+.starList
+  display: flex
+
+.ratingWrapper
+  display: flex
+  align-items: center
+  gap: 8px
+
+.reviews
+  text-decoration-line: underline
+  color: #636479
+
+.placeholder
+  max-height: 222px
+  height: 100%
+  display: flex
+  justify-content: center
+  align-items: center
