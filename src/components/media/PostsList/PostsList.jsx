@@ -78,13 +78,7 @@ const Preview = ({ post, isImgCover }) => {
       }}
     />
   ) : (
-    <Img
-      className={imgClasses}
-      src={post.image}
-      width={427}
-      height={276}
-      alt={post.title}
-    />
+    <Img className={imgClasses} src={post.image} width={427} height={276} alt={post.title} />
   );
 };
 

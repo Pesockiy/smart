@@ -88,11 +88,7 @@ const GoogleAutocompleteInput = ({
           </button>
         )}
 
-        <button
-          className={styles.searchBtn}
-          onClick={onSearch}
-          disabled={isSearching}
-        >
+        <button className={styles.searchBtn} onClick={onSearch} disabled={isSearching}>
           Search
         </button>
       </div>

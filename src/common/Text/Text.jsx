@@ -15,6 +15,7 @@ const Text = ({
     styles.text,
     {
       [styles.textGradient]: gradient,
+      [styles[size]]: size,
     },
     className
   );

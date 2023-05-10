@@ -1,19 +1,19 @@
-import React from "react";
-import Link from "next/link";
-import cx from "class-names";
+import React from 'react';
+import Link from 'next/link';
+import cx from 'class-names';
 
-import styles from "./Button.module.sass";
+import styles from './Button.module.sass';
 
 export default function Button({
   onClick = () => {},
   disabled = false,
   outlined = false,
   children = null,
-  className = "",
-  as = "button",
-  variant = "",
-  href = "",
+  className = '',
+  as = 'button',
+  variant = '',
   base = false,
+  href = '',
 }) {
   const classes = cx(
     styles[variant],

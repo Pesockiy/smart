@@ -11,5 +11,8 @@ export {
   isItDots,
   getPaginationSteps,
   smoothScroll,
-  formatPostDate, isEmpty, getLatLngByPlace, geocoder
+  formatPostDate,
+  isEmpty,
+  getLatLngByPlace,
+  geocoder
 };

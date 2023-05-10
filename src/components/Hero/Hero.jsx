@@ -1,4 +1,6 @@
+import { memo, useCallback } from 'react';
 import cx from 'class-names';
+
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
@@ -18,8 +20,6 @@ import styles from './Hero.module.sass';
 const Hero = ({ data }) => {
   const { videosInTheSliderOnTheHomePage, richText } = data;
 
-  const toggleModalHandler = () => setModalActive((prev) => !prev);
-
   const options = {
     renderNode: {
       [BLOCKS.HEADING_1]: (node) => {
@@ -37,7 +37,9 @@ const Hero = ({ data }) => {
     },
   };
 
-  const titleRichText = documentToReactComponents(richText, options);
+  const TitleRichText = memo(() => documentToReactComponents(richText, options));
+
+  const toggleModalHandler = useCallback(() => setModalActive((prev) => !prev), []);
 
   return (
     <section className={cx(styles.hero)}>
@@ -46,7 +48,7 @@ const Hero = ({ data }) => {
           <div className={styles.heroSubtitle}>
             Stop wasting time <Line inline /> <span> Get Smart Fit</span>
           </div>
-          {titleRichText}
+          <TitleRichText />
 
           <div className={styles.heroTextsBottom}>
             <Text>
