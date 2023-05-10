@@ -1,0 +1,104 @@
+.listItem
+  +borderGradient(1px, 20px, $grayGradient)
+  padding: 16px
+  margin-right: 6px
+  height: max-content
+  background: linear-gradient(56.68deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0) 147.05%), rgba(38, 37, 41, 0.9)
+
+  @media screen and (max-width: #{$lg})
+    max-height: 376px
+
+.line
+  display: inline-block
+  height: 1px
+  background-color:#E5E5EA
+  width: 100%
+  margin: 12px 0 20px 0
+
+
+.details
+  display: flex
+  flex-direction: column
+
+.detailsItem
+  display: flex
+  gap: 10px
+  border: 1px solid transparent
+  border-radius: 14px
+  padding: 8px
+  transition: all 0.2s ease-out
+  align-items: center
+
+  a,
+  button
+    opacity: 0
+    border: 2px solid transparent
+    padding: 6px
+    width: 35px
+    height: 35px
+    display: flex
+    justify-content: center
+    align-items: center
+
+  button:hover,
+  a:hover
+    cursor: pointer
+    border: 2px solid rgba(75, 78, 91, 0.3)
+    background-color: rgba(20, 20, 23, 0.2)
+    border-radius: 50%
+
+  p
+    flex-grow: 1
+    max-width: 80%
+
+  &:hover a,
+  &:hover button
+    transition: opacity 600ms ease-in-out
+    opacity: 1
+
+  &:hover
+    border: 1px solid #FF5F28
+    background: linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%)
+
+.schedule
+  display: flex
+  flex-direction: column
+
+.arrow
+  transform: rotate(-90deg)
+  width: 30px
+  height: 16px
+
+.title
+  font-family: 'Inter'
+  font-style: normal
+  font-weight: 600
+  font-size: 27px
+  line-height: 132%
+  letter-spacing: -0.3px
+  color: #FFFFFF
+
+.header
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+.arrowBtn
+  border: 2px solid transparent
+  border-radius: 50%
+  width: 40px
+  height: 40px
+  display: flex
+  justify-content: center
+  align-items: center
+  justify-items: center
+  transition: all 0.2s ease-out
+
+  &:hover
+    padding: 9px 9px 9px 12px
+    border: 2px solid rgba(75, 78, 91, 0.3)
+    background-color: rgba(20, 20, 23, 0.2)
+
+.miles
+  display: flex
+  justify-content: flex-end

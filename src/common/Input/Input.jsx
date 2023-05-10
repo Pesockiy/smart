@@ -1,7 +1,7 @@
-import React, { useId } from "react";
-import cx from "class-names";
+import React, { useId } from 'react';
+import cx from 'class-names';
 
-import styles from "./Input.module.sass";
+import styles from './Input.module.sass';
 
 const { inputWrapper, select, input, d } = styles;
 

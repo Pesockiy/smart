@@ -1,0 +1,23 @@
+.container
+  min-height: 100vh
+
+.header
+  max-width: 763px
+  padding-top: 50px
+
+.wrapper
+  +borderGradient(1px, 20px, $grayGradient)
+  display: flex
+  height: 750px
+  margin: 60px 0
+
+  @media screen and (max-width: #{$lg})
+    overflow: hidden
+    height: 855px
+
+.map
+  flex-grow: 1
+  border-radius: 0 20px 20px 0
+
+  @media screen and (max-width: #{$lg})
+    border-radius: 20px

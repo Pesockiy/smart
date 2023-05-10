@@ -1,13 +1,13 @@
-import cx from "class-names";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Virtual } from "swiper";
+import cx from 'class-names';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation, Virtual } from 'swiper';
 
-import "swiper/css/navigation";
-import "swiper/css";
+import 'swiper/css/navigation';
+import 'swiper/css';
 
-import HeroSliderItem from "@/components/HeroSliderItem/HeroSliderItem";
+import HeroSliderItem from '@/components/HeroSliderItem/HeroSliderItem';
 
-import styles from "./HeroSlider.module.sass";
+import styles from './HeroSlider.module.sass';
 
 const HeroSlider = ({ sliderData, className }) => {
   return (
