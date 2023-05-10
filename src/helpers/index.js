@@ -1,3 +1,4 @@
+import geocoder from './geocoder';
 import getLatLngByPlace from './getLatLngByPlace';
 import { isEmpty } from './isEmpty';
 
@@ -8,4 +9,4 @@ export const smoothScroll = (offset = 0) => {
   });
 };
 
-export { isEmpty, getLatLngByPlace };
+export { isEmpty, getLatLngByPlace, geocoder };
