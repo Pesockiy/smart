@@ -3,15 +3,15 @@ $greyGradient:linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(7
 $blackGradient:linear-gradient(180.43deg, rgba(251, 205, 191, 0.15) -27.54%, rgba(251, 205, 191, 0) 100.66%)
 
 .list
-  +dGrid(false, 420px, false, 20px)
+  +dGrid(grid, 420px, false, 20px)
   justify-items: center
   padding: 20px 0 40px 0
 
   @media screen and (max-width: #{$xl})
-    +dGrid(false, 320px, false, 20px)
+    +dGrid(grid, 320px, false, 20px)
 
   @media screen and (max-width: #{$xs})
-    +dGrid(false, 100%, false, 20px)
+    +dGrid(grid, 100%, false, 20px)
 
 
 .listItem

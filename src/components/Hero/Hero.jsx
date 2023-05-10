@@ -1,82 +1,72 @@
-import React, { forwardRef, useRef, useState, useEffect } from "react";
-import cx from "class-names";
+import cx from 'class-names';
+import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
-import { useToggle } from "@/hooks";
+import Heading from '@/common/Heading/Heading';
+import Text from '@/common/Text/Text';
+import Img from '@/common/Img/Img';
+import Button from '@/common/Button/Button';
+import Line from '@/common/Line/Line';
+import Chip from '@/common/Chip/Chip';
+import HeroSlider from '@/components/HeroSlider/HeroSlider';
+import SectionContainer from '@/components/SectionContainer/SectionContainer';
 
-import Heading from "@/common/Heading/Heading";
-import Text from "@/common/Text/Text";
-import Img from "@/common/Img/Img";
-import Button from "@/common/Button/Button";
-import ButtonVideo from "@/common/ButtonVideo/ButtonVideo";
-import Line from "@/common/Line/Line";
-import Chip from "@/common/Chip/Chip";
-import Video from "@/common/Video/Video";
-import Modal from "@/common/Modal/Modal";
-import HeroSlider from "@/components/HeroSlider/HeroSlider";
-import SectionContainer from "@/components/SectionContainer/SectionContainer";
+import VideoPoster from '../../../public/images/Video.jpg';
 
-import { slides } from "@/mock";
+import styles from './Hero.module.sass';
 
-import VideoPoster from "../../../public/images/Video.jpg";
+const Hero = ({ data }) => {
+  const { videosInTheSliderOnTheHomePage, richText } = data;
 
-import styles from "./Hero.module.sass";
-
-const Hero = () => {
   const toggleModalHandler = () => setModalActive((prev) => !prev);
+
+  const options = {
+    renderNode: {
+      [BLOCKS.HEADING_1]: (node) => {
+        const { nodeType, content } = node;
+        const { value } = content[0];
+
+        return (
+          <Heading as={`h${nodeType[nodeType.length - 1]}`}>
+            <Text as="span" gradient>
+              {value}
+            </Text>
+          </Heading>
+        );
+      },
+    },
+  };
+
+  const titleRichText = documentToReactComponents(richText, options);
 
   return (
     <section className={cx(styles.hero)}>
-      <SectionContainer
-        wrapper={false}
-        rtl={false}
-        vCenter={true}
-        count="01"
-        subtitle={"Stop wasting time "}
-      >
+      <SectionContainer vCenter>
         <div className={styles.heroTextWrap}>
           <div className={styles.heroSubtitle}>
             Stop wasting time <Line inline /> <span> Get Smart Fit</span>
           </div>
-          <Heading size="xxl" className={styles.heroTitle}>
-            Personal Training{" "}
-            <Text as="span" gradient={true}>
-              For 20 Minutes
-            </Text>{" "}
-            Three Times a Week
-          </Heading>
+          {titleRichText}
+
           <div className={styles.heroTextsBottom}>
             <Text>
-              Our method builds strength, optimises hormones, and burns fat so
-              we can elevate our clients to their maximum potential.
+              Our method builds strength, optimises hormones, and burns fat so we can elevate our
+              clients to their maximum potential.
             </Text>
             <div className={styles.heroButtons}>
-              <Button className={styles.heroButton} variant="primary" outlined>
-                Book a free workout
-              </Button>
               <Button variant="primary" className={styles.heroButton}>
                 Book a free workout
               </Button>
-              <ButtonVideo>sfsd</ButtonVideo>
             </div>
           </div>
         </div>
 
         <div className={cx(styles.heroVideoWrap)}>
-          <Img
-            className={styles.heroImg}
-            src={VideoPoster}
-            alt="alt"
-            width="100%"
-            height="100%"
-          />
-          <Chip
-            onClick={toggleModalHandler}
-            label="Video"
-            className={styles.heroVideoChip}
-          />
+          <Img className={styles.heroImg} src={VideoPoster} alt="alt" width="100%" height="100%" />
+          <Chip onClick={toggleModalHandler} label="Video" className={styles.heroVideoChip} />
         </div>
       </SectionContainer>
-      <HeroSlider sliderData={slides} className={styles.heroSlider} />
+      <HeroSlider sliderData={videosInTheSliderOnTheHomePage} className={styles.heroSlider} />
     </section>
   );
 };

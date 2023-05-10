@@ -3,10 +3,13 @@
     position: relative
     margin-top: 20px
     margin-bottom: 20px
-    transform: translateX($offsetLeft)
+    +mediaMin($lg)
+        transform: translateX($offsetLeft) !important
 
 .heroSlide
     max-width: 315px
+    +mediaMax($sm)
+        transform: translateX($adaptiveGutters)
 
 .navButtonPrev,
 .navButtonNext

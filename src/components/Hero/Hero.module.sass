@@ -1,52 +1,57 @@
-.heroTextWrap
-    +dFlex(false, space-between, flex-start)
-    flex-direction: column
-    gap: 40px 24px
-    flex: 1 1 45%
-    max-width: 585px
+.hero
+    justify-content: flex-start
 
-.heroVideoWrap
-    +dFlex(false, flex-end)
-    overflow: hidden
-    position: relative
-    flex: 1
-    min-width: 500px
-    max-width: 650px
-    height: 100%
-    max-height: 550px
-    border-radius: 20px
-    img
-        width: 100%
+    .heroTextWrap
+        +dFlex(flex, space-between, flex-start, 40px 24px, column)
+        flex: 1 1 45%
+        +mediaMin($lg)
+            max-width: 585px
 
-.heroTextsBottom
-    +dFlex(false, flex-start)
-    gap: 20px 54px
-    flex-wrap: wrap
-    align-items: center
-    line-height: 1.57
-    p
-        flex: 1 1 40%
+    .heroVideoWrap
+        +dFlex(flex, flex-end)
+        overflow: hidden
+        position: relative
+        flex: 1
+        min-width: 500px
+        max-width: 650px
+        height: 100%
+        max-height: 550px
+        border-radius: 20px
+        img
+            width: 100%
 
-.heroImg
-    border-radius: 20px
+        +mediaMax($lg)
+            +mxAuto
 
-.heroButtons
-    +dFlex(true, flex-start )
-    flex-wrap: wrap
-    width: fit-content
-    gap: 15px
+    .heroTextWrap,
+    .heroVideoWrap
+        +mediaMax($lg)
+            flex-basis: 100%
 
-.heroVideoChip
-    position: absolute
-    top: 24px
-    right: 24px
+    .heroTextsBottom
+        +dFlex(flex, flex-start, center, 20px 54px, row, wrap)
 
-.heroSubtitle
-    +dFlex(false, flex-start, baseline)
-    gap: 10px
-    color: $textGrayColor
-    span
-        color: $whiteColor
+        p
+            flex: 1 1 40%
+            line-height: 1.57
+
+    .heroImg
+        border-radius: 20px
+
+    .heroButtons
+        +dFlex(true, flex-start, flex-start, 15px, row, wrap )
+        width: fit-content
+
+    .heroVideoChip
+        position: absolute
+        top: 24px
+        right: 24px
+
+    .heroSubtitle
+        +dFlex(flex, flex-start, baseline, 10px)
+        color: $textGrayColor
+        span
+            color: $whiteColor
 
 .heroSlider
     align-self: start

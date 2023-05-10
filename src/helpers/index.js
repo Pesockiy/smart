@@ -1,13 +1,8 @@
 import { formatPostDate } from './formatPostDate';
 import { getPaginationSteps, isItDots } from './getPaginationSteps';
 import { truncateTextByLength } from './truncateTextByLength';
+import { smoothScroll } from './smoothScroll';
 
-const smoothScroll = (offset = 0) => {
-  window.scrollTo({
-    top: offset,
-    behavior: 'smooth',
-  });
-};
 
 export {
   truncateTextByLength,

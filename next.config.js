@@ -28,7 +28,11 @@ const nextConfig = {
 
     return config
   },
-
+  env: {
+    CONTENTFUL_SPACE_ID: process.env.CONTENTFUL_SPACE_ID,
+    CONTENTFUL_ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN,
+    GOOGLE_ANALITICS_TOKEN: process.env.GOOGLE_ANALITICS_TOKEN,
+  },
   reactStrictMode: false,
   images: {
     domains: ['https://flagsapi.com']

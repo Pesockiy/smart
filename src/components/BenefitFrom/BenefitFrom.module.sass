@@ -1,16 +1,14 @@
 .benefitFrom
 
-.scienceTextWrap
-    +dFlex(false, center, flex-start)
-    flex-direction: column
-    gap: 40px
-    width: 100%
-    max-width: 660px
+    .benefitFromTextWrap
+        +dFlex(flex, center, flex-start, 40px, column)
+        width: 100%
+        max-width: 660px
 
-.benefitFromItems
-    +dGrid(false, 180px, false, 14px 40px)
-    width: 100%
+    .benefitFromItems
+        +dGrid(grid, 180px, fit, 14px 40px)
+        width: 100%
 
-.benefitFromButton
-    width: 100%
-    max-width: 312px
+    .benefitFromButton
+        width: 100%
+        max-width: 312px

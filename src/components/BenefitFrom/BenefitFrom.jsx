@@ -14,15 +14,15 @@ const BenefitFrom = ({ wrapper = false, rtl = false, vCenter = true }) => {
   return (
     <section className={styles.benefitFrom}>
       <SectionContainer
-        wrapper={true}
-        rtl={false}
-        vCenter={vCenter}
+        wrapper
+        scrollText
+        vCenter
         count="02"
         subtitle={"Advantages"}
       >
-        <div className={styles.scienceTextWrap}>
+        <div className={styles.benefitFromTextWrap}>
           <Heading size="xl" as="h2" className={styles.scienceTitle}>
-            <Text gradient={true} className={styles.scienceAccentTitle}>
+            <Text gradient className={styles.scienceAccentTitle}>
               Benefit From
             </Text>{" "}
             Using Our Method

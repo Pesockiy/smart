@@ -9,13 +9,19 @@ const SectionContainer = ({
   vCenter = false,
   children = null,
   count = "02",
-  subtitle
+  subtitle,
+  t,
 }) => {
   return (
-    <Wrapper wrapper={wrapper} className={styles.SectionContainerWrap} count={count} subtitle={subtitle}>
+    <Wrapper
+      wrapper={wrapper}
+      className={styles.sectionContainerWrap}
+      count={count}
+      subtitle={subtitle}
+    >
       <Container
         disableGutters={wrapper}
-        className={styles.SectionContainerTop}
+        className={styles.sectionContainerTop}
         style={{
           flexDirection: rtl ? "row-reverse" : "row",
           alignItems: vCenter ? "center" : "flex-start",

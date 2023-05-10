@@ -15,13 +15,30 @@ const HeroSlider = ({ sliderData, className }) => {
       <Swiper
         modules={[Autoplay, Navigation, Virtual]}
         spaceBetween={10}
-        slidesPerView={5.75}
         className={cx(styles.heroSlider, className)}
         loop
+        breakpoints={{
+          320: {
+            width: 320,
+            slidesPerView: 1.2,
+          },
+          570: {
+            width: 570,
+            slidesPerView: 2,
+          },
+          768: {
+            width: 768,
+            slidesPerView: 3,
+          },
+          1200: {
+            width: 1200,
+            slidesPerView: 3.75,
+          },
+        }}
       >
         {sliderData.map((slide, index) => (
           <SwiperSlide
-            key={Date.now().toLocaleString() + index}
+            key={slide.id}
             className={styles.heroSlideS}
           >
             <HeroSliderItem

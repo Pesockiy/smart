@@ -7,7 +7,7 @@ import styles from './ButtonVideo.module.sass';
 const ButtonVideo = ({ className, children }) => {
   const classes = cx(styles.buttonVideo, className);
   return (
-    <Button base={true} className={classes}>
+    <Button base className={classes}>
       {children} <PlayIcon />
     </Button>
   );

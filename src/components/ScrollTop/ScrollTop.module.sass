@@ -1,19 +1,24 @@
 .scrollTop
-    +dFlex(false, center, center, 27px)
+    +dFlex(flex, center, center, 27px)
     position: fixed
     z-index: 9
     bottom: 100px
     right: 70px
+    opacity: 0
     cursor: pointer
+    transition: opacity .3s ease-in-out
 
-.scrollTopImg
-    +dFlex(false, center, center)
-    width: 40px
+    &.isVisible
+        opacity: 1
 
-    color: $accentColor
-    border-radius: 50%
-    border: 1px solid 
-    background-color: $whiteColorDarken
-    aspect-ratio: 1
-    svg *
-        fill: currentColor
+    .scrollTopImg
+        +dFlex(flex, center, center)
+        width: 40px
+
+        color: $accentColor
+        border-radius: 50%
+        border: 1px solid
+        background-color: $whiteColorDarken
+        aspect-ratio: 1
+        svg *
+            fill: currentColor

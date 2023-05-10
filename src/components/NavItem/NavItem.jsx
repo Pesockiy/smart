@@ -1,14 +1,16 @@
-import React from "react";
+import React, { memo } from "react";
 import Link from "next/link";
 
 import styles from "./NavItem.module.sass";
 
-export default function NavItem({ navItem }) {
+const NavItem = ({ className, navItem }) => {
   return (
-    <li className={styles.navItem}>
+    <li className={className}>
       <Link className={styles.navLink} href={navItem.path}>
         {navItem.name}
       </Link>
     </li>
   );
-}
+};
+
+export default memo(NavItem);

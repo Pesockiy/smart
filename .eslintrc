@@ -1,0 +1,10 @@
+{
+  "root": true,
+  "plugins": ["prettier"],
+  "ignorePatterns": ["node_modules/*", ".next/*", ".out/*"],
+  "extends": ["eslint:recommended", "prettier"],
+  "rules": {
+    "no-console": 1,
+    "prettier/prettier": 2
+  }
+}

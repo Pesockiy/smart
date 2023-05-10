@@ -62,7 +62,6 @@ const Preview = ({ post }) => {
 
   return isVideoPost(post) ? (
     <Video
-      showButtons
       className={styles.videoWrapper}
       ref={playerRef}
       params={{
@@ -75,6 +74,7 @@ const Preview = ({ post }) => {
       src={post.image}
       width={765}
       height={476}
+      alt={'dfd'}
       className={styles.mainImage}
     />
   );
