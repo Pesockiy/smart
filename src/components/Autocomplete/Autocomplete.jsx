@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { Autocomplete } from '@react-google-maps/api';
+import cx from 'class-names';
 
 import { useGeocoder } from '@/hooks';
 import styles from './Autocomplete.module.sass';
@@ -14,6 +15,7 @@ const GoogleAutocompleteInput = ({
   setNotFound,
   calculateDistanceFrom,
   onClear,
+  className = '',
 }) => {
   const autocompleteRef = useRef(null);
   const inputRef = useRef(null);
@@ -63,9 +65,11 @@ const GoogleAutocompleteInput = ({
 
   const hasCloseBtn = !isEmpty(searchValue);
 
+  const wrapperClassName = cx(styles.autocomplete, className);
+
   return (
     <Autocomplete
-      className={styles.autocomplete}
+      className={wrapperClassName}
       onPlaceChanged={handleChange}
       onLoad={onAutocompleteLoad}
     >

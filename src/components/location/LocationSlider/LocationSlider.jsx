@@ -43,6 +43,7 @@ const LocationSlider = ({ locations, map, onSelect }) => {
         return (
           <SwiperSlide key={location.id} className={styles.slide}>
             <LocationItem
+              className={styles.locationItem}
               location={location}
               onLocationClick={() => handleLocationClick(location)}
               selectedId={selectedId}

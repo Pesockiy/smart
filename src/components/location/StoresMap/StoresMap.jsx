@@ -109,6 +109,7 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
     <div className={styles.wrapper}>
       <div className={styles.sidebar}>
         <GoogleAutocompleteInput
+          className={styles.autocomplete}
           onPlaceChanged={onPlaceChanged}
           onLoad={onLoad}
           setMyPosition={setMyPosition}
@@ -117,6 +118,7 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
           calculateDistanceFrom={calculateDistanceFrom}
           onClear={() => setDistances([])}
         />
+
         <LocationsList
           distances={distances}
           locations={locations}

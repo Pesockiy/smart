@@ -21,8 +21,9 @@
   flex-direction: column
 
   @media screen and (max-width: #{$lg})
+    height: max-content
+    width: max-content
     position: absolute
+    z-index: 3
     left: 50%
     transform: translateX(-50%)
-    z-index: 4
-    height: max-content
