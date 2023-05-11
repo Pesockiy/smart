@@ -1,8 +1,10 @@
 import Link from 'next/link';
+import cx from 'class-names';
 
 import Img from '@/common/Img/Img';
 import { formatPostDate, truncateTextByLength } from '@/helpers';
 import styles from './BlogPinned.module.sass';
+import s from '../../Post.module.sass';
 
 const BlogPinned = ({ posts }) => {
   const [mainPost] = posts;
@@ -25,23 +27,27 @@ const BlogMainPost = ({ post }) => {
   const postPath = `/media/${post.id}`;
 
   return (
-    <div className={styles.mainPost}>
+    <div className={styles.post}>
       <Img
-        className={styles.postImage}
+        className={styles.image}
         src={post.image}
         width={874}
         height={429}
         alt={post.title}
       />
 
-      <div className={styles.mainPostContent}>
-        <div className={styles.createdAt}>{createdAt}</div>
+      <div className={styles.content}>
+        <div className={s.createdAt}>{createdAt}</div>
 
         <div className={styles.postInfoWrapper}>
-          <Link className={styles.mainTitleLink} href={postPath}>
+          <Link
+            className={cx(s.titleLink, styles.mainTitleLink)}
+            href={postPath}
+          >
             {post.title}
           </Link>
-          <p>
+
+          <p className={s.description}>
             {description}{' '}
             <Link className={styles.readMoreLink} href={postPath}>
               Read more
@@ -68,8 +74,9 @@ const BlogPinnedPostItem = ({ post }) => {
 
   return (
     <li key={post.id} className={styles.listItem}>
-      <div className={styles.createdAt}>{createdAt}</div>
-      <Link className={styles.titleLink} href={`/media/${post.id}`}>
+      <div className={s.createdAt}>{createdAt}</div>
+
+      <Link className={s.titleLink} href={`/media/${post.id}`}>
         {post.title}
       </Link>
     </li>

@@ -34,11 +34,7 @@ const LocationItem = ({
           </Text>
         </Heading>
 
-        <button
-          className={styles.arrowBtn}
-          type="button"
-          onClick={() => onLocationClick(location)}
-        >
+        <button className={styles.arrowBtn} type="button" onClick={() => onLocationClick(location)}>
           <ArrowIcon className={styles.arrow} />
         </button>
       </header>
@@ -88,9 +84,7 @@ const LocationItem = ({
           </p>
         </div>
 
-        <div className={styles.miles}>
-          {distance && <div>{distance} miles</div>}
-        </div>
+        <div className={styles.miles}>{distance && <div>{distance} miles</div>}</div>
 
         {hasBookFreeBtn && (
           <Button type="button" variant="primary" className={styles.bookBtn}>
@@ -118,7 +112,7 @@ const PhoneLink = ({ phone }) => {
   );
 };
 
-const CopyButton = (text) => {
+const CopyButton = ({ text }) => {
   const { onCopy } = useCopy();
 
   return (
