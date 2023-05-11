@@ -56,7 +56,6 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
     });
 
     setPlace(place);
-    setSelectedId(id);
   };
 
   const setMyPosition = (position) => {
@@ -68,30 +67,6 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
   const setToDefaultPosition = () => {
     setCurrentLatLng(null);
     mapRef.current?.panTo(DEFAULT_CENTER);
-  };
-  // FIXME: should i delete it?
-  const onPlaceChanged = async () => {
-    const map = mapRef.current;
-    const place = autocompleteRef.current.getPlace();
-
-    if (!place.place_id) {
-      setNotFound(true);
-      return;
-    }
-
-    const point = getLatLngByPlace(place);
-
-    const miles = await calculateRoutesDistance({
-      from: point,
-      to: markerPositions,
-    });
-
-    map.panTo(point);
-    map.setZoom(9);
-
-    setCurrentLatLng(point);
-    setDistances(miles);
-    setNotFound(false);
   };
 
   const calculateDistanceFrom = async ({ from }) => {

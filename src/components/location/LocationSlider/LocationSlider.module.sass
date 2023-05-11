@@ -10,7 +10,15 @@
     display: block
 
 .slide
-  max-width: 311px
+  max-width: 380px
 
 .locationItem
-  white-space: nowrap
+  margin-right: 16px
+
+.detailsContainer
+  width: 100%
+
+  @media screen and (max-width: #{$lg})
+    svg path
+      fill: #fff
+      flex-shrink: 0

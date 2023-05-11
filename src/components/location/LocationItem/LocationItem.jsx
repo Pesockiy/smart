@@ -8,33 +8,19 @@ import PhoneIcon from '@/common/PhoneIcon/PhoneIcon';
 import LocationIcon from '@/common/LocationIcon/LocationIcon';
 import TimeIcon from '@/common/TimeIcon/TimeIcon';
 import CopyIcon from '@/common/CopyIcon/CopyIcon';
+import LinkIcon from '@/common/LinkIcon/LinkIcon';
 import ArrowIcon from '@/assets/icons/arrow.svg';
 import styles from './LocationItem.module.sass';
-import LinkIcon from '@/common/LinkIcon/LinkIcon';
-import Img from '@/common/Img/Img';
-import LocationPNG from '@/assets/icons/location.png';
-import PhonePNG from '@/assets/icons/phone.png';
-import TimePNG from '@/assets/icons/time.png';
-import MessagePNG from '@/assets/icons/message.png';
-import CopyPNG from '@/assets/icons/copy.png';
-import LinkPNG from '@/assets/icons/link.png';
-
-// NOTE: strange issue with SVG icons;
-const Icons = {
-  location: LocationPNG,
-  phone: PhonePNG,
-  time: TimePNG,
-  message: MessagePNG,
-  copy: CopyPNG,
-  link: LinkPNG,
-};
+import Button from '@/common/Button/Button';
 
 const LocationItem = ({
   location,
   onLocationClick,
   selectedId,
   distance = null,
+  hasBookFreeBtn = false,
   className = styles.listItem,
+  detailsContainerClassName = '',
 }) => {
   const isLocationActive = (location) => location.id === selectedId;
   const wrapperClassName = cx(styles.listItem, className);
@@ -59,9 +45,11 @@ const LocationItem = ({
 
       <span className={styles.line}></span>
 
-      <div className={styles.details}>
+      <div className={cx(styles.details, detailsContainerClassName)}>
         <div className={styles.detailsItem}>
-          <Img src={Icons.location} width={20} height={20} />
+          <div>
+            <LocationIcon />
+          </div>
 
           <p>{location.address}</p>
 
@@ -69,7 +57,9 @@ const LocationItem = ({
         </div>
 
         <div className={styles.detailsItem}>
-          <Img src={Icons.phone} width={20} height={20} />
+          <div>
+            <PhoneIcon />
+          </div>
 
           <p>{location.phone}</p>
 
@@ -78,7 +68,9 @@ const LocationItem = ({
         </div>
 
         <div className={styles.detailsItem}>
-          <Img src={Icons.message} width={20} height={20} />
+          <div>
+            <MessageIcon />
+          </div>
 
           <p>{location.email}</p>
 
@@ -87,8 +79,9 @@ const LocationItem = ({
         </div>
 
         <div className={styles.detailsItem}>
-          <Img src={Icons.time} width={20} height={20} />
-
+          <div>
+            <TimeIcon />
+          </div>
           <p className={styles.schedule}>
             <span>Mon-Fri: {location.schedule.weekdays}</span>
             <span>Sat-San: {location.schedule.weekends}</span>
@@ -98,25 +91,29 @@ const LocationItem = ({
         <div className={styles.miles}>
           {distance && <div>{distance} miles</div>}
         </div>
+
+        {hasBookFreeBtn && (
+          <Button type="button" variant="primary" className={styles.bookBtn}>
+            Book a free session
+          </Button>
+        )}
       </div>
     </li>
   );
 };
 
-const EmailLink = (email) => {
+const EmailLink = ({ email }) => {
   return (
     <a href={`mailto:${email}`}>
-      {/* <LinkIcon /> */}
-      <Img src={Icons.link} width={10} height={10} />
+      <LinkIcon />
     </a>
   );
 };
 
-const PhoneLink = (phone) => {
+const PhoneLink = ({ phone }) => {
   return (
     <a href={`tel:${phone}`}>
-      {/* <LinkIcon /> */}
-      <Img src={Icons.link} width={10} height={10} />
+      <LinkIcon />
     </a>
   );
 };
@@ -126,8 +123,7 @@ const CopyButton = (text) => {
 
   return (
     <button type="button" onClick={() => onCopy(text)}>
-      {/* <CopyIcon /> */}
-      <Img src={Icons.copy} width={20} height={20} />
+      <CopyIcon />
     </button>
   );
 };
