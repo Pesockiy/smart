@@ -3,18 +3,10 @@ import { useState } from 'react';
 import { geocoder } from '@/helpers';
 import LocationItem from '../LocationItem/LocationItem';
 import styles from './LocationsList.module.sass';
+import getLocationsSortedByDistance from '@/helpers/getLocationsSortedByDistance';
 
 function LocationsList({ locations, map, onSelect, distances = [] }) {
   const [selectedId, setSelectedId] = useState(null);
-
-  const locationsWithDistance = locations.map((location, idx) => ({
-    ...location,
-    distance: distances[idx],
-  }));
-
-  const sortedByDistance = [...locationsWithDistance].sort(
-    (prev, current) => prev.distance - current.distance
-  );
 
   const onLocationClick = async (location) => {
     const place = await geocoder({ address: location.address });
@@ -30,10 +22,12 @@ function LocationsList({ locations, map, onSelect, distances = [] }) {
     }
   };
 
+  const sortedLocations = getLocationsSortedByDistance({ locations, distances });
+
   return (
     <div>
       <ul className={styles.list}>
-        {sortedByDistance.map((location) => (
+        {sortedLocations.map((location) => (
           <LocationItem
             key={location.id}
             location={location}

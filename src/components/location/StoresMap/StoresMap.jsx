@@ -100,7 +100,12 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
         />
       </div>
 
-      <LocationSlider map={mapRef.current} locations={locations} onSelect={onSelect} />
+      <LocationSlider
+        map={mapRef.current}
+        locations={locations}
+        onSelect={onSelect}
+        distances={distances}
+      />
 
       <div className={styles.mapContainer}>
         {notFound && <PlaceNotFound name={notFoundValue} />}

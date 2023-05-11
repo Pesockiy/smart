@@ -1,8 +1,8 @@
 .listItem
   +borderGradient(1px, 20px, $grayGradient)
+  height: 100%
   padding: 16px
   margin-right: 6px
-  height: max-content
   background: linear-gradient(56.68deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0) 147.05%), rgba(38, 37, 41, 0.9)
 
 .line
@@ -18,6 +18,7 @@
 .details
   display: flex
   flex-direction: column
+  flex-grow: 1
 
 .detailsItem
   display: flex
@@ -26,7 +27,7 @@
   border-radius: 14px
   padding: 8px
   transition: all 0.2s ease-out
-  align-items: center
+  align-items: flex-start
 
   a,
   button
@@ -59,13 +60,7 @@
     border: 1px solid #FF5F28
     background: linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%)
 
-  @media screen and (max-width: #{$xs})
-    font-size: 14px
-    padding: 4px 8px
-
   @media screen and (max-width: #{$md})
-    padding: 0 4px
-
     &:hover
       border: 1px solid transparent
       background: transparent
@@ -76,8 +71,12 @@
     p
       max-width: 100%
 
-  @media screen and (max-width: 430px)
-    gap: 5px
+  @media screen and (max-width: #{$xs})
+    font-size: 14px
+
+  @media screen and (max-width: 400px)
+    font-size: 12px
+    padding: 0 8px
 
   @media screen and (max-width: 320px)
     font-size: 10px
