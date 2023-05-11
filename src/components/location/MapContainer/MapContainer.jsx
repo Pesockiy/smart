@@ -31,6 +31,7 @@ const MapContainer = ({
         minZoom,
         scrollwheel: false,
         mapTypeControl: false,
+        fullscreenControl: false,
       }}
       onLoad={onMapLoad}
       center={center}
