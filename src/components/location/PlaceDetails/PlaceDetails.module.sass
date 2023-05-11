@@ -1,3 +1,5 @@
+$blackGradient: linear-gradient(56.68deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0) 147.05%)
+
 .googleInfoBox
   position: absolute
   z-index: 5
@@ -6,12 +8,16 @@
   transform: translateY(-50%)
   left: 24px
   width: 331px
-  height: 455px
+  min-height: 455px
   border-radius: 20px
   overflow: hidden
   display: flex
   flex-direction: column
-  background: linear-gradient(56.68deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0) 147.05%), rgba(38, 37, 41, 0.9)
+  background-image: #{$blackGradient}
+  background-color: rgba(38, 37, 41, 0.9)
+
+  @media screen and (max-width: #{$lg})
+    display: none
 
 .infoBoxImg
   border-radius: 20px

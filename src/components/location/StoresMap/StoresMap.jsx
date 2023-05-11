@@ -69,7 +69,7 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
     setCurrentLatLng(null);
     mapRef.current?.panTo(DEFAULT_CENTER);
   };
-
+  // FIXME: should i delete it?
   const onPlaceChanged = async () => {
     const map = mapRef.current;
     const place = autocompleteRef.current.getPlace();

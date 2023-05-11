@@ -22,7 +22,7 @@ const PlaceDetails = ({ place, onClose }) => {
             {place.rating && (
               <div className={styles.ratingWrapper}>
                 <span>{place.rating}</span>
-                <Rating rating={place.rating} />
+                <Rating rating={place.rating} count={5} />
               </div>
             )}
 

@@ -1,36 +1,70 @@
+import cx from 'class-names';
+
 import styles from './Rating.module.sass';
 
-const Rating = ({ rating }) => {
+const RatingView = ({ rating, count = 5, size = 15 }) => {
+  const width = (100 * rating) / 5;
+
   return (
-    <ul className={styles.starList}>
-      {Array.from({ length: 5 }).map((_, idx) => (
+    <div className={styles.wrapper}>
+      <StarsList
+        size={size}
+        count={count}
+        starColor="#FFC403"
+        widthInPercentage={width}
+        className={cx(styles.starList, styles.frontStarsList)}
+      />
+
+      <StarsList
+        widthInPercentage={100}
+        size={size}
+        count={count}
+        starColor="#bdc3c7"
+        className={cx(styles.starList)}
+      />
+    </div>
+  );
+};
+
+const StarsList = ({
+  count,
+  starColor,
+  size,
+  widthInPercentage = 0,
+  className = '',
+}) => {
+  return (
+    <ul className={className} style={{ width: `${widthInPercentage}%` }}>
+      {Array.from({ length: count }).map((_, idx) => (
         <li key={idx}>
-          <Star />
+          <Star size={size} fill={starColor} />
         </li>
       ))}
     </ul>
   );
 };
 
-const Star = () => {
+const Star = ({ size, fill = '#FFC403' }) => {
   return (
     <svg
-      width="13"
-      height="13"
-      viewBox="0 0 13 13"
-      fill="none"
+      width={size}
+      height={size}
       xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 47.94 47.94"
+      xmlSpace="preserve"
     >
       <path
-        d="M6.478 0.368774C6.20497 0.368774 5.93194 0.510081 5.79063 0.795089L4.22668 3.96611L0.727538 4.47385C0.100041 4.56486 -0.151437 5.33846 0.303618 5.78154L2.83516 8.24842L2.23641 11.7332C2.12863 12.3583 2.78726 12.8349 3.3477 12.5403L6.478 10.8973V0.368774Z"
-        fill="#FFC403"
-      />
-      <path
-        d="M6.43801 0.368774C6.71105 0.368774 6.98408 0.510081 7.12539 0.795089L8.68934 3.96611L12.1885 4.47385C12.816 4.56486 13.0675 5.33846 12.6124 5.78154L10.0809 8.24842L10.6796 11.7332C10.7874 12.3583 10.1288 12.8349 9.56832 12.5403L6.43801 10.8973V0.368774Z"
-        fill="#FFC403"
+        fill={fill}
+        d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
+          c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
+          c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
+          c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
+          c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
+          C22.602,0.567,25.338,0.567,26.285,2.486z"
       />
     </svg>
   );
 };
 
-export default Rating;
+export default RatingView;
