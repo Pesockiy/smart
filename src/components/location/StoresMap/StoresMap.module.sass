@@ -19,11 +19,24 @@
   height: 100%
   display: flex
   flex-direction: column
+  align-items: center
+  background-color: #141417
 
   @media screen and (max-width: #{$lg})
+    background-color: transparent
     height: max-content
     width: max-content
     position: absolute
     z-index: 3
     left: 50%
     transform: translateX(-50%)
+
+  @media screen and (max-width: #{$xs})
+    max-width: 340px
+
+  @media screen and (max-width: 400px)
+    max-width: 250px
+
+.autocompleteInput
+  max-width: 426px
+  margin: 12px 0

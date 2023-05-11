@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react';
 
-import GoogleAutocompleteInput from '@/components/Autocomplete/Autocomplete';
 import { getLatLngByPlace } from '@/helpers';
 import {
   useCalculateRoutesDistance,
@@ -16,6 +15,7 @@ import MyPositionMarker from '../MyPositionMarker/MyPositionMarker';
 import PlaceDetails from '../PlaceDetails/PlaceDetails';
 import PlaceNotFound from '../PlaceNotFound/PlaceNotFound';
 import styles from './StoresMap.module.sass';
+import AutocompleteInput from '@/components/AutoInput/AutocompleteInput';
 
 const DEFAULT_CENTER = { lat: 33.01982568565792, lng: -117.28095444398336 };
 const isPlaceAvailable = (place) => place !== null;
@@ -25,6 +25,7 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
   const autocompleteRef = useRef(null);
   const [selectedId, setSelectedId] = useState(null);
   const [notFound, setNotFound] = useState(false);
+  const [notFoundValue, setNotFoundValue] = useState('');
   const [distances, setDistances] = useState([]);
   const markerPositions = useGetLatLngByLocations({ locations: markers });
   const geocode = useGeocoder();
@@ -59,6 +60,7 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
   };
 
   const setMyPosition = (position) => {
+    console.log({ position });
     zoomByPosition({ position, zoom: 10 });
     setCurrentLatLng(position);
   };
@@ -101,22 +103,26 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
     setDistances(miles);
   };
 
-  const onLoad = (autocomplete) => {
-    autocompleteRef.current = autocomplete;
-  };
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.sidebar}>
-        <GoogleAutocompleteInput
-          className={styles.autocomplete}
-          onPlaceChanged={onPlaceChanged}
-          onLoad={onLoad}
-          setMyPosition={setMyPosition}
-          setToDefaultPosition={setToDefaultPosition}
-          setNotFound={setNotFound}
-          calculateDistanceFrom={calculateDistanceFrom}
-          onClear={() => setDistances([])}
+        <AutocompleteInput
+          className={styles.autocompleteInput}
+          onPlaceSelect={(point) => {
+            setMyPosition(point);
+            calculateDistanceFrom({ from: point });
+            setNotFoundValue('');
+          }}
+          onClear={() => {
+            setDistances([]);
+            setToDefaultPosition();
+            setNotFound(false);
+            setNotFoundValue('');
+          }}
+          onError={({ value }) => {
+            setNotFoundValue(value);
+            setNotFound(true);
+          }}
         />
 
         <LocationsList
@@ -134,7 +140,7 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
       />
 
       <div className={styles.mapContainer}>
-        {notFound && <PlaceNotFound name="Test" />}
+        {notFound && <PlaceNotFound name={notFoundValue} />}
 
         {isPlaceAvailable(place) && (
           <PlaceDetails place={place} onClose={() => setPlace(null)} />

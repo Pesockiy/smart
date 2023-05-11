@@ -1,0 +1,82 @@
+.autocomplete
+  width: 100%
+  border-radius: 12px
+  position: relative
+  z-index: 5
+
+.inputWrapper
+  position: relative
+  z-index: 4
+
+.autocompleteInput
+  +borderGradient(1px, 14px, $grayGradient)
+  width: 100%
+  min-height: 48px
+  background-image: linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%)
+  color: #fff
+  padding: 10px 135px 12px 10px
+
+  @media screen and (max-width: #{$lg})
+    background-image: none
+    background-color: #141417
+
+  &:focus
+    border: 1px solid rgba(75, 78, 91, 0.3)
+    background: #141417
+
+.activeInput
+  border: 1px solid rgba(75, 78, 91, 0.3)
+  background: #141417
+
+.clearBtn
+  position: absolute
+  top: 50%
+  transform: translateY(-50%)
+  color: #fff
+  right: 110px
+  height: 32px
+  display: flex
+  align-items: center
+
+.searchBtn
+  --color: #FF5F28
+  position: absolute
+  right: 8px
+  top: 50%
+  transform: translateY(-50%)
+  background-color: #141417
+  border-radius: 8px
+  border: 1px solid var(--color)
+  color: var(--color)
+  width: 91px
+  height: 32px
+
+  &:disabled
+    --color: #808080
+
+.suggestionList
+  padding: 15px 12px 0px 12px
+  color: #808080
+  border-color: rgba(138, 135, 135, 0.2)
+  border-color: transparent rgba(138, 135, 135, 0.2) rgba(138, 135, 135, 0.2) rgba(138, 135, 135, 0.2)
+  border-style: solid
+  border-width: 1px 1px 0px 1px
+  border-radius: 0 0 16px 16px
+  background-color: #141417
+  position: absolute
+  z-index: 2
+  left: 0
+  right: 0
+  display: block
+  top: 33px
+
+  li
+    border-bottom: 1px solid rgba(138, 135, 135, 0.2)
+    padding: 10px 0
+
+    &:hover
+      cursor: pointer
+
+.highlight
+  background-color: transparent
+  color: #fff
