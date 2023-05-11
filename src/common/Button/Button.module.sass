@@ -4,9 +4,9 @@
 
     padding: 14.5px 16px
     text-decoration: none
-    color: $whiteColor
     font-weight: 600
     letter-spacing: 0.3px
+    color: $whiteColor
 
     &:not(.base)
         +borderGradient(1px,  14px, var(--gradient))
@@ -21,8 +21,8 @@
 
     &::before
         z-index: -1
-        transition: opacity .2s ease-in-out
         background-image: var(--gradient)
+        transition: opacity .2s ease-in-out
 
     &.primary,
     &.outlined

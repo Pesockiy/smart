@@ -34,11 +34,7 @@ const LocationSlider = ({ locations, map, onSelect }) => {
   };
 
   return (
-    <Swiper
-      className={styles.slider}
-      modules={[Navigation, Virtual]}
-      slidesPerView="auto"
-    >
+    <Swiper className={styles.slider} modules={[Navigation, Virtual]} slidesPerView="auto">
       {locations.map((location) => {
         return (
           <SwiperSlide key={location.id} className={styles.slide}>

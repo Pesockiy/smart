@@ -1,24 +1,30 @@
-import Container from "@/common/Container/Container";
-import Wrapper from "@/components/Wrapper/Wrapper";
+import Container from '@/common/Container/Container';
+import Wrapper from '@/components/Wrapper/Wrapper';
 
-import styles from "./SectionContainer.module.sass";
+import styles from './SectionContainer.module.sass';
 
 const SectionContainer = ({
   wrapper = false,
   rtl = false,
   vCenter = false,
   children = null,
-  count = "02",
-  subtitle
+  count = '02',
+  subtitle,
+  t,
 }) => {
   return (
-    <Wrapper wrapper={wrapper} className={styles.SectionContainerWrap} count={count} subtitle={subtitle}>
+    <Wrapper
+      wrapper={wrapper}
+      className={styles.sectionContainerWrap}
+      count={count}
+      subtitle={subtitle}
+    >
       <Container
         disableGutters={wrapper}
-        className={styles.SectionContainerTop}
+        className={styles.sectionContainerTop}
         style={{
-          flexDirection: rtl ? "row-reverse" : "row",
-          alignItems: vCenter ? "center" : "flex-start",
+          flexDirection: rtl ? 'row-reverse' : 'row',
+          alignItems: vCenter ? 'center' : 'flex-start',
         }}
       >
         {children}

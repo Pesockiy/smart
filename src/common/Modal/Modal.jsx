@@ -31,6 +31,8 @@ const Modal = ({
 
   const closeHandler = setActive();
 
+  if(!isMenuOpen) return null;
+
   return (
     <Portal>
       <div className={classes} onClick={setActive}>

@@ -39,15 +39,17 @@
     background-clip: text
     text-fill-color: transparent
 
-=dFlex($inline: false, $jc: center, $ai: center, $gap: 0)
-    display: if($inline, inline-flex, flex)
+=dFlex($inline: inline, $jc: center, $ai: center, $gap: 0, $direction: row, $wrap: nowrap)
+    display: if($inline == inline, inline-flex, flex)
     justify-content: $jc
     align-items: $ai
     gap: $gap
+    flex-direction: $direction
+    flex-wrap: $wrap
 
-=dGrid($inline: false,$min: 200px, $fit: false, $gap: 0)
-    display: if($inline, inline-grid, grid)
-    grid-template-columns: repeat(if($fit, auto-fit, auto-fill), minmax($min, 1fr))
+=dGrid($inline: inline,$min: 200px, $fit: fit, $gap: 0)
+    display: if($inline == inline, inline-grid, grid)
+    grid-template-columns: repeat(if($fit == fit, auto-fit, auto-fill), minmax($min, 1fr))
     gap: $gap
 
 =colGap($val)
@@ -84,3 +86,11 @@
     text-overflow: ellipsis
     -webkit-line-clamp: $lines
     -webkit-box-orient: vertical
+
+=mediaMin($breakpoint)
+    @media screen and (min-width: $breakpoint)
+        @content
+
+=mediaMax($breakpoint)
+    @media screen and (max-width: $breakpoint)
+        @content

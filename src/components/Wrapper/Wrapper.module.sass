@@ -1,39 +1,54 @@
 .wrapper
     display: grid
     grid-template-columns: repeat(3, minmax(120px, 1fr))
+    height: 100%
 
-.wrapperLeftOffset
-    width: calc($xl - $adaptiveGutters / 2 + 20px)
+    .wrapperLeftOffset
+        width: calc($xl - $adaptiveGutters / 2 + 20px)
 
-.wrapperTopBlock
-    grid-area: 1 / 1 / 1 / -1
-    align-self: end
-    margin-bottom: 20px
+    .wrapperTopBlock
+        grid-area: 1 / 1 / 1 / -1
+        align-self: end
+        margin-bottom: 20px
+
+    .wrapperSideBlock
+        grid-area: 2 / 2 / 4 / 1
+        height: 100%
+
+        span
+            position: relative
+            top: -40px
+            color: $textGrayColor
+
+    .wrapperContent
+        grid-area: 2 / 1 / 2 / -1
+
+    .wrapperSideText
+        position: absolute
+        left: $offsetLeft
+        top: calc(50% + 70px)
+
+        transform: rotate(90deg) translate(-50%, -100%)
+        transform-origin: 0 0
+        animation: s .3s linear both
+
+        +mediaMax($md)
+            display: none
+
+        @keyframes s
+            from
+                opacity: 0
+            to
+                opacity: .2
+
+    .wrapperSideLine
+        transform: translateY(-5px)
+        background: linear-gradient(to right, rgba(99, 100, 121, 1),rgba(99, 100, 121, 0) 100%)
+
 
 .wrapperInner
+
     .wrapperTopBlock,
     .wrapperContent
-        padding-left: 110px
-
-.wrapperSideBlock
-    grid-area: 2 / 2 / 4 / 1
-    height: 100%
-    span
-        position: relative
-        top: -40px
-        color: #636479
-
-.wrapperContent
-    grid-area: 2 / 1 / 2 / -1
-
-.wrapperSideText
-    position: fixed
-    left: $offsetLeft
-    top: 50%
-    transform: rotate(90deg) translate(-50%, -100%)
-    transform-origin: 0 0
-    opacity: 0.2
-
-.wrapperSideLine
-    transform: translateY(-5px)
-    background: linear-gradient(180deg, #636479 0%, rgba(99, 100, 121, 0) 100%)
+        +mediaMin($md)
+            padding-left: 110px

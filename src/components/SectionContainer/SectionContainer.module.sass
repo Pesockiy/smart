@@ -1,26 +1,22 @@
-.SectionContainer
-    display: flex
-    flex-direction: column
-    justify-content: center
-    align-items: center
+.sectionContainer
+    +dFlex(flex, center, center, 0, column)
     min-height: 100vh
     padding-bottom: 80px
 
-.SectionContainerWrap
+.sectionContainerWrap
     display: grid
     grid-template-columns: repeat(3, minmax(120px, 1fr))
 
-.SectionContainerTop
-    +dFlex(false, space-between, center)
-    gap: 52px 70px
-    flex-wrap: wrap
+.sectionContainerTop
+    +dFlex(flex, space-between, center, 52px 70px, row, wrap)
     flex-basis: auto
+    padding-left: 0!important
+    padding-right: 0!important
 
-.SectionContainerTop,
-.SectionContainerTopBlock
-    flex-basis: calc(100% - 110px)
+// .sectionContainerTop,
+// .sectionContainerTopBlock
+//     +mediaMin($lg)
+//         flex-basis: calc(100% - 110px)
 
-.SectionContainerTopBlock
+.sectionContainerTopBlock
     margin-bottom: 20px
-
-

@@ -1,45 +1,40 @@
-import React, { useState, useRef, useEffect } from "react";
 import cx from "class-names";
 
 import Container from "@/common/Container/Container";
 import Line from "@/common/Line/Line";
-import Portal from "../Portal/Portal";
 
 import styles from "./Wrapper.module.sass";
 
 const Wrapper = ({
   wrapper = false,
+  scrollText = true,
   topText = "Scroll",
   count = "02",
   children = null,
   className = "",
-  subtitle = "Why Smart Fit",
+  subtitle = "",
 }) => {
   const classes = cx(styles.wrapper, className, {
-    [styles.wrapperLeftOffset]: wrapper,
     [styles.wrapperInner]: wrapper,
   });
 
-  const [isSideTextVisible, setIsSideTextVisible] = useState(true);
-  const ref = useRef(null);
-
   return (
-    <Container className={classes} fixed ref={ref}>
+    <Container className={classes}>
       {wrapper && topText && (
         <>
           <div className={styles.wrapperSideBlock}>
             <span>/{count}</span>
-            {isSideTextVisible && (
-              <Portal>
-                <div className={styles.wrapperSideText}>
-                  {topText} <Line inline className={styles.wrapperSideLine} />
-                </div>
-              </Portal>
+            {scrollText && (
+              <div className={styles.wrapperSideText}>
+                {topText} <Line inline className={styles.wrapperSideLine} />
+              </div>
             )}
           </div>
-          <Container className={styles.wrapperTopBlock}>
-            <div>{`/ ${subtitle}`}</div>
-          </Container>
+          {wrapper && (
+            <Container className={styles.wrapperTopBlock}>
+              <div>{`/ ${subtitle}`}</div>
+            </Container>
+          )}
         </>
       )}
       <div className={styles.wrapperContent}>{children}</div>

@@ -1,0 +1,88 @@
+$orangeGradient:linear-gradient(185.53deg, #FF5F28 -4.14%, rgba(255, 95, 40, 0) 96.54%)
+$greyGradient:linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%)
+$blackGradient:linear-gradient(180.43deg, rgba(251, 205, 191, 0.15) -27.54%, rgba(251, 205, 191, 0) 100.66%)
+$backgroundGradient: linear-gradient(56.68deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 147.05%)
+$titleGradient: linear-gradient(268.93deg, #FEDCAE 0%, #E9531A 101.83%)
+
+.title
+  +textGradient($titleGradient)
+
+
+.wrapper
+  display: flex
+  flex-direction: row
+  gap: 20px
+
+  @media screen and (max-width: #{$md})
+    flex-direction: column
+
+.mainPost
+  +borderGradient(1px, 20px, #{$greyGradient})
+  max-width: 874px
+  width: 100%
+  background-image: #{$backgroundGradient}
+  background-color: rgba(38, 37, 41, 0.3)
+  border-radius: 20px
+
+  p
+    font-weight: 400
+    font-size: 17px
+    line-height: 156%
+    letter-spacing: -0.04px
+
+
+.mainPostContent
+  display: flex
+  align-items: center
+  flex-direction: column
+  align-items: flex-start
+  gap: 16px
+  padding: 16px
+
+.mainTitleLink,
+.titleLink
+  display: block
+  margin: 12px 0 16px 0
+  font-weight: 600
+  font-size: 21px
+  line-height: 150%
+  letter-spacing: -0.3px
+  text-decoration: none
+  color: #E5E5EA
+
+.mainTitleLink
+  margin-top: 0
+
+.createdAt
+  font-weight: 500
+  font-size: 15px
+  line-height: 156%
+  letter-spacing: 0.02em
+  text-transform: uppercase
+  color: #636479
+
+.readMoreLink
+  color: #FF5F28
+  text-decoration: none
+
+.list
+  display: flex
+  flex-direction: column
+  gap: 20px
+
+.listItem
+  +borderGradient(1px, 20px, #{$greyGradient})
+  padding: 20px
+  background-image: #{$backgroundGradient}
+  background-color: rgba(38, 37, 41, 0.3)
+
+.postInfoWrapper
+  display: flex
+  gap: 24px
+
+  @media screen and (max-width: #{$lg})
+    flex-direction: column
+    gap: 8px
+
+.postImage
+  border-radius: 20px

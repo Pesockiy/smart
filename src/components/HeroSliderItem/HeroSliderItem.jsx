@@ -23,7 +23,6 @@ const HeroSliderItem = ({
   className,
   onClick = () => {},
 }) => {
-  const { title } = slideData;
   const swiper = useSwiper();
 
   const swiperSlide = useSwiperSlide();
@@ -45,10 +44,10 @@ const HeroSliderItem = ({
     <div className={classes}>
       <div className={heroSliderVideoWrap}>
         <Video
+          showButtons
           className={heroSliderVideo}
           buttonClassName={heroVideoButton}
           ref={playerRef}
-          showButtons={true}
           play={swiperSlide.isActive}
           progressBar={swiperSlide.isActive}
           onEnd={slideNextHandler}
@@ -58,14 +57,14 @@ const HeroSliderItem = ({
           }}
           params={{
             muted: true,
-            src: `/videos/${index}.mp4`,
+            src: slideData.fields.file.url,
           }}
         />
       </div>
       <div className={heroSliderTextWrap}>
         <div className={heroSliderNumberSlide}>/{index}</div>
         <Heading size="sm" className={heroSliderHeading}>
-          {title}
+          {slideData.fields?.description}
         </Heading>
       </div>
     </div>

@@ -1,0 +1,82 @@
+$orangeGradient:linear-gradient(185.53deg, #FF5F28 -4.14%, rgba(255, 95, 40, 0) 96.54%)
+$greyGradient:linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%)
+$blackGradient:linear-gradient(180.43deg, rgba(251, 205, 191, 0.15) -27.54%, rgba(251, 205, 191, 0) 100.66%)
+
+.prevBtn,
+.nextBtn
+  +borderGradient(1px, 14px, #{$greyGradient})
+  min-width: 48px
+  min-height: 48px
+  padding: 10px
+  color: #fff
+  background-image: #{$blackGradient}
+  user-select: none
+
+  &:hover
+    +borderGradient(1px, 14px, #{$orangeGradient})
+
+  &:disabled
+    opacity: 0.3
+
+.stepsList
+  display: flex
+  align-items: center
+  justify-content: center
+  gap: 8px
+  user-select: none
+
+.stepBtn
+  +borderGradient(1px,  14px, #{$greyGradient})
+  min-width: 48px
+  min-height: 48px
+  padding: 10px
+  color: #E5E5EA
+  background-image: #{$blackGradient}
+  user-select: none
+
+  &:hover
+    +borderGradient(1px, 14px, #{$orangeGradient})
+
+
+.paginationWrapper
+  display: flex
+  justify-content: center
+  flex-flow: row wrap
+  gap: 10px
+
+  @media screen and (max-width: #{$sm})
+    display: none
+
+.dot
+  display: flex
+  align-items: flex-end
+  justify-content: center
+  min-width: 48px
+  min-height: 48px
+  padding: 10px
+  color: #E5E5EA
+
+.activeDot
+  +borderGradient(1px, 14px, #{$orangeGradient})
+
+
+.leftArrow
+  transform: rotate(90deg)
+
+
+.rightArrow
+  transform: rotate(-90deg)
+
+.mobilePagination
+  display: none
+  flex-flow: column wrap
+  justify-items: center
+  align-items: center
+  gap: 10px
+
+  @media screen and (max-width: #{$sm})
+    display: flex
+
+.leftRightBtnWrapper
+  display: flex
+  gap: 10px

@@ -1,12 +1,9 @@
 .container
     +mxAuto
-    max-width: $containerLg
     width: 100%
-    padding: 0 $adaptiveGutters
 
-.maxWidthNone
-    max-width: 100%
+    &:not(.maxWidthNone)
+        max-width: $containerLg
 
-.disableGutters
-    padding-left: 0
-    padding-right: 0
+    &:not(.disableGutters)
+        padding: 0 $adaptiveGutters

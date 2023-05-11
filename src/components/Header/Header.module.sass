@@ -7,52 +7,96 @@
     padding: 37px 0 33px
     transition: background-color .3s
 
-    .headerLangButton
-        width: 125px
-        align-items: center
-        justify-content: space-between
-        padding: 8px 10px 8px 12px
+    +mediaMax($lg)
+        height: 80px
+        padding: 20px 0
+        background-color: $blackColor
 
-        border-radius: 8px
-        background-color: $darkGrayColor
+    &.isHeaderScroled
+        background-color: $blackColor
 
     .headerInner
-        display: flex
-        align-items: center
-        justify-content: space-between
+        +dFlex(flex, space-between, center)
+        +colGap(80px)
 
+    .headerNavWrap,
     .headerNav
-        column-gap: 30px
+        +dFlex(flex, space-between, center)
+        width: 100%
 
-    .headerLeft,
-    .headerRight,
-    .headerNav
-        display: inherit
-        align-items: inherit
-
-    .headerLeft
-        +colGap(100px)
-
-    .headerRight
+    .headerNavWrap
         +colGap(50px)
+        +mediaMax($lg)
+            display: none
+            position: fixed
+            inset: 0
+            top: 80px
+            padding: 60px $adaptiveGutters 60px
+
+            background-color: $darkGrayColor
+
+            &.isOpen
+                +dFlex(flex, flex-start, flex-start, 46px, column)
+
+    .headerNav
+        +colGap(30px)
+        justify-content: flex-end
+
+        +mediaMax($lg)
+            +dFlex(flex, flex-start, flex-start, 25px, column)
+            width: 100%
+            font: 600 40px/1.16 $headingFont
+
+    .headerNavItem
+        +mediaMax($lg)
+            position: relative
+            width: 100%
+
+            &:not(:last-child)::after
+                content: ''
+                position: absolute
+                bottom: -15px
+                left: 0
+                right: 0
+                height: 1px
+                background: linear-gradient(90deg, $textGrayColor 30%, $whiteColor 100%)
+
+    .headerLogo
+        +mediaMax($lg)
+            width: 162px
 
     .headerBlocks
+        +dGrid(grid, 200px, fit, 20px)
         +mxAuto
-        display: grid
-        gap: 20px
-        padding: 30px
         max-width: max-content
+        padding: 30px
 
         border-radius: 20px
         backdrop-filter: blur(4px)
 
+    .headerSelectLocation
+        flex-shrink: 0
+
+        +mediaMax($lg)
+            order: 3
+            width: 100%
+            margin-bottom: auto
+
     .headerButton
+        flex-shrink: 0
         padding-left: 35px
         padding-right: 35px
+
         letter-spacing: 0.3px
 
-.headerScroled
-    background-color: $blackColor
+        +mediaMax($lg)
+            display: none
 
-.arrow
-    fill: transparent
+    .headerMenuButton
+        +mediaMax($lg)
+            position: fixed
+            top: 25px
+            right: $adaptiveGutters
+
+        +mediaMin($lg)
+            display: none

@@ -3,10 +3,10 @@ import cx from "class-names";
 
 import { useVideo } from "@/hooks";
 
-import ProgressBar from "../ProgressBar/ProgressBar";
+import ProgressBar from "@/common/ProgressBar/ProgressBar";
 
-import Play from "@/assets/icons/Play.svg";
-import Pause from "@/assets/icons/Pause.svg";
+import IconPlay from "@/assets/icons/Play.svg";
+import IconPause from "@/assets/icons/Pause.svg";
 
 import styles from "./Video.module.sass";
 
@@ -36,16 +36,11 @@ const Video = ({
       <video ref={videoRef} className={styles.video} {...params}></video>
       {children}
       {showButtons && (
-        <div
-          className={cx(styles.videoButton, buttonClassName)}
-          onClick={playToggler}
-        >
-          {isPlay ? <Pause /> : <Play />}
+        <div className={cx(styles.videoButton, buttonClassName)} onClick={playToggler}>
+          {isPlay ? <IconPause /> : <IconPlay />}
         </div>
       )}
-      {progressBar && (
-        <ProgressBar progress={progress} className={styles.pvideProgress} />
-      )}
+      {progressBar && <ProgressBar progress={progress} className={styles.pvideProgress} />}
     </div>
   );
 };
