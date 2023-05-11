@@ -4,13 +4,12 @@ import { Navigation, Virtual } from 'swiper';
 import 'swiper/css/navigation';
 import 'swiper/css';
 
-import { useGeocoder } from '@/hooks';
 import styles from './LocationSlider.module.sass';
 import LocationItem from '../LocationItem/LocationItem';
+import { geocoder } from '@/helpers';
 
 const LocationSlider = ({ locations, map, onSelect }) => {
   const [selectedId, setSelectedId] = useState(null);
-  const geocode = useGeocoder();
 
   useEffect(() => {
     if (map) {
@@ -19,7 +18,7 @@ const LocationSlider = ({ locations, map, onSelect }) => {
   }, [map]);
 
   const handleLocationClick = async (location) => {
-    const place = await geocode({ address: location.address });
+    const place = await geocoder({ address: location.address });
 
     const coordinates = place.results[0].geometry.location;
 

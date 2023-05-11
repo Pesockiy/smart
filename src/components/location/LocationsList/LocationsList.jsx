@@ -1,11 +1,11 @@
-import { useGeocoder } from '@/hooks';
 import { useState } from 'react';
+
+import { geocoder } from '@/helpers';
 import LocationItem from '../LocationItem/LocationItem';
 import styles from './LocationsList.module.sass';
 
 function LocationsList({ locations, map, onSelect, distances = [] }) {
   const [selectedId, setSelectedId] = useState(null);
-  const geocode = useGeocoder();
 
   const locationsWithDistance = locations.map((location, idx) => ({
     ...location,
@@ -17,7 +17,7 @@ function LocationsList({ locations, map, onSelect, distances = [] }) {
   );
 
   const onLocationClick = async (location) => {
-    const place = await geocode({ address: location.address });
+    const place = await geocoder({ address: location.address });
 
     const coordinates = place.results[0].geometry.location;
 

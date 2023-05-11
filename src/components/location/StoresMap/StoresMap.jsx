@@ -1,12 +1,7 @@
 import { useRef, useState } from 'react';
 
-import { getLatLngByPlace } from '@/helpers';
-import {
-  useCalculateRoutesDistance,
-  useGeocoder,
-  useGetLatLngByLocations,
-  usePlaceService,
-} from '@/hooks';
+import { calculateRoutesDistance, geocoder } from '@/helpers';
+import { usePlaceService } from '@/hooks';
 import ClustererView from '../Clusterer/ClustererView';
 import LocationSlider from '../LocationSlider/LocationSlider';
 import LocationsList from '../LocationsList/LocationsList';
@@ -16,21 +11,19 @@ import PlaceDetails from '../PlaceDetails/PlaceDetails';
 import PlaceNotFound from '../PlaceNotFound/PlaceNotFound';
 import styles from './StoresMap.module.sass';
 import AutocompleteInput from '@/components/AutoInput/AutocompleteInput';
+import useGetMarkerPositionsByLocations from '@/hooks/useGetMarkerPositionsByLocations';
 
 const DEFAULT_CENTER = { lat: 33.01982568565792, lng: -117.28095444398336 };
 const isPlaceAvailable = (place) => place !== null;
 
 const StoresMap = ({ mapContainerClassName, locations, markers }) => {
   const mapRef = useRef(null);
-  const autocompleteRef = useRef(null);
   const [selectedId, setSelectedId] = useState(null);
   const [notFound, setNotFound] = useState(false);
   const [notFoundValue, setNotFoundValue] = useState('');
   const [distances, setDistances] = useState([]);
-  const markerPositions = useGetLatLngByLocations({ locations: markers });
-  const geocode = useGeocoder();
+  const markerPositions = useGetMarkerPositionsByLocations({ locations: markers });
   const getPlaceDetails = usePlaceService();
-  const calculateRoutesDistance = useCalculateRoutesDistance();
 
   const [currentLatLng, setCurrentLatLng] = useState(null);
   const [place, setPlace] = useState(null);
@@ -49,7 +42,7 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
 
     const location = locations.find((l) => l.id === id);
 
-    const point = await geocode({ address: location.address });
+    const point = await geocoder({ address: location.address });
     const place = await getPlaceDetails({
       placeId: point.results[0].place_id,
       map: mapRef.current,
@@ -59,7 +52,6 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
   };
 
   const setMyPosition = (position) => {
-    console.log({ position });
     zoomByPosition({ position, zoom: 10 });
     setCurrentLatLng(position);
   };
@@ -108,18 +100,12 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
         />
       </div>
 
-      <LocationSlider
-        map={mapRef.current}
-        locations={locations}
-        onSelect={onSelect}
-      />
+      <LocationSlider map={mapRef.current} locations={locations} onSelect={onSelect} />
 
       <div className={styles.mapContainer}>
         {notFound && <PlaceNotFound name={notFoundValue} />}
 
-        {isPlaceAvailable(place) && (
-          <PlaceDetails place={place} onClose={() => setPlace(null)} />
-        )}
+        {isPlaceAvailable(place) && <PlaceDetails place={place} onClose={() => setPlace(null)} />}
 
         <MapContainer
           onLoad={(map) => {

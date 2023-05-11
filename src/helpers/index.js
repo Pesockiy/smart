@@ -6,6 +6,10 @@ import geocoder from './geocoder';
 import getLatLngByPlace from './getLatLngByPlace';
 import getPlacePredictions from './getPlacePredictions';
 import { isEmpty } from './isEmpty';
+import computeDistanceBetweenPoints from './computeDistanceBetweenPoints';
+import calculateDistance from './calculateDistance';
+import calculateRoutesDistance from './calculateRoutesDistance';
+import getLatLngByLocations from './getLatLngByLocations';
 
 export {
   truncateTextByLength,
@@ -17,4 +21,8 @@ export {
   getLatLngByPlace,
   geocoder,
   getPlacePredictions,
+  computeDistanceBetweenPoints,
+  calculateDistance,
+  calculateRoutesDistance,
+  getLatLngByLocations,
 };
