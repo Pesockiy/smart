@@ -14,6 +14,7 @@ export default function Button({
   variant = '',
   base = false,
   href = '',
+  type = 'button',
 }) {
   const classes = cx(
     styles[variant],
@@ -32,12 +33,14 @@ export default function Button({
         {children}
       </Link>
     );
-  } else {
-    const TagName = as;
-    return (
-      <TagName onClick={onClick} disabled={disabled} className={classes}>
-        {children}
-      </TagName>
-    );
   }
+
+  const TagName = as;
+  const btnType = TagName === 'button' ? { type } : {};
+
+  return (
+    <TagName {...btnType} onClick={onClick} disabled={disabled} className={classes}>
+      {children}
+    </TagName>
+  );
 }
