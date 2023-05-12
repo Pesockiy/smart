@@ -14,6 +14,7 @@ const Button = forwardRef(({
   variant = '',
   base = false,
   href = '',
+  type = 'button',
 }, ref) => {
   const classes = cx(
     styles[variant],
@@ -32,14 +33,14 @@ const Button = forwardRef(({
         {children}
       </Link>
     );
-  } else {
-    const TagName = as;
-    return (
-      <TagName ref={ref} onClick={onClick} disabled={disabled} className={classes}>
-        {children}
-      </TagName>
-    );
   }
-});
 
-export default Button;
+  const TagName = as;
+  const btnType = TagName === 'button' ? { type } : {};
+
+  return (
+    <TagName ref={ref} {...btnType} onClick={onClick} disabled={disabled} className={classes}>
+      {children}
+    </TagName>
+  );
+})

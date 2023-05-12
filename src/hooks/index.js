@@ -7,6 +7,7 @@ import useCopy from './useCopy';
 import useIsMounted from './useIsMounted';
 import usePostInfiniteScroll from './usePostInfiniteScroll';
 import usePlaceService from './usePlaceService';
+import useHandleCountryPhoneOptions from './useHandleCountryPhoneOptions';
 
 export {
   useToggle,
@@ -18,4 +19,5 @@ export {
   useCopy,
   useIsMounted,
   usePlaceService,
+  useHandleCountryPhoneOptions,
 };
