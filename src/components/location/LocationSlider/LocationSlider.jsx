@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Virtual } from 'swiper';
 import 'swiper/css/navigation';
 import 'swiper/css';
 
-import { useGeocoder } from '@/hooks';
 import styles from './LocationSlider.module.sass';
 import LocationItem from '../LocationItem/LocationItem';
+import { geocoder } from '@/helpers';
+import getLocationsSortedByDistance from '@/helpers/getLocationsSortedByDistance';
 
-const LocationSlider = ({ locations, map, onSelect }) => {
+const LocationSlider = ({ locations, map, onSelect, distances = [] }) => {
   const [selectedId, setSelectedId] = useState(null);
-  const geocode = useGeocoder();
 
   useEffect(() => {
     if (map) {
@@ -19,7 +18,7 @@ const LocationSlider = ({ locations, map, onSelect }) => {
   }, [map]);
 
   const handleLocationClick = async (location) => {
-    const place = await geocode({ address: location.address });
+    const place = await geocoder({ address: location.address });
 
     const coordinates = place.results[0].geometry.location;
 
@@ -33,9 +32,11 @@ const LocationSlider = ({ locations, map, onSelect }) => {
     }
   };
 
+  const sortedLocations = getLocationsSortedByDistance({ locations, distances });
+
   return (
-    <Swiper className={styles.slider} modules={[Navigation, Virtual]} slidesPerView="auto">
-      {locations.map((location) => {
+    <Swiper className={styles.slider} slidesPerView="auto" spaceBetween={16}>
+      {sortedLocations.map((location) => {
         return (
           <SwiperSlide key={location.id} className={styles.slide}>
             <LocationItem
@@ -45,6 +46,7 @@ const LocationSlider = ({ locations, map, onSelect }) => {
               detailsContainerClassName={styles.detailsContainer}
               onLocationClick={() => handleLocationClick(location)}
               selectedId={selectedId}
+              distance={location.distance}
             />
           </SwiperSlide>
         );

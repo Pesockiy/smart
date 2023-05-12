@@ -83,15 +83,15 @@ const LocationItem = ({
             <span>Sat-San: {location.schedule.weekends}</span>
           </p>
         </div>
-
-        <div className={styles.miles}>{distance && <div>{distance} miles</div>}</div>
-
-        {hasBookFreeBtn && (
-          <Button type="button" variant="primary" className={styles.bookBtn}>
-            Book a free session
-          </Button>
-        )}
       </div>
+
+      <div className={styles.miles}>{distance && <div>{distance} miles</div>}</div>
+
+      {hasBookFreeBtn && (
+        <Button type="button" variant="primary" className={styles.bookBtn}>
+          Book a free session
+        </Button>
+      )}
     </li>
   );
 };

@@ -1,15 +1,16 @@
 import { useRef, useState } from 'react';
+
 import Button from '@/common/Button/Button';
 import Container from '@/common/Container/Container';
 import Heading from '@/common/Heading/Heading';
 import Text from '@/common/Text/Text';
-import { useGetLatLngByLocations } from '@/hooks';
 import { useLoadScript } from '@react-google-maps/api';
 import styles from './ChooseLocation.module.sass';
 import { locationsMock } from '@/mock/locations';
 import MapContainer from '../location/MapContainer/MapContainer';
 import ClustererView from '../location/Clusterer/ClustererView';
 import { geocoder, getLatLngByPlace } from '@/helpers';
+import useGetMarkerPositionsByLocations from '@/hooks/useGetMarkerPositionsByLocations';
 
 const libraries = ['places', 'geometry'];
 
@@ -35,8 +36,7 @@ const ChooseLocation = ({ locations = locationsMock }) => {
 const ChooseLocationMap = ({ locations, isLoaded }) => {
   const mapRef = useRef(null);
   const [selectedId, setSelectedId] = useState(null);
-  // FIXME: google is not defined;
-  const markerPositions = useGetLatLngByLocations({ locations, isLoaded });
+  const markerPositions = useGetMarkerPositionsByLocations({ locations });
 
   const zoomByPosition = ({ position, zoom = 13 }) => {
     const map = mapRef.current;
@@ -65,11 +65,7 @@ const ChooseLocationMap = ({ locations, isLoaded }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.sidebar}>
-        <OptionsList
-          onSelect={onSelect}
-          options={locations}
-          selectedId={selectedId}
-        />
+        <OptionsList onSelect={onSelect} options={locations} selectedId={selectedId} />
         <Button variant="primary" className={styles.nextBtn}>
           Next
         </Button>
