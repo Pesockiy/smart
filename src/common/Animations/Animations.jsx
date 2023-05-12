@@ -4,39 +4,45 @@ import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Animation = ({ stagger = 0.05, duration = 0.5, children = null }) => {
+const Animation = ({
+  targets = null,
+  children = null,
+  stagger = 0.05,
+  delay = 0.1,
+  duration = 0.5,
+  ease = 'power4',
+  toX = false,
+  startY = 40,
+  startX = 40,
+  toggleActions = 'play pause resume pause',
+}) => {
   useEffect(() => {
-    const targets = document.querySelectorAll('section div');
-
-    if (targets.length) {
+    if (targets?.length) {
       gsap.set(targets, {
+        scrollTrigger: {
+          toggleActions,
+        },
         opacity: 0,
-        y: 40,
+        y: toX ? 0 : startY,
+        x: toX ? startX : 0,
       });
     }
-  }, [children]);
+  }, []);
 
   useEffect(() => {
-    const targets = document.querySelectorAll('section div');
-
     ScrollTrigger.batch(targets, {
-      start: 'top bottom',
-      end: '+=100%',
       onEnter: (elements) =>
         gsap.to(elements, {
           opacity: 1,
           y: 0,
+          x: 0,
           duration,
+          delay,
           stagger,
-          ease: 'power2.out',
+          ease,
         }),
-      once: false,
     });
   }, []);
-
-  useEffect(() => {
-    ScrollTrigger.refresh();
-  }, [children]);
 
   return <>{children}</>;
 };

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import Link from 'next/link';
 import cx from 'class-names';
 
 import styles from './Button.module.sass';
 
-export default function Button({
+const Button = forwardRef(({
   onClick = () => {},
   disabled = false,
   outlined = false,
@@ -14,7 +14,7 @@ export default function Button({
   variant = '',
   base = false,
   href = '',
-}) {
+}, ref) => {
   const classes = cx(
     styles[variant],
     styles.button,
@@ -28,16 +28,18 @@ export default function Button({
 
   if (href) {
     return (
-      <Link disabled={disabled} className={classes} href={href}>
+      <Link ref={ref} disabled={disabled} className={classes} href={href}>
         {children}
       </Link>
     );
   } else {
     const TagName = as;
     return (
-      <TagName onClick={onClick} disabled={disabled} className={classes}>
+      <TagName ref={ref} onClick={onClick} disabled={disabled} className={classes}>
         {children}
       </TagName>
     );
   }
-}
+});
+
+export default Button;

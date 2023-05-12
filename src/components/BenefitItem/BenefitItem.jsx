@@ -1,17 +1,17 @@
-import React from "react";
-import cx from "class-names";
+import { forwardRef } from 'react';
+import cx from 'class-names';
 
-import Img from "@/common/Img/Img";
-import Heading from "@/common/Heading/Heading";
-import Text from "@/common/Text/Text";
+import Img from '@/common/Img/Img';
+import Heading from '@/common/Heading/Heading';
+import Text from '@/common/Text/Text';
 
-import styles from "./BenefitItem.module.sass";
+import styles from './BenefitItem.module.sass';
 
-const BenefitItem = ({ className, item }) => {
+const BenefitItem = forwardRef(({ className, item }, ref) => {
   const { icon, title, text } = item;
 
   return (
-    <div className={cx(styles.benefitItem, className)}>
+    <div ref={ref} className={cx(styles.benefitItem, className)}>
       <div className={styles.img}>
         <Img src={icon} width={48} height={48} />
       </div>
@@ -21,5 +21,5 @@ const BenefitItem = ({ className, item }) => {
       <Text className={styles.text}>{text}</Text>
     </div>
   );
-};
+});
 export default BenefitItem;

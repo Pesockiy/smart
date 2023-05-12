@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useRef } from 'react';
 import cx from 'class-names';
 
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
@@ -12,6 +12,7 @@ import Line from '@/common/Line/Line';
 import Chip from '@/common/Chip/Chip';
 import HeroSlider from '@/components/HeroSlider/HeroSlider';
 import SectionContainer from '@/components/SectionContainer/SectionContainer';
+import Animation from '@/common/Animations/Animations';
 
 import VideoPoster from '../../../public/images/Video.jpg';
 
@@ -19,6 +20,7 @@ import styles from './Hero.module.sass';
 
 const Hero = ({ data }) => {
   const { videosInTheSliderOnTheHomePage, richText } = data;
+  const itemsRefs = useRef([]);
 
   const options = {
     renderNode: {
@@ -27,7 +29,7 @@ const Hero = ({ data }) => {
         const { value } = content[0];
 
         return (
-          <Heading as={`h${nodeType[nodeType.length - 1]}`}>
+          <Heading ref={pushAnimateRef} as={`h${nodeType[nodeType.length - 1]}`}>
             <Text as="span" gradient>
               {value}
             </Text>
@@ -41,32 +43,54 @@ const Hero = ({ data }) => {
 
   const toggleModalHandler = useCallback(() => setModalActive((prev) => !prev), []);
 
+  const pushAnimateRef = (item) => itemsRefs.current.push(item);
+
   return (
     <section className={cx(styles.hero)}>
       <SectionContainer vCenter>
-        <div className={styles.heroTextWrap}>
-          <div className={styles.heroSubtitle}>
-            Stop wasting time <Line inline /> <span> Get Smart Fit</span>
-          </div>
-          <TitleRichText />
+        <Animation
+          toggleActions={''}
+          duration={0.4}
+          startY={50}
+          stagger={0.1}
+          targets={itemsRefs.current}
+        >
+          <div className={styles.heroTextWrap}>
+            <div ref={pushAnimateRef} className={styles.heroSubtitle}>
+              Stop wasting time <Line inline /> <span> Get Smart Fit</span>
+            </div>
+            <TitleRichText />
 
-          <div className={styles.heroTextsBottom}>
-            <Text>
-              Our method builds strength, optimises hormones, and burns fat so we can elevate our
-              clients to their maximum potential.
-            </Text>
-            <div className={styles.heroButtons}>
-              <Button variant="primary" className={styles.heroButton}>
-                Book a free workout
-              </Button>
+            <div className={styles.heroTextsBottom}>
+              <Text ref={pushAnimateRef}>
+                Our method builds strength, optimises hormones, and burns fat so we can elevate our
+                clients to their maximum potential.
+              </Text>
+              <div className={styles.heroButtons}>
+                <Button ref={pushAnimateRef} variant="primary" className={styles.heroButton}>
+                  Book a free workout
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className={cx(styles.heroVideoWrap)}>
-          <Img className={styles.heroImg} src={VideoPoster} alt="alt" width="100%" height="100%" />
-          <Chip onClick={toggleModalHandler} label="Video" className={styles.heroVideoChip} />
-        </div>
+          <div className={cx(styles.heroVideoWrap)}>
+            <Img
+              ref={(item) => itemsRefs.current.unshift(item)}
+              className={styles.heroImg}
+              src={VideoPoster}
+              alt="alt"
+              width="100%"
+              height="100%"
+            />
+            <Chip
+              ref={pushAnimateRef}
+              onClick={toggleModalHandler}
+              label="Video"
+              className={styles.heroVideoChip}
+            />
+          </div>
+        </Animation>
       </SectionContainer>
       <HeroSlider sliderData={videosInTheSliderOnTheHomePage} className={styles.heroSlider} />
     </section>

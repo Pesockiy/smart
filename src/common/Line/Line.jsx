@@ -1,9 +1,9 @@
-import React from "react";
-import cx from "class-names";
+import { forwardRef } from 'react';
+import cx from 'class-names';
 
-import styles from "./Line.module.sass";
+import styles from './Line.module.sass';
 
-const Line = ({ width = "32px", inline = false, className = "" }) => {
+const Line = forwardRef(({ width = '32px', inline = false, className = '' }, ref) => {
   const classes = cx(
     styles.line,
     {
@@ -12,7 +12,7 @@ const Line = ({ width = "32px", inline = false, className = "" }) => {
     className
   );
 
-  return <div style={{ width: width }} className={classes} />;
-};
+  return <div ref={ref} style={{ width: width }} className={classes} />;
+});
 
 export default Line;

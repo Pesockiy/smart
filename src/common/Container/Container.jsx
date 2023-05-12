@@ -31,7 +31,7 @@ const Container = forwardRef(
       <TagName
         ref={ref}
         className={classes}
-        style={{ maxWidth: fixed && "100%", ...style }}
+        // style={{ maxWidth: fixed && "100%", ...style }}
       >
         {children}
       </TagName>

@@ -1,4 +1,113 @@
 .footer
-    height: 200px
     margin-top: auto
-    background-color: #333
+    padding-top: 64px
+    padding-bottom: 64px
+
+    .footerInner
+        position: relative
+        // display: flex
+        // gap: 20px
+
+    .footerTop,
+    .footerNavWrap,
+    .footerBottomLinksWrap
+        +dFlex(flex, space-between, stretch, 50px 111px, row, wrap)
+
+    .footerTextWrap,
+    .footerCopyRightWrap,
+    .footerNavWrap,
+    .footerBottomLinksWrap
+        width: 100%
+        
+    .footerTextWrap,
+    .footerCopyRightWrap
+        flex: 1
+        // max-width: 450px
+        width: 100%
+
+    .footerCopyRightWrap
+        flex-shrink: 0
+        flex-basis: 30%
+        +mediaMax($sm)
+            order: 1
+
+    .footerTextWrap
+        +clamp(row-gap, 24px, 5vw, 40px)
+        display: flex
+        flex-direction: column
+        min-width: 300px
+        min-height: 250px
+        +mediaMax($xs)
+            order: 1
+
+    .footerBottom
+        +dFlex(flex, space-between, stretch, 50px 111px)
+        row-gap: 24px
+        +mediaMax($md)
+            flex-wrap: wrap
+
+    .footerBottom,
+    .footerBottomLine
+        +clamp(margin-top, 5vw, 48px, 65px)
+
+    .footerBottomLine
+        background: linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%)
+        +mediaMin($md)
+            display: none
+
+    .footerForm
+        +dFlex(flex, flex-start, stretch, 20px, row, wrap)
+
+    .footerInput
+        // flex-shrink: 1
+        flex-grow: 1
+        
+    .footerButton
+        flex-shrink: 1
+        flex-grow: 1
+        padding: 17px 13px
+        
+    .footerTitle
+        max-width: 350px
+        line-height: 150%   
+        letter-spacing: -0.3px
+            
+    .footerNavWrap
+        flex-direction: column
+        row-gap: 25px
+        flex: 2
+
+    .footerNavWrap,
+    .footerBottomLinksWrap
+        max-width: 800px
+
+    .footerNav
+        margin-bottom: auto
+        +mediaMax($lg)
+            display: none
+
+    .footerNavList
+        column-gap: 34px
+
+    .footerSocials
+        display: flex
+        gap: 20px
+        margin-top: auto
+
+    .footerBottomLinksWrap
+        row-gap: 20px
+
+    .footerDotsIcon
+        position: absolute
+        top: 0
+        right: $adaptiveGutters
+        +mediaMax($md)
+            display: none
+        
+    a
+        text-decoration-color: transparent
+        color: currentColor
+        transition: text-decoration-color .2s ease-in-out
+        &:hover
+            text-decoration-color: currentColor
+

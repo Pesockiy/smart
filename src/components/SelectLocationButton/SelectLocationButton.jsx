@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, forwardRef } from 'react';
 import cx from 'class-names';
 
 import Button from '@/common/Button/Button';
@@ -6,9 +6,10 @@ import Arrow from '@/assets/icons/arrow.svg';
 
 import styles from './SelectLocationButton.module.sass';
 
-const SelectLocationButton = ({ className, openMenuHandler }) => {
+const SelectLocationButton = forwardRef(({ className, openMenuHandler }, ref) => {
   return (
     <Button
+      ref={ref}
       ooutlined
       variant="secondary"
       className={cx(styles.selectLangButton, className)}
@@ -18,6 +19,6 @@ const SelectLocationButton = ({ className, openMenuHandler }) => {
       <Arrow className={styles.arrow} />
     </Button>
   );
-};
+});
 
 export default memo(SelectLocationButton);

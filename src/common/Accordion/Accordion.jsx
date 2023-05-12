@@ -1,4 +1,4 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import cx from 'class-names';
 
 import { useToggle } from '@/hooks';
@@ -15,13 +15,14 @@ import {
   isActive,
 } from './Accordion.module.sass';
 
-const Accordion = ({ title, children, className, open = false }) => {
+const Accordion = forwardRef(({ title, children, className, open = false }, ref) => {
   const [isOpen, setIsOpen] = useToggle(open);
 
   const showHandler = () => setIsOpen((prev) => !prev);
 
   return (
     <div
+      ref={ref}
       className={cx(
         accordion,
         {
@@ -37,5 +38,6 @@ const Accordion = ({ title, children, className, open = false }) => {
       <div className={accordionBody}>{children}</div>
     </div>
   );
-};
+});
+
 export default Accordion;

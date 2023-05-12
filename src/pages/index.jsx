@@ -7,6 +7,8 @@ import FaqSection from '@/components/FaqSection/FaqSection';
 
 import 'swiper/css';
 
+import { CONTENT_TYPE } from '@/contentful/pages';
+
 const Home = ({ data }) => {
   return (
     <>
@@ -18,10 +20,10 @@ const Home = ({ data }) => {
   );
 };
 
-Home.getInitialProps = async () => {
-  const data = await getIndexPageData();
+export const getServerSideProps = async () => {
+  const data = await getIndexPageData(CONTENT_TYPE);
 
-  return { data };
+  return { props: { data } };
 };
 
 export default Home;

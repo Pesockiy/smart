@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import cx from 'class-names';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Virtual } from 'swiper';
@@ -6,10 +7,13 @@ import 'swiper/css/navigation';
 import 'swiper/css';
 
 import HeroSliderItem from '@/components/HeroSliderItem/HeroSliderItem';
+import Animation from '@/common/Animations/Animations';
 
 import styles from './HeroSlider.module.sass';
 
 const HeroSlider = ({ sliderData, className }) => {
+  const itemRefs = useRef([]);
+
   return (
     <>
       <Swiper
@@ -37,15 +41,15 @@ const HeroSlider = ({ sliderData, className }) => {
         }}
       >
         {sliderData.map((slide, index) => (
-          <SwiperSlide
-            key={slide.id}
-            className={styles.heroSlideS}
-          >
-            <HeroSliderItem
-              slideData={slide}
-              index={index + 1}
-              className={styles.heroSlide}
-            />
+          <SwiperSlide key={slide.fields?.description} className={styles.heroSlideS}>
+            <Animation toggleActions="" duration={0.2} stagger={-0.05} startX={'+=100%'} targets={itemRefs.current} toX>
+              <HeroSliderItem
+                ref={(item) => itemRefs.current.push(item)}
+                slideData={slide}
+                index={index + 1}
+                className={styles.heroSlide}
+              />
+            </Animation>
           </SwiperSlide>
         ))}
       </Swiper>

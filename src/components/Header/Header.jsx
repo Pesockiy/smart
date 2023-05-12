@@ -1,25 +1,27 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import cx from "class-names";
+import { useEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import cx from 'class-names';
 
-import { useOffsetTop, useToggle } from "@/hooks";
+import { useOffsetTop, useToggle } from '@/hooks';
 
-import Nav from "@/components/Nav/Nav";
-import Button from "@/common/Button/Button";
-import Container from "@/common/Container/Container";
-import SelectLocationButton from "@/components/SelectLocationButton/SelectLocationButton";
+import Nav from '@/components/Nav/Nav';
+import Button from '@/common/Button/Button';
+import Container from '@/common/Container/Container';
+import SelectLocationButton from '@/components/SelectLocationButton/SelectLocationButton';
+import Animation from '@/common/Animations/Animations';
 
-import IconMenuOpen from "@/assets/icons/menu-open.svg";
-import IconMenuClose from "@/assets/icons/menu-close.svg";
-import IconLogo from "@/assets/icons/logo.svg";
+import IconMenuOpen from '@/assets/icons/menu-open.svg';
+import IconMenuClose from '@/assets/icons/menu-close.svg';
+import IconLogo from '@/assets/icons/logo.svg';
 
-import styles from "./Header.module.sass";
+import styles from './Header.module.sass';
 
 const Header = () => {
   const [isScroled] = useOffsetTop(0);
   const [isMenuOpen, setIsMenuOpen] = useToggle(false);
   const router = useRouter();
+  const animationRefs = useRef([]);
 
   const menuToggler = () => {
     setIsMenuOpen((prev) => !prev);
@@ -44,25 +46,29 @@ const Header = () => {
     [styles.isOpen]: isMenuOpen,
   });
 
+  const pushAnimateRef = (item) => animationRefs.current.push(item);
+
   return (
     <header className={headerClasses}>
-      <Container className={styles.headerInner}>
-        <Link href="/">
-          <IconLogo className={styles.headerLogo} />
-        </Link>
+      <Animation targets={animationRefs.current} toggleActions={"none"} startY={'-=100'} duration={0.4}>
+        <Container className={styles.headerInner}>
+          <Link ref={pushAnimateRef} href="/">
+            <IconLogo className={styles.headerLogo} />
+          </Link>
 
-        <div className={headerNavWrapClasses}>
-          <SelectLocationButton className={styles.headerSelectLocation} />
-          <Nav classNames={headerNavClasses} />
+          <div className={headerNavWrapClasses}>
+            <SelectLocationButton ref={pushAnimateRef} className={styles.headerSelectLocation} />
+            <Nav ref={pushAnimateRef} classNames={headerNavClasses} />
 
-          <Button outlined variant="primary" className={styles.headerButton}>
-            Book a free
-          </Button>
-        </div>
-        <button className={styles.headerMenuButton} onClick={menuToggler}>
-          {isMenuOpen ? <IconMenuClose /> : <IconMenuOpen />}
-        </button>
-      </Container>
+            <Button ref={pushAnimateRef} outlined variant="primary" className={styles.headerButton}>
+              Book a free
+            </Button>
+          </div>
+          <button ref={pushAnimateRef} className={styles.headerMenuButton} onClick={menuToggler}>
+            {isMenuOpen ? <IconMenuClose /> : <IconMenuOpen />}
+          </button>
+        </Container>
+      </Animation>
     </header>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, forwardRef } from "react";
 import { useSwiper, useSwiperSlide } from "swiper/react";
 import cx from "class-names";
 
@@ -17,12 +17,12 @@ const {
   heroVideoButton,
 } = styles;
 
-const HeroSliderItem = ({
+const HeroSliderItem = forwardRef(({
   slideData,
   index,
   className,
   onClick = () => {},
-}) => {
+}, ref) => {
   const swiper = useSwiper();
 
   const swiperSlide = useSwiperSlide();
@@ -41,7 +41,7 @@ const HeroSliderItem = ({
   };
 
   return (
-    <div className={classes}>
+    <div ref={ref} className={classes}>
       <div className={heroSliderVideoWrap}>
         <Video
           showButtons
@@ -69,6 +69,6 @@ const HeroSliderItem = ({
       </div>
     </div>
   );
-};
+});
 
 export default HeroSliderItem;

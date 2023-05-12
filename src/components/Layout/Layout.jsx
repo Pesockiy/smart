@@ -3,7 +3,9 @@ import Footer from '@/components/Footer/Footer';
 import ScrollTop from '@/components/ScrollTop/ScrollTop';
 import CustomHead from '@/components/CustomHead/CustomHead';
 
-const Layout = ({ children }) => {
+import { CONTENT_TYPE_FOOTER, CONTENT_TYPE, getIndexPageData } from '@/contentful/pages';
+
+const Layout = ({ data, children }) => {
   return (
     <>
       <CustomHead />
@@ -14,6 +16,11 @@ const Layout = ({ children }) => {
       <ScrollTop />
     </>
   );
+};
+export const getServerSideProps = async () => {
+  const data = await getIndexPageData(CONTENT_TYPE_FOOTER);
+
+  return { props: { data } };
 };
 
 export default Layout;

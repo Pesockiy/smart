@@ -1,4 +1,4 @@
-import React from 'react';
+import { useRef } from 'react';
 import cx from 'class-names';
 
 import SectionContainer from '../SectionContainer/SectionContainer';
@@ -37,26 +37,33 @@ const faqItems = [
 ];
 
 const FaqSection = () => {
+  const faqRefs = useRef([]);
+
   return (
     <section className={cx(styles.faq)}>
       <SectionContainer wrapper vCenter count="05" subtitle={'FAQ’s'}>
-        <div className={styles.faqTextWrap}>
-          <Heading size="xxl" className={styles.faqTitle}>
-            <Text as="span" gradient>
-              Your Questions.
-            </Text>{' '}
-            Answered.
-          </Heading>
-        </div>
-        <div className={styles.faqContainer}>
-          {/* <Animation> */}
-          {faqItems.map(({ title, body }) => (
-            <Accordion key={title} title={title} className={styles.faqItem}>
-              {body}
-            </Accordion>
-          ))}
-          {/* </Animation> */}
-        </div>
+        <Animation targets={faqRefs.current} duration={0.5} stagger={0.2}>
+          <div className={styles.faqTextWrap}>
+            <Heading ref={(item) => faqRefs.current.push(item)} size="xxl" className={styles.faqTitle}>
+              <Text as="span" gradient>
+                Your Questions.
+              </Text>{' '}
+              Answered.
+            </Heading>
+          </div>
+          <div className={styles.faqContainer}>
+            {faqItems.map(({ title, body }) => (
+              <Accordion
+                ref={(item) => faqRefs.current.push(item)}
+                key={title}
+                title={title}
+                className={styles.faqItem}
+              >
+                {body}
+              </Accordion>
+            ))}
+          </div>
+        </Animation>
       </SectionContainer>
     </section>
   );
