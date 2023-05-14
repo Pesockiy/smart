@@ -50,7 +50,12 @@ const Header = () => {
 
   return (
     <header className={headerClasses}>
-      <Animation targets={animationRefs.current} toggleActions={"none"} startY={'-=100'} duration={0.4}>
+      <Animation
+        targets={animationRefs.current}
+        toggleActions={'none'}
+        startY={'-=100'}
+        duration={0.4}
+      >
         <Container className={styles.headerInner}>
           <Link ref={pushAnimateRef} href="/">
             <IconLogo className={styles.headerLogo} />

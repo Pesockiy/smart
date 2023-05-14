@@ -1,19 +1,21 @@
+import { forwardRef } from 'react';
+
 import Container from '@/common/Container/Container';
 import Wrapper from '@/components/Wrapper/Wrapper';
 
 import styles from './SectionContainer.module.sass';
 
-const SectionContainer = ({
+const SectionContainer = forwardRef(({
   wrapper = false,
   rtl = false,
   vCenter = false,
   children = null,
   count = '02',
   subtitle,
-  t,
-}) => {
+}, ref) => {
   return (
     <Wrapper
+      ref={ref}
       wrapper={wrapper}
       className={styles.sectionContainerWrap}
       count={count}
@@ -31,6 +33,6 @@ const SectionContainer = ({
       </Container>
     </Wrapper>
   );
-};
+});
 
 export default SectionContainer;

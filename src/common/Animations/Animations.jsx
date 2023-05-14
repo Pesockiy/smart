@@ -14,7 +14,9 @@ const Animation = ({
   toX = false,
   startY = 40,
   startX = 40,
-  toggleActions = 'play pause resume pause',
+  scrub,
+  toggleActions = '',
+  // toggleActions = 'play pause resume pause',
 }) => {
   useEffect(() => {
     if (targets?.length) {
@@ -27,7 +29,7 @@ const Animation = ({
         x: toX ? startX : 0,
       });
     }
-  }, []);
+  }, [children]);
 
   useEffect(() => {
     ScrollTrigger.batch(targets, {
@@ -40,9 +42,10 @@ const Animation = ({
           delay,
           stagger,
           ease,
+          scrub,
         }),
     });
-  }, []);
+  }, [children]);
 
   return <>{children}</>;
 };

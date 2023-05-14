@@ -7,32 +7,32 @@ export const screens = {
 
 export const benefitItems = [
     {
-        icon: "/benefits/b-1.png",
+        icon: "/images/benefits/b-1.png",
         title: "Personal trainer",
         text: "High-efficiency, low-impact, super-safe personal training sessions",
     },
     {
-        icon: "/benefits/b-2.png",
+        icon: "/images/benefits/b-2.png",
         title: "AI technology",
         text: "State-of-the-art fitness technology and facilities",
     },
     {
-        icon: "/benefits/b-3.png",
+        icon: "/images/benefits/b-3.png",
         title: "Results",
         text: "Fast results in just 20 minutes with maximum gains.",
     },
     {
-        icon: "/benefits/b-4.png",
+        icon: "/images/benefits/b-4.png",
         title: "App is free",
         text: "Evidence-based approach. You’ll see the improvements and feel the benefits",
     },
     {
-        icon: "/benefits/b-5.png",
+        icon: "/images/benefits/b-5.png",
         title: "Free money back",
         text: "Satisfaction guaranteed or your money back. Totally safe. Pain free and strain free",
     },
     {
-        icon: "/benefits/b-6.png",
+        icon: "/images/benefits/b-6.png",
         title: "Muscle mass gains",
         text: "Build muscle, maximize recovery, lose fat",
     },

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, forwardRef} from 'react';
 import cx from 'class-names';
 
 import SectionContainer from '../SectionContainer/SectionContainer';
@@ -36,12 +36,12 @@ const faqItems = [
   },
 ];
 
-const FaqSection = () => {
+const FaqSection = forwardRef(({innerRef}, ref) => {
   const faqRefs = useRef([]);
 
   return (
-    <section className={cx(styles.faq)}>
-      <SectionContainer wrapper vCenter count="05" subtitle={'FAQ’s'}>
+    <section ref={ref} className={cx(styles.faq)}>
+      <SectionContainer ref={innerRef} wrapper vCenter count="05" subtitle={'FAQ’s'}>
         <Animation targets={faqRefs.current} duration={0.5} stagger={0.2}>
           <div className={styles.faqTextWrap}>
             <Heading ref={(item) => faqRefs.current.push(item)} size="xxl" className={styles.faqTitle}>
@@ -67,6 +67,6 @@ const FaqSection = () => {
       </SectionContainer>
     </section>
   );
-};
+});
 
 export default FaqSection;

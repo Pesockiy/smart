@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, forwardRef } from 'react';
 
 import SectionContainer from '@/components/SectionContainer/SectionContainer';
 import Heading from '@/common/Heading/Heading';
@@ -11,14 +11,14 @@ import { benefitItems } from '@/mock';
 
 import styles from './BenefitFrom.module.sass';
 
-const BenefitFrom = () => {
+const BenefitFrom = forwardRef(({innerRef}, ref) => {
   const itemsRefs = useRef([]);
 
   const pushAnimateRef = (item) => itemsRefs.current.push(item);
 
   return (
-    <section className={styles.benefitFrom}>
-      <SectionContainer wrapper scrollText vCenter count="02" subtitle={'Advantages'}>
+    <section ref={ref} className={styles.benefitFrom}>
+      <SectionContainer ref={innerRef} wrapper scrollText vCenter count="02" subtitle={'Advantages'}>
         <Animation duration={0.4} startY={50} stagger={0.1} targets={itemsRefs.current}>
           <div className={styles.benefitFromTextWrap}>
             <Heading ref={pushAnimateRef} size="xl" as="h2" className={styles.scienceTitle}>
@@ -40,6 +40,6 @@ const BenefitFrom = () => {
       </SectionContainer>
     </section>
   );
-};
+});
 
 export default BenefitFrom;

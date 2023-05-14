@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, forwardRef } from 'react';
 import cx from 'class-names';
 
 import Container from '@/common/Container/Container';
@@ -7,7 +7,7 @@ import Animation from '@/common/Animations/Animations';
 
 import styles from './Wrapper.module.sass';
 
-const Wrapper = ({
+const Wrapper = forwardRef(({
   wrapper = false,
   scrollText = true,
   topText = 'Scroll',
@@ -15,7 +15,7 @@ const Wrapper = ({
   children = null,
   className = '',
   subtitle = '',
-}) => {
+}, ref) => {
   const classes = cx(styles.wrapper, className, {
     [styles.wrapperInner]: wrapper,
   });
@@ -24,7 +24,7 @@ const Wrapper = ({
   const pushAnimateRef = (item) => itemsRefs.current.push(item);
 
   return (
-    <Container className={classes}>
+    <Container ref={ref} className={classes}>
       {wrapper && topText && (
         <Animation duration={0.5} startY={50} targets={itemsRefs.current}>
           <>
@@ -47,5 +47,5 @@ const Wrapper = ({
       <div className={styles.wrapperContent}>{children}</div>
     </Container>
   );
-};
+});
 export default Wrapper;

@@ -1,4 +1,4 @@
-import { memo, useCallback, useRef } from 'react';
+import { memo, useCallback, useRef, forwardRef } from 'react';
 import cx from 'class-names';
 
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types';
@@ -18,7 +18,7 @@ import VideoPoster from '../../../public/images/Video.jpg';
 
 import styles from './Hero.module.sass';
 
-const Hero = ({ data }) => {
+const Hero = forwardRef(({ data, innerRef }, ref) => {
   const { videosInTheSliderOnTheHomePage, richText } = data;
   const itemsRefs = useRef([]);
 
@@ -46,8 +46,8 @@ const Hero = ({ data }) => {
   const pushAnimateRef = (item) => itemsRefs.current.push(item);
 
   return (
-    <section className={cx(styles.hero)}>
-      <SectionContainer vCenter>
+    <section ref={ref} className={cx(styles.hero)}>
+      <SectionContainer vCenter ref={innerRef}>
         <Animation
           toggleActions={''}
           duration={0.4}
@@ -95,6 +95,6 @@ const Hero = ({ data }) => {
       <HeroSlider sliderData={videosInTheSliderOnTheHomePage} className={styles.heroSlider} />
     </section>
   );
-};
+});
 
 export default Hero;

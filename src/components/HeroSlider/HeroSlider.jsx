@@ -41,7 +41,7 @@ const HeroSlider = ({ sliderData, className }) => {
         }}
       >
         {sliderData.map((slide, index) => (
-          <SwiperSlide key={slide.fields?.description} className={styles.heroSlideS}>
+          <SwiperSlide key={slide.fields.file.url} className={styles.heroSlideS}>
             <Animation toggleActions="" duration={0.2} stagger={-0.05} startX={'+=100%'} targets={itemRefs.current} toX>
               <HeroSliderItem
                 ref={(item) => itemRefs.current.push(item)}

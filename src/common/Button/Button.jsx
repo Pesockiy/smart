@@ -43,4 +43,6 @@ const Button = forwardRef(({
       {children}
     </TagName>
   );
-})
+});
+
+export default Button;

@@ -7,14 +7,14 @@ import Animation from '@/common/Animations/Animations';
 
 import styles from './ScienceBased.module.sass';
 
-const ScienceBased = forwardRef(({}, ref) => {
+const ScienceBased = forwardRef(({innerRef}, ref) => {
   const itemsRefs = useRef([]);
 
   const pushAnimateRef = (item) => itemsRefs.current.push(item);
 
   return (
     <section ref={ref} className={styles.scienceBased}>
-      <SectionContainer wrapper vCenter count="01" subtitle={'About'}>
+      <SectionContainer ref={innerRef} wrapper vCenter count="01" subtitle={'About'}>
         <Animation duration={0.4} startY={50} stagger={0.1} targets={itemsRefs.current}>
           <div className={styles.scienceTextWrap}>
             <Heading ref={pushAnimateRef} size="xl" as="h2" className={styles.scienceTitle}>

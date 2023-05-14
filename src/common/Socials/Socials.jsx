@@ -28,7 +28,7 @@ const Socials = forwardRef(({ links = socialLinks, className }, ref) => {
     <div ref={ref} className={cx(styles.socials, className)}>
       {links.map(({href, label = 3, id, icon}) => (
         <a key={id} href={href}>
-          {icon && <Img src={icon} width={20} height={20} alt="icon" />}
+          {/* {icon && <Img src={icon} width={20} height={20} alt="icon" />} */}
           {label}
         </a>
       ))}

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, forwardRef } from "react";
 import cx from "class-names";
 
 import { useVideo } from "@/hooks";
@@ -10,7 +10,7 @@ import IconPause from "@/assets/icons/Pause.svg";
 
 import styles from "./Video.module.sass";
 
-const Video = ({
+const Video = forwardRef(({
   params = {},
   play = false,
   className = "",
@@ -20,7 +20,7 @@ const Video = ({
   buttonClassName = "",
   progressBar = false,
   showButtons = false,
-}) => {
+}, ref) => {
   const videoRef = useRef(null);
   const { isPlay, playToggler, isPlayed, progress } = useVideo(play, videoRef);
   const classes = cx(styles.videoWrap, className);
@@ -43,6 +43,6 @@ const Video = ({
       {progressBar && <ProgressBar progress={progress} className={styles.pvideProgress} />}
     </div>
   );
-};
+});
 
 export default Video;

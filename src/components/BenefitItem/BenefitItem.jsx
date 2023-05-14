@@ -13,7 +13,7 @@ const BenefitItem = forwardRef(({ className, item }, ref) => {
   return (
     <div ref={ref} className={cx(styles.benefitItem, className)}>
       <div className={styles.img}>
-        <Img src={icon} width={48} height={48} />
+        <Img src={icon} width={48} height={48} alt=""/>
       </div>
       <Heading tag="h3" size="xs" className={styles.title}>
         {title}
