@@ -1,12 +1,14 @@
 import Select from 'react-select';
 import InputMask from 'react-input-mask';
+import cx from 'class-names';
 
 import styles from './PhoneInput.module.sass';
-import { countrySelectStyles } from './countrySelectStyles';
 import { useHandleCountryPhoneOptions } from '@/hooks';
 import { createCountryOption } from '../CountryFlag/CountryFlag';
+import AttentionSVG from '@/assets/icons/attention.svg';
+import { getCountrySelectStyles } from './getCountrySelectStyles';
 
-const PhoneInput = ({ onChange, name = 'phone' }) => {
+const PhoneInput = ({ error, id, classNames, label, name = 'phone', ...field }) => {
   const { countryList, option, setOption } = useHandleCountryPhoneOptions();
   const countryOptions = convertCountryListToOptions(countryList);
 
@@ -16,25 +18,29 @@ const PhoneInput = ({ onChange, name = 'phone' }) => {
 
   return (
     <div className={styles.container}>
-      Phone
+      <span className={styles.labelTitle}>{label}</span>
       <div className={styles.wrapper}>
         <Select
           placeholder="flag"
           value={option}
-          styles={countrySelectStyles}
+          styles={getCountrySelectStyles(!!error)}
           options={countryOptions}
           onChange={(selectedOption) => setOption(selectedOption)}
         />
 
         <InputMask
+          {...field}
+          id={id}
           maskChar=" "
+          autoComplete="off"
           name={name}
-          onChange={(evt) => onChange(evt.target.value)}
-          className={styles.input}
+          className={cx(styles.input, { [styles.fieldError]: !!error })}
           mask={mask}
           placeholder={placeholder}
         />
+        {error && <AttentionSVG className={styles.attentionIcon} />}
       </div>
+      {error && <div className={styles.error}>{error.message}</div>}
     </div>
   );
 };

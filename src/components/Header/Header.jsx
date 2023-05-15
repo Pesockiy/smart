@@ -1,20 +1,20 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import cx from "class-names";
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import cx from 'class-names';
 
-import { useOffsetTop, useToggle } from "@/hooks";
+import { useOffsetTop, useToggle } from '@/hooks';
 
-import Nav from "@/components/Nav/Nav";
-import Button from "@/common/Button/Button";
-import Container from "@/common/Container/Container";
-import SelectLocationButton from "@/components/SelectLocationButton/SelectLocationButton";
+import Nav from '@/components/Nav/Nav';
+import Button from '@/common/Button/Button';
+import Container from '@/common/Container/Container';
+import SelectLocationButton from '@/components/SelectLocationButton/SelectLocationButton';
 
-import IconMenuOpen from "@/assets/icons/menu-open.svg";
-import IconMenuClose from "@/assets/icons/menu-close.svg";
-import IconLogo from "@/assets/icons/logo.svg";
+import IconMenuOpen from '@/assets/icons/menu-open.svg';
+import IconMenuClose from '@/assets/icons/menu-close.svg';
+import IconLogo from '@/assets/icons/logo.svg';
 
-import styles from "./Header.module.sass";
+import styles from './Header.module.sass';
 
 const Header = () => {
   const [isScroled] = useOffsetTop(0);
@@ -55,7 +55,12 @@ const Header = () => {
           <SelectLocationButton className={styles.headerSelectLocation} />
           <Nav classNames={headerNavClasses} />
 
-          <Button outlined variant="primary" className={styles.headerButton}>
+          <Button
+            outlined
+            variant="primary"
+            className={styles.headerButton}
+            onClick={() => router.push('/book-free-workout')}
+          >
             Book a free
           </Button>
         </div>

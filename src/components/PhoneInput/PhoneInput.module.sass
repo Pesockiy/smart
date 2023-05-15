@@ -1,9 +1,18 @@
 .container
   width: 100%
+  font-family: #{$baseFont}
+  font-style: normal
+  font-weight: 400
+  font-size: 16px
+  line-height: 156%
+
+.labelTitle
+  padding-left: 12px
 
 .wrapper
   display: flex
   margin-top: 5px
+  position: relative
 
 .input
   height: 50px
@@ -12,6 +21,21 @@
   border-left: 1px solid transparent
   border-radius: 0 8px 8px 0
   color: #FFF
-  padding: 12px
+  padding: 12px 40px 12px 12px
   margin-left: -1px
   width: 100%
+
+.fieldError
+  border: 1px solid #F04141
+  border-left: 1px solid transparent
+
+.attentionIcon
+  position: absolute
+  right: 12px
+  top: 50%
+  transform: translateY(-50%)
+
+.error
+  color: #F04141
+  margin-top: 4px
+  padding-left: 12px
