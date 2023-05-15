@@ -1,34 +1,34 @@
 .mapContainer
+  position: relative
   display: flex
   flex-grow: 1
-  position: relative
 
 .wrapper
   display: flex
   flex-direction: row
   flex-grow: 1
-  font-family: 'Inter'
+  font-family: #{$baseFont}
   font-style: normal
   font-weight: 400
   font-size: 17px
   line-height: 156%
 
 .sidebar
-  max-width: 455px
-  width: 100%
-  height: 100%
   display: flex
   flex-direction: column
   align-items: center
+  max-width: 455px
+  width: 100%
+  height: 100%
   background-color: #141417
 
   @media screen and (max-width: #{$lg})
-    background-color: transparent
+    position: absolute
+    left: 50%
+    z-index: 3
     height: max-content
     width: max-content
-    position: absolute
-    z-index: 3
-    left: 50%
+    background-color: transparent
     transform: translateX(-50%)
 
   @media screen and (max-width: #{$xs})

@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 
-import { calculateRoutesDistance, geocoder } from '@/helpers';
-import { usePlaceService } from '@/hooks';
+import { calculateRoutesDistance, geocoder, getPlaceDetails } from '@/helpers';
 import ClustererView from '../Clusterer/ClustererView';
 import LocationSlider from '../LocationSlider/LocationSlider';
 import LocationsList from '../LocationsList/LocationsList';
@@ -23,7 +22,6 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
   const [notFoundValue, setNotFoundValue] = useState('');
   const [distances, setDistances] = useState([]);
   const markerPositions = useGetMarkerPositionsByLocations({ locations: markers });
-  const getPlaceDetails = usePlaceService();
 
   const [currentLatLng, setCurrentLatLng] = useState(null);
   const [place, setPlace] = useState(null);

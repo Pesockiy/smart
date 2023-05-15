@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import Container from '@/common/Container/Container';
 import Heading from '@/common/Heading/Heading';
-import BlogButtonGroup from '@/components/media/ButtonGroup/ButtonGroup';
+import BlogButtonGroup from '@/components/ButtonGroup/ButtonGroup';
 import PressView from '@/components/media/Press/Press';
 import BlogView from '@/components/media/Blog/Blog';
 import { useIsMounted } from '@/hooks';

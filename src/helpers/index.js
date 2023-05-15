@@ -10,6 +10,7 @@ import computeDistanceBetweenPoints from './computeDistanceBetweenPoints';
 import calculateDistance from './calculateDistance';
 import calculateRoutesDistance from './calculateRoutesDistance';
 import getLatLngByLocations from './getLatLngByLocations';
+import getPlaceDetails from './getPlaceDetails';
 
 export {
   truncateTextByLength,
@@ -25,4 +26,5 @@ export {
   calculateDistance,
   calculateRoutesDistance,
   getLatLngByLocations,
+  getPlaceDetails,
 };

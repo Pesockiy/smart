@@ -6,7 +6,7 @@ import useOnClickOutside from './useOnClickOutside';
 import useCopy from './useCopy';
 import useIsMounted from './useIsMounted';
 import usePostInfiniteScroll from './usePostInfiniteScroll';
-import usePlaceService from './usePlaceService';
+import { useWindowDimensions } from './useWindowDimensions';
 
 export {
   useToggle,
@@ -17,5 +17,5 @@ export {
   usePostInfiniteScroll,
   useCopy,
   useIsMounted,
-  usePlaceService,
+  useWindowDimensions,
 };

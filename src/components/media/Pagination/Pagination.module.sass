@@ -18,12 +18,27 @@ $blackGradient:linear-gradient(180.43deg, rgba(251, 205, 191, 0.15) -27.54%, rgb
   &:disabled
     opacity: 0.3
 
+.prevBtn
+  @media screen and (max-width: #{$sm})
+    grid-row: 2
+    grid-column: 1
+
+.nextBtn
+  @media screen and (max-width: #{$sm})
+    grid-row: 2
+    grid-column: 2
+
 .stepsList
   display: flex
   align-items: center
   justify-content: center
   gap: 8px
   user-select: none
+
+  @media screen and (max-width: #{$sm})
+    grid-row: 1
+    grid-column: 1 / -1
+
 
 .stepBtn
   +borderGradient(1px,  14px, #{$greyGradient})
@@ -38,13 +53,15 @@ $blackGradient:linear-gradient(180.43deg, rgba(251, 205, 191, 0.15) -27.54%, rgb
     +borderGradient(1px, 14px, #{$orangeGradient})
 
 .paginationWrapper
-  display: flex
-  justify-content: center
-  flex-flow: row wrap
+  display: grid
+  grid-template-columns: 128px max-content 128px
   gap: 10px
+  justify-content: center
 
   @media screen and (max-width: #{$sm})
-    display: none
+    display: grid
+    grid-template-columns: repeat(2, max-content)
+    grid-template-rows: repeat(2, max-content)
 
 .dot
   display: flex
@@ -63,16 +80,6 @@ $blackGradient:linear-gradient(180.43deg, rgba(251, 205, 191, 0.15) -27.54%, rgb
 
 .rightArrow
   transform: rotate(-90deg)
-
-.mobilePagination
-  display: none
-  flex-flow: column wrap
-  justify-items: center
-  align-items: center
-  gap: 10px
-
-  @media screen and (max-width: #{$sm})
-    display: flex
 
 .leftRightBtnWrapper
   display: flex

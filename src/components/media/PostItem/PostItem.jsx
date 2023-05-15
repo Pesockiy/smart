@@ -3,11 +3,12 @@ import cx from 'class-names';
 import { useRouter } from 'next/router';
 
 import Img from '@/common/Img/Img';
-import { PostChip } from '../PostChip/PostChip';
 import Video from '@/common/Video/Video';
 import { formatPostDate, truncateTextByLength } from '@/helpers';
 import styles from './PostItem.module.sass';
 import s from '../Post.module.sass';
+import Heading from '@/common/Heading/Heading';
+import { PostChip } from '../PostChip/PostChip';
 
 const PostItem = ({ post, isImgCover, positionIdx = null }) => {
   const router = useRouter();
@@ -22,7 +23,7 @@ const PostItem = ({ post, isImgCover, positionIdx = null }) => {
   return (
     <li className={styles.listItem}>
       {isDefaultType && (
-        <div className={styles.chip}>
+        <div className={styles.chipWrapper}>
           <PostChip type={post.type} />
         </div>
       )}
@@ -32,13 +33,15 @@ const PostItem = ({ post, isImgCover, positionIdx = null }) => {
       <div className={styles.content}>
         <div className={s.createdAt}>{createdAt}</div>
 
-        <Link
-          className={s.titleLink}
-          href={`/media/${post.id}`}
-          state={{ positionIdx, id: post.id, page: router.query.page ?? 1 }}
-        >
-          {post.title}
-        </Link>
+        <Heading as="h2" className={s.title}>
+          <Link
+            className={s.titleLink}
+            href={`/media/${post.id}`}
+            state={{ positionIdx, id: post.id, page: router.query.page ?? 1 }}
+          >
+            {post.title}
+          </Link>
+        </Heading>
 
         <p className={s.description}>
           {description}{' '}
@@ -69,13 +72,7 @@ const Preview = ({ post, isImgCover }) => {
       }}
     />
   ) : (
-    <Img
-      className={imgClasses}
-      src={post.image}
-      width={427}
-      height={276}
-      alt={post.title}
-    />
+    <Img className={imgClasses} src={post.image} width={427} height={276} alt={post.title} />
   );
 };
 

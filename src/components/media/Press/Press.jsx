@@ -1,8 +1,8 @@
 import Pagination from '../Pagination';
-import MobilePagination from '../Pagination/MobilePagination';
 import PressMainPost from '../Pinned/Press';
 import PostsList from '../PostsList/PostsList';
 
+import styles from './Press.module.sass';
 import { useServePagination } from '@/hooks/useServePagination';
 import { smoothScroll } from '@/helpers';
 
@@ -26,12 +26,7 @@ const PressView = ({ posts, count, pinned, pageSize = 15 }) => {
       {shouldHavePagination && (
         <>
           <Pagination
-            totalCount={count}
-            currentPage={currentPage}
-            onPageChange={onPageClick}
-            pageSize={pageSize}
-          />
-          <MobilePagination
+            className={styles.paginationWrapper}
             totalCount={count}
             currentPage={currentPage}
             onPageChange={onPageClick}
