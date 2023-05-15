@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/navigation';
 import 'swiper/css';
 
@@ -69,29 +69,5 @@ const LocationSlider = ({ locations, map, onSelect }) => {
     </Swiper>
   );
 };
-
-function Slide({
-  hasBookFreeBtn,
-  location,
-  className,
-  detailsContainerClassName,
-  onLocationClick,
-  selectedId,
-  distance,
-}) {
-  const swiperSlide = useSwiperSlide();
-  console.log({ swiperSlide });
-  return (
-    <LocationItem
-      hasBookFreeBtn={hasBookFreeBtn}
-      location={location}
-      className={styles.locationItem}
-      detailsContainerClassName={styles.detailsContainer}
-      onLocationClick={onLocationClick}
-      selectedId={selectedId}
-      distance={distance}
-    />
-  );
-}
 
 export default LocationSlider;
