@@ -5,7 +5,7 @@ import LocationItem from '../LocationItem/LocationItem';
 import styles from './LocationsList.module.sass';
 import getLocationsSortedByDistance from '@/helpers/getLocationsSortedByDistance';
 
-function LocationsList({ locations, map, onSelect, distances = [] }) {
+function LocationsList({ locations, map, onSelect }) {
   const [selectedId, setSelectedId] = useState(null);
 
   const onLocationClick = async (location) => {
@@ -22,7 +22,7 @@ function LocationsList({ locations, map, onSelect, distances = [] }) {
     }
   };
 
-  const sortedLocations = getLocationsSortedByDistance({ locations, distances });
+  const sortedLocations = getLocationsSortedByDistance({ locations });
 
   return (
     <div>

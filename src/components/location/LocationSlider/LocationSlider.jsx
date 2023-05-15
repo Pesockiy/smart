@@ -8,7 +8,7 @@ import LocationItem from '../LocationItem/LocationItem';
 import { geocoder } from '@/helpers';
 import getLocationsSortedByDistance from '@/helpers/getLocationsSortedByDistance';
 
-const LocationSlider = ({ locations, map, onSelect, distances = [] }) => {
+const LocationSlider = ({ locations, map, onSelect }) => {
   const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const LocationSlider = ({ locations, map, onSelect, distances = [] }) => {
     }
   };
 
-  const sortedLocations = getLocationsSortedByDistance({ locations, distances });
+  const sortedLocations = getLocationsSortedByDistance({ locations });
 
   return (
     <Swiper className={styles.slider} slidesPerView="auto" spaceBetween={16}>

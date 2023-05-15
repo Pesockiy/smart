@@ -15,14 +15,15 @@ import useGetMarkerPositionsByLocations from '@/hooks/useGetMarkerPositionsByLoc
 const DEFAULT_CENTER = { lat: 33.01982568565792, lng: -117.28095444398336 };
 const isPlaceAvailable = (place) => place !== null;
 
-const StoresMap = ({ mapContainerClassName, locations, markers }) => {
+const StoresMap = ({ mapContainerClassName, locations }) => {
+  const [locationsWithDistances, setLocationsWithDistances] = useState(
+    locations.map((item) => ({ ...item, distance: null }))
+  );
   const mapRef = useRef(null);
   const [selectedId, setSelectedId] = useState(null);
   const [notFound, setNotFound] = useState(false);
   const [notFoundValue, setNotFoundValue] = useState('');
-  const [distances, setDistances] = useState([]);
-  const markerPositions = useGetMarkerPositionsByLocations({ locations: markers });
-
+  const markerPositions = useGetMarkerPositionsByLocations({ locations });
   const [currentLatLng, setCurrentLatLng] = useState(null);
   const [place, setPlace] = useState(null);
 
@@ -65,7 +66,13 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
       to: markerPositions,
     });
 
-    setDistances(miles);
+    setLocationsWithDistances((prev) =>
+      prev.map((item, idx) => ({ ...item, distance: miles[idx] }))
+    );
+  };
+
+  const clearDistances = () => {
+    setLocationsWithDistances((prev) => prev.map((item) => ({ ...item, distance: null })));
   };
 
   return (
@@ -79,10 +86,10 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
             setNotFoundValue('');
           }}
           onClear={() => {
-            setDistances([]);
             setToDefaultPosition();
             setNotFound(false);
             setNotFoundValue('');
+            clearDistances();
           }}
           onError={({ value }) => {
             setNotFoundValue(value);
@@ -91,19 +98,13 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
         />
 
         <LocationsList
-          distances={distances}
-          locations={locations}
+          locations={locationsWithDistances}
           map={mapRef.current}
           onSelect={onSelect}
         />
       </div>
 
-      <LocationSlider
-        map={mapRef.current}
-        locations={locations}
-        onSelect={onSelect}
-        distances={distances}
-      />
+      <LocationSlider map={mapRef.current} locations={locationsWithDistances} onSelect={onSelect} />
 
       <div className={styles.mapContainer}>
         {notFound && <PlaceNotFound name={notFoundValue} />}
@@ -121,8 +122,8 @@ const StoresMap = ({ mapContainerClassName, locations, markers }) => {
             {currentLatLng && <MyPositionMarker position={currentLatLng} />}
 
             <ClustererView
-              markers={markerPositions}
-              locations={locations}
+              markersLatLng={markerPositions}
+              locations={locationsWithDistances}
               selectedId={selectedId}
               zoomByPosition={zoomByPosition}
             />
