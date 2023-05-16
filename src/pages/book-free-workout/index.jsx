@@ -1,18 +1,19 @@
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'next/router';
 import * as yup from 'yup';
 
 import Container from '@/common/Container/Container';
 import Heading from '@/common/Heading/Heading';
 import Text from '@/common/Text/Text';
-import styles from './RegistrationWorkout.module.sass';
+import styles from './BookFreeWorkout.module.sass';
 import Button from '@/common/Button/Button';
 import PhoneInput from '@/components/PhoneInput/PhoneInput';
 import DateInput from '@/components/DateInput/DateInput';
 import CustomInput from '@/components/CustomInput/CustomInput';
 import GenderSelect, { GENDER_OPTIONS } from '@/components/GenderSelect/GenderSelect';
 
-const RegistrationWorkout = () => {
+const BookFreeWorkout = () => {
   return (
     <Container className={styles.wrapper}>
       <ContactInfo />
@@ -46,10 +47,10 @@ const defaultValues = {
   gender: null,
 };
 const ContactInfo = () => {
+  const router = useRouter();
   const {
     control,
     register,
-    watch,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -120,7 +121,13 @@ const ContactInfo = () => {
         </div>
 
         <div className={styles.nextBtnContainer}>
-          <Button type="submit" outlined className={styles.nextBtn} variant="primary">
+          <Button
+            type="submit"
+            outlined
+            className={styles.nextBtn}
+            variant="primary"
+            onClick={() => router.push('/book-free-workout/select-time')}
+          >
             Next
           </Button>
         </div>
@@ -129,4 +136,4 @@ const ContactInfo = () => {
   );
 };
 
-export default RegistrationWorkout;
+export default BookFreeWorkout;
