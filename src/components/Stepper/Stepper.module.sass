@@ -1,0 +1,90 @@
+.stepList
+  --active-color: #ff5f28
+  --default-color: #636479
+  --default-text-color: #636479
+  --active-text-color: #fff
+  --completed-text-color: #ff5f28
+  --list-gap: 123px
+
+  display: flex
+  gap: var(--list-gap)
+  margin-bottom: 10px
+  width: max-content
+
+  @media screen and (max-width: 950px)
+    transform: translateX(50%)
+
+.stepListItem
+  display: flex
+  align-items: center
+  position: relative
+  gap: 5px
+
+  &.completed::after
+    content: ''
+    height: 2px
+    width: calc(var(--list-gap) - 10px)
+    background-color: var(--active-color)
+    position: absolute
+    right: calc(var(--list-gap) * -1)
+    transform: scaleX(0)
+    transform-origin: left
+    animation: animate 0.3s linear forwards
+
+  &::before
+    content: ''
+    height: 2px
+    width: calc(var(--list-gap) - 10px)
+    background-color: var(--default-color)
+    position: absolute
+    right: calc(var(--list-gap) * -1)
+
+  &:last-child::after, &:last-child::before
+    display: none
+
+.checkMark
+  width: 12px
+  height: 9px
+  border: 2px solid #fff
+  margin-bottom: 4px
+  border-width: 3px 3px 0px 0px
+  border-radius: 2px
+  rotate: 135deg
+
+.step
+  width: 25px
+  height: 25px
+  display: flex
+  align-items: center
+  justify-content: center
+  border-radius: 50%
+  border: 2px solid var(--default-color)
+  color: var(--default-text-color)
+  flex-shrink: 0
+  font-size: 14px
+  font-family: #{$baseFont}
+  font-style: normal
+  font-weight: 400
+  line-height: 156%
+
+  &.active
+    border: 2px solid var(--active-color)
+    color: var(--active-color)
+
+  &.completed
+    background-color: var(--active-color)
+    border-color: var(--completed-text-color)
+
+.stepText
+  white-space: nowrap
+  color: var(--default-text-color)
+
+  &.active
+    color: var(--active-text-color)
+
+  &.completed
+    color: var(--completed-text-color)
+
+@keyframes animate
+  100%
+    transform: scaleX(1)

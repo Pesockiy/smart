@@ -8,7 +8,7 @@ import Text from '@/common/Text/Text';
 import styles from './SelectTime.module.sass';
 import Button from '@/common/Button/Button';
 import { createTimeSlotsMock } from '@/mock/select-time/time';
-import Layout from '@/components/Layout/Layout';
+import { useBookFreeWorkoutContext } from '@/context/BookFreeWorkoutContext';
 
 const timeArray = createTimeSlotsMock();
 const formatDate = ({ options, date }) => {
@@ -16,7 +16,9 @@ const formatDate = ({ options, date }) => {
   return dateFormatter.format(date);
 };
 
-const SelectTime = ({ onPrev, onNext }) => {
+const SelectTime = () => {
+  const context = useBookFreeWorkoutContext();
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.innerDateWrapper}>
@@ -33,13 +35,13 @@ const SelectTime = ({ onPrev, onNext }) => {
           <CustomCalendar />
         </div>
         <div className={styles.btnContainer}>
-          <Button outlined variant="secondary" onClick={onPrev}>
+          <Button outlined variant="secondary" onClick={context.handlePrev}>
             Prev
           </Button>
           <Button outlined variant="primary">
             More time
           </Button>
-          <Button outlined variant="primary" onClick={onNext}>
+          <Button outlined variant="primary" onClick={context.handleNext}>
             Next
           </Button>
         </div>
@@ -131,14 +133,6 @@ const TimeSlotList = ({ slots, time, onSetTime }) => {
         );
       })}
     </ul>
-  );
-};
-
-SelectTime.getLayout = (page) => {
-  return (
-    <Layout hasFooter={false} hasHeader={false}>
-      {page}
-    </Layout>
   );
 };
 

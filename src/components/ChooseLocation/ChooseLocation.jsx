@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 
 import Button from '@/common/Button/Button';
-import Container from '@/common/Container/Container';
 import Heading from '@/common/Heading/Heading';
 import Text from '@/common/Text/Text';
 import { useLoadScript } from '@react-google-maps/api';
@@ -11,29 +10,33 @@ import MapContainer from '../location/MapContainer/MapContainer';
 import ClustererView from '../location/Clusterer/ClustererView';
 import { geocoder, getLatLngByPlace } from '@/helpers';
 import useGetMarkerPositionsByLocations from '@/hooks/useGetMarkerPositionsByLocations';
+import { useBookFreeWorkoutContext } from '@/context/BookFreeWorkoutContext';
 
 const libraries = ['places', 'geometry'];
 
-const ChooseLocation = ({ onNext, locations = locationsMock }) => {
+const ChooseLocation = ({ locations = locationsMock }) => {
   const { isLoaded } = useLoadScript({
     libraries,
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
   });
 
   return (
-    <Container className={styles.container}>
-      <Heading className={styles.title}>
-        <Text gradient as="span">
-          Choose Location
-        </Text>
-      </Heading>
+    <div className={styles.container}>
+      <div className={styles.innerWrapper}>
+        {/* <Heading className={styles.title}>
+          <Text gradient as="span">
+            Choose Location
+          </Text>
+        </Heading> */}
 
-      {isLoaded && <ChooseLocationMap onNext={onNext} locations={locations} isLoaded={isLoaded} />}
-    </Container>
+        {isLoaded && <ChooseLocationMap locations={locations} isLoaded={isLoaded} />}
+      </div>
+    </div>
   );
 };
 
-const ChooseLocationMap = ({ onNext, locations, isLoaded }) => {
+const ChooseLocationMap = ({ locations, isLoaded }) => {
+  const context = useBookFreeWorkoutContext();
   const mapRef = useRef(null);
   const [selectedId, setSelectedId] = useState(null);
   const markerPositions = useGetMarkerPositionsByLocations({ locations });
@@ -63,30 +66,38 @@ const ChooseLocationMap = ({ onNext, locations, isLoaded }) => {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.sidebar}>
-        <OptionsList onSelect={onSelect} options={locations} selectedId={selectedId} />
-        <Button variant="primary" className={styles.nextBtn} onClick={onNext}>
-          Next
-        </Button>
-      </div>
+    <div className={styles.container}>
+      <Heading className={styles.title}>
+        <Text gradient as="span">
+          Choose Location
+        </Text>
+      </Heading>
 
-      {isLoaded && (
-        <MapContainer
-          mapContainerClassName={styles.map}
-          zoom={10}
-          onLoad={(map) => {
-            mapRef.current = map;
-          }}
-        >
-          <ClustererView
-            markers={markerPositions}
-            locations={locations}
-            selectedId={selectedId}
-            zoomByPosition={zoomByPosition}
-          />
-        </MapContainer>
-      )}
+      <div className={styles.wrapper}>
+        <div className={styles.sidebar}>
+          <OptionsList onSelect={onSelect} options={locations} selectedId={selectedId} />
+          <Button variant="primary" className={styles.nextBtn} onClick={context.handleNext}>
+            Next
+          </Button>
+        </div>
+
+        {isLoaded && (
+          <MapContainer
+            mapContainerClassName={styles.map}
+            zoom={10}
+            onLoad={(map) => {
+              mapRef.current = map;
+            }}
+          >
+            <ClustererView
+              markers={markerPositions}
+              locations={locations}
+              selectedId={selectedId}
+              zoomByPosition={zoomByPosition}
+            />
+          </MapContainer>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,16 +1,16 @@
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useRouter } from 'next/router';
 import * as yup from 'yup';
 
 import Heading from '@/common/Heading/Heading';
 import Text from '@/common/Text/Text';
-import styles from './BookFreeWorkout.module.sass';
+import styles from './ContactInfo.module.sass';
 import Button from '@/common/Button/Button';
 import PhoneInput from '@/components/PhoneInput/PhoneInput';
 import DateInput from '@/components/DateInput/DateInput';
 import CustomInput from '@/components/CustomInput/CustomInput';
 import GenderSelect, { GENDER_OPTIONS } from '@/components/GenderSelect/GenderSelect';
+import { useBookFreeWorkoutContext } from '@/context/BookFreeWorkoutContext';
 
 const errors = {
   firstName: 'Please provide a valid First Name.',
@@ -37,7 +37,9 @@ const defaultValues = {
   dateOfBirth: '',
   gender: null,
 };
-const ContactInfo = ({ onNext, onPrev }) => {
+
+const ContactInfo = () => {
+  const context = useBookFreeWorkoutContext();
   const {
     control,
     register,
@@ -105,7 +107,12 @@ const ContactInfo = ({ onNext, onPrev }) => {
         />
 
         <div className={styles.prevBtnContainer}>
-          <Button outlined variant="secondary" className={styles.prevBtn} onClick={onPrev}>
+          <Button
+            outlined
+            variant="secondary"
+            className={styles.prevBtn}
+            onClick={context.handlePrev}
+          >
             Previous
           </Button>
         </div>
@@ -116,7 +123,7 @@ const ContactInfo = ({ onNext, onPrev }) => {
             outlined
             className={styles.nextBtn}
             variant="primary"
-            onClick={onNext}
+            onClick={context.handleNext}
           >
             Next
           </Button>

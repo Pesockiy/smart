@@ -1,3 +1,8 @@
+import { useWindowDimensions } from '@/hooks';
+import cx from 'class-names';
+
+import styles from './Stepper.module.sass';
+
 export const STATUS = {
   active: 'active',
   default: 'default',
@@ -5,31 +10,40 @@ export const STATUS = {
 };
 
 const Stepper = ({ steps, activeStep }) => {
+  const size = useWindowDimensions();
+
+  const moveStyles = {
+    transform: size.width <= 950 ? `translateX(calc(50% - ${activeStep * 260 + 'px'}))` : 'none',
+  };
+
   return (
-    <ul className="steps-list">
+    <ul className={styles.stepList} style={moveStyles}>
       {steps.map((step, idx) => {
         const stepNumber = idx + 1;
         const isCompleted = step.status === STATUS.completed;
         const isCurrent = idx === activeStep;
-        const isActive = step.status === STATUS.active;
-
-        const stepTextClasses = isCurrent ? 'step-text active' : 'step-text';
-
-        const stepTextC = activeStep > idx ? stepTextClasses + ' completed' : stepTextClasses;
 
         const stepContent = isCompleted && activeStep > idx ? <CheckMark /> : stepNumber;
 
-        const listItemClassNames =
-          isCompleted && activeStep > idx ? 'step-list-item completed' : 'step-list-item';
+        const stepListItemClasses = cx(styles.stepListItem, {
+          [styles.completed]: isCompleted && activeStep > idx,
+          [styles.active]: activeStep >= idx,
+        });
 
-        const currentStepClasses = isCurrent ? 'step active' : 'step';
-        const stepClasses =
-          activeStep > idx ? currentStepClasses + ' completed' : currentStepClasses;
+        const stepClasses = cx(styles.step, {
+          [styles.completed]: isCompleted && activeStep > idx,
+          [styles.active]: activeStep >= idx,
+        });
+
+        const stepTextClasses = cx(styles.stepText, {
+          [styles.completed]: activeStep > idx,
+          [styles.active]: isCurrent,
+        });
 
         return (
-          <li key={step.id} className={listItemClassNames}>
+          <li key={step.id} className={stepListItemClasses}>
             <div className={stepClasses}>{stepContent}</div>
-            <p className={stepTextC}>{step.label}</p>
+            <p className={stepTextClasses}>{step.label}</p>
           </li>
         );
       })}
@@ -38,7 +52,7 @@ const Stepper = ({ steps, activeStep }) => {
 };
 
 const CheckMark = () => {
-  return <div className="check-mark"></div>;
+  return <div className={styles.checkMark}></div>;
 };
 
 export default Stepper;

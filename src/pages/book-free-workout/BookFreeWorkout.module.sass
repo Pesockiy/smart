@@ -1,58 +1,26 @@
-
-.wrapper
-
-.title
-  font-family: #{$baseFont}
-  font-style: normal
-  font-weight: 600
-  font-size: 27px
-  line-height: 132%
-  letter-spacing: -0.3px
-  margin: 67px 0 40px 0
-  max-width: 875px
-  width: 100%
-
-.contactForm
-  +dGrid(grid, 427px, false, 24px 20px)
-  max-width: 875px
-  padding-bottom: 96px
-
-  @media screen and (max-width: #{$xs})
-    +dGrid(grid, 100%, false, 24px 20px)
-
-.contactInfoContainer
-  display: flex
-  flex-direction: column
-  align-items: center
-
-  @media screen and (max-width: #{$md})
-    align-items: stretch
-
-.prevBtnContainer
-  display: flex
-  justify-content: start
-
-.nextBtnContainer
-  display: flex
-  justify-content: end
-
-.prevBtn,
-.nextBtn
-  margin-top: 123px
-  max-width: 312px
-  width: 100%
-
-  @media screen and (max-width: #{$md})
-    max-width: initial
-    margin-top: 0
-
-// header
 .header
-    padding: 37px 0 33px
+  padding: 37px 0 33px
+  overflow: hidden
 
-    .headerInner
-      +dFlex(flex, flex-start, center)
-      +colGap(50px)
-      max-width: 1440px
-      padding-left: 0
-      padding-right: 0
+.headerInner
+  +dFlex(flex, flex-start, center)
+  +colGap(50px)
+  max-width: 1440px
+  padding-left: 40px
+  padding-right: 40px
+
+  @media screen and (max-width: 1250px)
+    flex-direction: column
+    gap: 30px
+
+.container
+  +dFlex(flex, flex-start, center)
+  +colGap(50px)
+  max-width: 1440px
+  margin: auto
+  padding-left: 330px
+  padding-right: 0
+
+  @media screen and (max-width: #{$xl})
+    justify-content: center
+    padding: 0 50px

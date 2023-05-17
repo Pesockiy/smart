@@ -1,98 +1,59 @@
+import Link from 'next/link';
+
 import Container from '@/common/Container/Container';
 import Layout from '@/components/Layout/Layout';
 import IconLogo from '@/assets/icons/logo.svg';
 import Stepper from '@/components/Stepper/Stepper';
-import { useState } from 'react';
-import Link from 'next/link';
-import ContactInfo from './contact-info';
-import SelectTime from './select-time';
 import ChooseLocation from '@/components/ChooseLocation/ChooseLocation';
 import styles from './BookFreeWorkout.module.sass';
-import Button from '@/common/Button/Button';
-
-const STATUS = {
-  active: 'active',
-  default: 'default',
-  completed: 'completed',
-};
-
-const STEPS = [
-  { id: 1, label: 'Location', status: STATUS.active },
-  { id: 2, label: 'Contact Info', status: STATUS.default },
-  { id: 3, label: 'Choose time', status: STATUS.default },
-  { id: 4, label: 'Verification & book', status: STATUS.default },
-];
+import BookFreeWorkoutProvider, {
+  useBookFreeWorkoutContext,
+} from '@/context/BookFreeWorkoutContext';
+import SelectTime from '@/components/SelectTime/SelectTime';
+import ContactInfo from '@/components/ContactInfo/ContactInfo';
+import VerificationAndBook from '@/components/Verification/VerificationAndBook';
 
 const BookFreeWorkout = () => {
-  const [activeStep, setActiveStep] = useState(1);
-  const [activeIdx, setActiveIdx] = useState(0);
-  const [steps, setSteps] = useState(STEPS);
-
-  const handlePrev = () => {
-    if (activeStep !== 1) {
-      setActiveStep(activeStep - 1);
-    }
-
-    if (activeIdx !== 0) {
-      setActiveIdx(activeIdx - 1);
-    }
-  };
-
-  const handleNext = () => {
-    if (STEPS.length > activeStep) {
-      setActiveStep(activeStep + 1);
-    }
-
-    if (STEPS.length - 1 > activeIdx) {
-      setSteps((prevSteps) =>
-        prevSteps.map((step, index) => {
-          if (index === activeIdx) {
-            return { ...step, status: STATUS.completed };
-          }
-
-          if (index === activeIdx + 1) {
-            return { ...step, status: STATUS.active };
-          }
-
-          return step;
-        })
-      );
-      setActiveIdx(activeIdx + 1);
-    }
-  };
-
   return (
-    <>
+    <BookFreeWorkoutProvider>
       <header className={styles.header}>
         <Container className={styles.headerInner}>
           <Link href="/">
             <IconLogo className={styles.headerLogo} />
           </Link>
-          <Stepper steps={steps} activeStep={activeIdx} />
+          <StepperView />
         </Container>
       </header>
 
-      <Container className={styles.wrapper}>
-        {activeStep === 1 && <ChooseLocation onNext={handleNext} />}
-        {activeStep === 2 && <ContactInfo onNext={handleNext} onPrev={handlePrev} />}
-        {activeStep === 3 && <SelectTime onNext={handleNext} onPrev={handlePrev} />}
-        {activeStep === 4 && <Verification onNext={handleNext} onPrev={handlePrev} />}
-      </Container>
+      <div className={styles.container}>
+        <FormItems />
+      </div>
+    </BookFreeWorkoutProvider>
+  );
+};
+
+const FormItems = () => {
+  const context = useBookFreeWorkoutContext();
+
+  const isFirstStep = context.activeStep === 1;
+  const isSecondStep = context.activeStep === 2;
+  const isThirdStep = context.activeStep === 3;
+  const isFourthStep = context.activeStep === 4;
+
+  return (
+    <>
+      {isFirstStep && <ChooseLocation />}
+      {isSecondStep && <ContactInfo />}
+      {isThirdStep && <SelectTime />}
+      {isFourthStep && <VerificationAndBook />}
     </>
   );
 };
 
-const Verification = ({ onNext, onPrev }) => {
-  return (
-    <div>
-      <Button outlined variant="secondary" onClick={onPrev}>
-        Prev
-      </Button>
-      <Button outlined variant="primary" onClick={onNext}>
-        Next
-      </Button>
-    </div>
-  );
+const StepperView = () => {
+  const context = useBookFreeWorkoutContext();
+
+  return <Stepper steps={context.steps} activeStep={context.activeIdx} />;
 };
 
 BookFreeWorkout.getLayout = (page) => {

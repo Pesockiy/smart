@@ -7,8 +7,12 @@ const useGetMarkerPositionsByLocations = ({ locations }) => {
 
   useEffect(() => {
     const getMarkers = async () => {
-      const positions = await getLatLngByLocations({ locations });
-      setMarkerPositions(positions);
+      try {
+        const positions = await getLatLngByLocations({ locations });
+        setMarkerPositions(positions);
+      } catch (error) {
+        setMarkerPositions([]);
+      }
     };
 
     getMarkers();

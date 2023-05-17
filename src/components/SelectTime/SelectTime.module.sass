@@ -8,10 +8,12 @@
 
 .innerDateWrapper
   display: flex
-  justify-content: center
   gap: 113px
   margin: 70px 0
   flex-wrap: wrap
+
+  @media screen and (max-width: #{$xl})
+    justify-content: center
 
   @media screen and (max-width: 1080px)
     gap: 40px
