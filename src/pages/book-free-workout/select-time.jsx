@@ -3,12 +3,12 @@ import { useState } from 'react';
 import cx from 'class-names';
 import 'react-calendar/dist/Calendar.css';
 
-import Container from '@/common/Container/Container';
 import Heading from '@/common/Heading/Heading';
 import Text from '@/common/Text/Text';
 import styles from './SelectTime.module.sass';
 import Button from '@/common/Button/Button';
 import { createTimeSlotsMock } from '@/mock/select-time/time';
+import Layout from '@/components/Layout/Layout';
 
 const timeArray = createTimeSlotsMock();
 const formatDate = ({ options, date }) => {
@@ -16,9 +16,9 @@ const formatDate = ({ options, date }) => {
   return dateFormatter.format(date);
 };
 
-const SelectTime = () => {
+const SelectTime = ({ onPrev, onNext }) => {
   return (
-    <Container className={styles.wrapper}>
+    <div className={styles.wrapper}>
       <div className={styles.innerDateWrapper}>
         <div className={styles.leftDateBlock}>
           <InfoList />
@@ -33,18 +33,18 @@ const SelectTime = () => {
           <CustomCalendar />
         </div>
         <div className={styles.btnContainer}>
-          <Button outlined variant="secondary">
+          <Button outlined variant="secondary" onClick={onPrev}>
             Prev
           </Button>
           <Button outlined variant="primary">
             More time
           </Button>
-          <Button outlined variant="primary">
+          <Button outlined variant="primary" onClick={onNext}>
             Next
           </Button>
         </div>
       </div>
-    </Container>
+    </div>
   );
 };
 
@@ -131,6 +131,14 @@ const TimeSlotList = ({ slots, time, onSetTime }) => {
         );
       })}
     </ul>
+  );
+};
+
+SelectTime.getLayout = (page) => {
+  return (
+    <Layout hasFooter={false} hasHeader={false}>
+      {page}
+    </Layout>
   );
 };
 

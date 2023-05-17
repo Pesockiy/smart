@@ -14,7 +14,7 @@ import useGetMarkerPositionsByLocations from '@/hooks/useGetMarkerPositionsByLoc
 
 const libraries = ['places', 'geometry'];
 
-const ChooseLocation = ({ locations = locationsMock }) => {
+const ChooseLocation = ({ onNext, locations = locationsMock }) => {
   const { isLoaded } = useLoadScript({
     libraries,
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
@@ -28,12 +28,12 @@ const ChooseLocation = ({ locations = locationsMock }) => {
         </Text>
       </Heading>
 
-      <ChooseLocationMap locations={locations} isLoaded={isLoaded} />
+      {isLoaded && <ChooseLocationMap onNext={onNext} locations={locations} isLoaded={isLoaded} />}
     </Container>
   );
 };
 
-const ChooseLocationMap = ({ locations, isLoaded }) => {
+const ChooseLocationMap = ({ onNext, locations, isLoaded }) => {
   const mapRef = useRef(null);
   const [selectedId, setSelectedId] = useState(null);
   const markerPositions = useGetMarkerPositionsByLocations({ locations });
@@ -66,7 +66,7 @@ const ChooseLocationMap = ({ locations, isLoaded }) => {
     <div className={styles.wrapper}>
       <div className={styles.sidebar}>
         <OptionsList onSelect={onSelect} options={locations} selectedId={selectedId} />
-        <Button variant="primary" className={styles.nextBtn}>
+        <Button variant="primary" className={styles.nextBtn} onClick={onNext}>
           Next
         </Button>
       </div>
