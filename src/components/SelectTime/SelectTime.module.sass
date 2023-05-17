@@ -1,3 +1,5 @@
+$mainGradient: linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%)
+
 .dateTitle
   margin-bottom: 40px
   font-family: #{$baseFont}
@@ -9,16 +11,20 @@
 .innerDateWrapper
   display: flex
   gap: 113px
-  margin: 70px 0
   flex-wrap: wrap
+  margin: 70px 0
 
   @media screen and (max-width: #{$xl})
     justify-content: center
+
+  @media screen and (max-width: #{$lg})
+    margin-top: 40px
 
   @media screen and (max-width: 1080px)
     gap: 40px
 
   @media screen and (max-width: #{$md})
+    max-width: 530px
     flex-direction: column
     gap: 40px
 
@@ -37,7 +43,6 @@
 
   @media screen and (max-width: 1090px)
     max-width: 491px
-    margin-bottom: 60px
     align-self: center
     order: 2
     padding-top: 0
@@ -59,19 +64,18 @@
   color: #636479
 
 .customCalendar
-  +borderGradient(1px, 20px 0 0 20px, linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%))
+  +borderGradient(1px, 20px 0 0 20px, #{$mainGradient})
   min-height: 416px
-  background: linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%)
+  background: #{$mainGradient}
 
   @media screen and (max-width: #{$md})
-    +borderGradient(1px, 20px, linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%))
+    +borderGradient(1px, 20px, #{$mainGradient})
     width: 100%
     min-height: initial
     max-width: 715px
 
   @media screen and (max-width: 400px)
     width: 280px
-
 
 .calendarContainer
   display: flex
@@ -86,9 +90,9 @@
   text-align: center
 
 .timeSlots
-  +borderGradient(1px, 0 20px 20px 0px, linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%))
+  +borderGradient(1px, 0 20px 20px 0px, #{$mainGradient})
   min-width: 180px
-  background: linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%)
+  background: #{$mainGradient}
 
   @media screen and (max-width: #{$md})
     background: transparent
@@ -114,9 +118,9 @@
     border-radius: 24px
 
   li
-    +borderGradient(1px,14px,linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%))
+    +borderGradient(1px,14px, #{$mainGradient})
     width: 110px
-    background: linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%)
+    background: #{$mainGradient}
     color: #E5E5EA
     white-space: nowrap
 
@@ -163,6 +167,103 @@
   @media screen and (max-width: #{$md})
     max-width: initial
     width: 100%
+
+// info modal
+.overlay
+  position: fixed
+  inset: 0
+  z-index: 10
+  background-color: rgba(0.078, 0.078, 0.090, 0.5)
+
+.modalContent
+  +borderGradient(1px,14px, #{$mainGradient})
+  position: relative
+  top: 50%
+  left: 50%
+  z-index: 11
+  max-width: 652px
+  padding: 40px
+  transform: translate(-50%, -50%)
+  background: linear-gradient(0deg, #262529, #262529),linear-gradient(56.68deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0) 147.05%),#{$mainGradient}
+
+  @media screen and (max-width: #{$sm})
+    width: 90%
+
+.closeModalBtn
+  position: absolute
+  top: 0
+  right: 0
+  top: 30px
+  right: 20px
+
+.modalTitle
+  font-family: #{$headingFont}
+  font-style: normal
+  font-weight: 700
+  font-size: 48px
+  line-height: 65px
+  color: #FFFFFF
+
+.modalDescription
+  font-family: #{$baseFont}
+  font-style: normal
+  font-weight: 400
+  font-size: 21px
+  line-height: 150%
+  letter-spacing: -0.4px
+  color: #E5E5EA
+  margin: 8px 0 30px 0
+
+.contact
+  position: relative
+  display: flex
+  align-items: center
+  gap: 15px
+  padding: 8px 13px
+  max-width: 417px
+
+  display: flex
+  gap: 10px
+  border: 1px solid transparent
+  border-radius: 14px
+  padding: 8px
+  transition: all 0.2s ease-out
+
+  a
+    opacity: 0
+    border: 2px solid transparent
+    padding: 6px
+    width: 35px
+    height: 35px
+    display: flex
+    justify-content: center
+    align-items: center
+
+  a:hover
+    cursor: pointer
+    border: 2px solid rgba(75, 78, 91, 0.3)
+    background-color: rgba(20, 20, 23, 0.2)
+    border-radius: 50%
+
+  &:hover a
+    transition: opacity 600ms ease-in-out
+    opacity: 1
+
+  &:hover
+    border: 1px solid #FF5F28
+    background:#{$mainGradient}
+
+
+.message
+  position: absolute
+  right: 5px
+
+.call
+  position: absolute
+  right: 5px
+
+  svg path
+    fill: #fff
 
 // rewrite react-calendar styles
 .timeCalendar :global(.react-calendar__navigation)

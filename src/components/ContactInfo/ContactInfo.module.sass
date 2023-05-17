@@ -9,10 +9,16 @@
   max-width: 875px
   width: 100%
 
+  @media screen and (max-width: #{$lg})
+    margin-top: 40px
+
 .contactForm
   +dGrid(grid, 427px, false, 24px 20px)
   max-width: 875px
   padding-bottom: 96px
+
+  @media screen and (max-width: #{$md})
+    padding-bottom: 0
 
   @media screen and (max-width: #{$xs})
     +dGrid(grid, 100%, false, 24px 20px)
@@ -26,6 +32,8 @@
     width: 100%
 
   @media screen and (max-width: #{$md})
+    max-width: 530px
+    margin-bottom: 50px
     align-items: stretch
 
 .prevBtnContainer

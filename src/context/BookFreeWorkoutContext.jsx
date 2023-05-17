@@ -26,6 +26,11 @@ export const useBookFreeWorkoutContext = () => {
 };
 
 const BookFreeWorkoutProvider = ({ children }) => {
+  const [formValues, setFormValues] = useState({
+    location: null,
+    contacts: null,
+    time: null,
+  });
   const [activeStep, setActiveStep] = useState(1);
   const [activeIdx, setActiveIdx] = useState(0);
   const [steps, setSteps] = useState(STEPS);
@@ -63,12 +68,18 @@ const BookFreeWorkoutProvider = ({ children }) => {
     }
   };
 
+  const setValues = (values) => {
+    setFormValues((prev) => ({ ...prev, ...values }));
+  };
+
   const values = {
     handleNext,
     handlePrev,
     activeIdx,
     activeStep,
     steps,
+    formValues,
+    setValues,
   };
 
   return (

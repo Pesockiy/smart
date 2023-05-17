@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-
+import cx from 'class-names';
 import Button from '@/common/Button/Button';
 import Heading from '@/common/Heading/Heading';
 import Text from '@/common/Text/Text';
@@ -23,13 +23,7 @@ const ChooseLocation = ({ locations = locationsMock }) => {
   return (
     <div className={styles.container}>
       <div className={styles.innerWrapper}>
-        {/* <Heading className={styles.title}>
-          <Text gradient as="span">
-            Choose Location
-          </Text>
-        </Heading> */}
-
-        {isLoaded && <ChooseLocationMap locations={locations} isLoaded={isLoaded} />}
+        <ChooseLocationMap locations={locations} isLoaded={isLoaded} />
       </div>
     </div>
   );
@@ -62,17 +56,12 @@ const ChooseLocationMap = ({ locations, isLoaded }) => {
 
       zoomByPosition({ position });
       setSelectedId(location.id);
+      context.setValues({ location });
     }
   };
 
   return (
     <div className={styles.container}>
-      <Heading className={styles.title}>
-        <Text gradient as="span">
-          Choose Location
-        </Text>
-      </Heading>
-
       <div className={styles.wrapper}>
         <div className={styles.sidebar}>
           <OptionsList onSelect={onSelect} options={locations} selectedId={selectedId} />
@@ -81,7 +70,7 @@ const ChooseLocationMap = ({ locations, isLoaded }) => {
           </Button>
         </div>
 
-        {isLoaded && (
+        {isLoaded ? (
           <MapContainer
             mapContainerClassName={styles.map}
             zoom={10}
@@ -96,6 +85,8 @@ const ChooseLocationMap = ({ locations, isLoaded }) => {
               zoomByPosition={zoomByPosition}
             />
           </MapContainer>
+        ) : (
+          <MapLoader />
         )}
       </div>
     </div>
@@ -104,27 +95,43 @@ const ChooseLocationMap = ({ locations, isLoaded }) => {
 
 const OptionsList = ({ options, selectedId, onSelect }) => {
   return (
-    <ul className={styles.list}>
-      {options.map((item) => {
-        return (
-          <li key={item.id} className={styles.listItem}>
-            <label htmlFor={item.id} className={styles.optionLabel}>
-              <input
-                id={item.id}
-                type="checkbox"
-                checked={selectedId === item.id}
-                onChange={() => onSelect(item.id)}
-              />
-            </label>
+    <div>
+      <Heading className={styles.title}>
+        <Text gradient as="span">
+          Choose Location
+        </Text>
+      </Heading>
 
-            <div className={styles.optionContent}>
-              <h2>{item.title}</h2>
-              <p>{item.address}</p>
-            </div>
-          </li>
-        );
-      })}
-    </ul>
+      <ul className={styles.list}>
+        {options.map((item) => {
+          return (
+            <li key={item.id} className={styles.listItem}>
+              <label htmlFor={item.id} className={styles.optionLabel}>
+                <input
+                  id={item.id}
+                  type="checkbox"
+                  checked={selectedId === item.id}
+                  onChange={() => onSelect(item.id)}
+                />
+              </label>
+
+              <div className={styles.optionContent}>
+                <h2>{item.title}</h2>
+                <p>{item.address}</p>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
+
+const MapLoader = () => {
+  return (
+    <div className={cx(styles.map, styles.mapLoader)}>
+      <span className={styles.loadingText}>Loading</span>
+    </div>
   );
 };
 

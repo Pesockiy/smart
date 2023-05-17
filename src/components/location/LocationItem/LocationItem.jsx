@@ -12,6 +12,7 @@ import LinkIcon from '@/common/LinkIcon/LinkIcon';
 import ArrowIcon from '@/assets/icons/arrow.svg';
 import styles from './LocationItem.module.sass';
 import Button from '@/common/Button/Button';
+import { EmailLink } from '@/common/EmailLink/EmailLink';
 
 const LocationItem = ({
   location,
@@ -93,14 +94,6 @@ const LocationItem = ({
         </Button>
       )}
     </li>
-  );
-};
-
-const EmailLink = ({ email }) => {
-  return (
-    <a href={`mailto:${email}`}>
-      <LinkIcon />
-    </a>
   );
 };
 
