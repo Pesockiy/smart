@@ -13,6 +13,9 @@
   margin: 70px 0
   flex-wrap: wrap
 
+  @media screen and (max-width: 1080px)
+    gap: 40px
+
   @media screen and (max-width: #{$md})
     flex-direction: column
     gap: 40px
@@ -116,11 +119,19 @@
     white-space: nowrap
 
   @media screen and (max-width: #{$md})
+    height: max-content
     flex-direction: row
     flex-wrap: wrap
     justify-content: center
     overflow-y: visible
-    height: max-content
+
+.timeSlotList .notTimeSlots
+  width: 140px
+  padding: 8px 12px
+  white-space: break-spaces
+
+  @media screen and (max-width: #{$md})
+    width: max-content
 
 .timeSlotBtn
     min-height: 41px
@@ -150,6 +161,7 @@
   @media screen and (max-width: #{$md})
     max-width: initial
     width: 100%
+
 // rewrite react-calendar styles
 .timeCalendar :global(.react-calendar__navigation)
   height: 56px
@@ -226,3 +238,8 @@
   border-radius: 50%
   background-color: transparent
   color:#FF5F28
+
+.timeCalendar :global(.react-calendar__month-view__days__day)
+    &:hover
+        background-color: rgba(236, 240, 241,0.1)
+        color: #fff

@@ -11,26 +11,12 @@ import Button from '@/common/Button/Button';
 import { createTimeSlotsMock } from '@/mock/select-time/time';
 
 const timeArray = createTimeSlotsMock();
-
 const formatDate = ({ options, date }) => {
   const dateFormatter = new Intl.DateTimeFormat('en-US', options);
   return dateFormatter.format(date);
 };
 
 const SelectTime = () => {
-  const [value, onChange] = useState(() => new Date());
-  const [time, setTime] = useState(null);
-
-  const options = {
-    weekday: 'long',
-    month: 'short',
-    day: 'numeric',
-  };
-
-  const selectedDate = formatDate({ options, date: value });
-
-  const onSetTime = (t) => setTime(t);
-
   return (
     <Container className={styles.wrapper}>
       <div className={styles.innerDateWrapper}>
@@ -44,21 +30,7 @@ const SelectTime = () => {
             </Text>
           </Heading>
 
-          <div className={styles.calendarContainer}>
-            <Calendar
-              showFixedNumberOfWeeks
-              className={cx(styles.customCalendar, 'time-calendar', styles.timeCalendar)}
-              onChange={onChange}
-              value={value}
-              prev2Label={null}
-              next2Label={null}
-              minDate={new Date()}
-            />
-            <div className={styles.timeSlots}>
-              <div className={styles.selectedDate}>{selectedDate}</div>
-              <TimeSlotList time={time} slots={timeArray} onSetTime={onSetTime} />
-            </div>
-          </div>
+          <CustomCalendar />
         </div>
         <div className={styles.btnContainer}>
           <Button outlined variant="secondary">
@@ -73,6 +45,39 @@ const SelectTime = () => {
         </div>
       </div>
     </Container>
+  );
+};
+
+const CustomCalendar = () => {
+  const [value, onChange] = useState(() => new Date());
+  const [time, setTime] = useState(null);
+
+  const options = {
+    weekday: 'long',
+    month: 'short',
+    day: 'numeric',
+  };
+
+  const selectedDate = formatDate({ options, date: value });
+
+  const onSetTime = (t) => setTime(t);
+
+  return (
+    <div className={styles.calendarContainer}>
+      <Calendar
+        showFixedNumberOfWeeks
+        className={cx(styles.customCalendar, styles.timeCalendar)}
+        onChange={onChange}
+        value={value}
+        prev2Label={null}
+        next2Label={null}
+        minDate={new Date()}
+      />
+      <div className={styles.timeSlots}>
+        <div className={styles.selectedDate}>{selectedDate}</div>
+        <TimeSlotList time={time} slots={timeArray} onSetTime={onSetTime} />
+      </div>
+    </div>
   );
 };
 
@@ -108,6 +113,8 @@ const InfoList = () => {
 const TimeSlotList = ({ slots, time, onSetTime }) => {
   return (
     <ul className={styles.timeSlotList}>
+      {slots.length === 0 && <li className={styles.notTimeSlots}>No time slots available.</li>}
+
       {slots.map((item) => {
         return (
           <li key={item}>
