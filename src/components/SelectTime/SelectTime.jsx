@@ -14,16 +14,15 @@ import MessageIcon from '@/common/MessageIcon/MessageIcon';
 import { CallLink } from '@/common/CallLink/CallLink';
 import { EmailLink } from '@/common/EmailLink/EmailLink';
 import CloseIcon from '@/common/CloseIcon/CloseIcon';
+import { formatDate } from '@/helpers';
 
 const timeArray = createTimeSlotsMock();
-const formatDate = ({ options, date }) => {
-  const dateFormatter = new Intl.DateTimeFormat('en-US', options);
-  return dateFormatter.format(date);
-};
 
 const SelectTime = () => {
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
   const context = useBookFreeWorkoutContext();
+
+  const isNextDisabled = context.formValues.date === null || context.formValues.time === null;
 
   return (
     <>
@@ -55,7 +54,12 @@ const SelectTime = () => {
             <Button outlined variant="primary" onClick={() => setIsInfoModalOpen(true)}>
               More time
             </Button>
-            <Button outlined variant="primary" onClick={context.handleNext}>
+            <Button
+              outlined
+              variant="primary"
+              onClick={context.handleNext}
+              disabled={isNextDisabled}
+            >
               Next
             </Button>
           </div>
@@ -66,7 +70,8 @@ const SelectTime = () => {
 };
 
 const CustomCalendar = () => {
-  const [value, onChange] = useState(() => new Date());
+  const context = useBookFreeWorkoutContext();
+  const [date, setDate] = useState(() => new Date());
   const [time, setTime] = useState(null);
 
   const options = {
@@ -75,17 +80,25 @@ const CustomCalendar = () => {
     day: 'numeric',
   };
 
-  const selectedDate = formatDate({ options, date: value });
+  const selectedDate = formatDate({ options, date });
 
-  const onSetTime = (t) => setTime(t);
+  const onSetTime = (t) => {
+    setTime(t);
+    context.setValues({ time: t });
+  };
+
+  const handleChange = (dateValue) => {
+    setDate(dateValue);
+    context.setValues({ date: dateValue });
+  };
 
   return (
     <div className={styles.calendarContainer}>
       <Calendar
         showFixedNumberOfWeeks
         className={cx(styles.customCalendar, styles.timeCalendar)}
-        onChange={onChange}
-        value={value}
+        onChange={handleChange}
+        value={date}
         prev2Label={null}
         next2Label={null}
         minDate={new Date()}

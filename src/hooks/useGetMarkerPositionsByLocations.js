@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { getLatLngByLocations } from '@/helpers';
 
-const useGetMarkerPositionsByLocations = ({ locations }) => {
+const useGetMarkerPositionsByLocations = ({ locations, isLoaded }) => {
   const [markerPositions, setMarkerPositions] = useState([]);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const useGetMarkerPositionsByLocations = ({ locations }) => {
     };
 
     getMarkers();
-  }, []);
+  }, [locations, isLoaded]);
 
   return markerPositions;
 };

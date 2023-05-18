@@ -9,6 +9,7 @@ import usePostInfiniteScroll from './usePostInfiniteScroll';
 import usePlaceService from './usePlaceService';
 import useHandleCountryPhoneOptions from './useHandleCountryPhoneOptions';
 import { useWindowDimensions } from './useWindowDimensions';
+import useTimer from './useTimer';
 
 export {
   useToggle,
@@ -22,4 +23,5 @@ export {
   usePlaceService,
   useHandleCountryPhoneOptions,
   useWindowDimensions,
+  useTimer,
 };

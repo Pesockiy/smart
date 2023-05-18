@@ -1,0 +1,71 @@
+.appointment
+  +borderGradient(1px, 20px, $grayGradient)
+  background: linear-gradient(56.68deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 147.05%), rgba(38, 37, 41, 0.3)
+  padding: 24px 32px 80px 32px
+
+  svg
+    flex-shrink: 0
+
+  @media screen and (max-width: #{$xs})
+    padding: 20px 10px
+
+.detailsTitle
+  margin-bottom: 55px
+  font-family: #{$headingFont}
+  font-style: normal
+  font-weight: 600
+  font-size: 40px
+  line-height: 116%
+  color: #FFFFFF
+
+  @media screen and (max-width: #{$xs})
+    text-align: center
+    margin-bottom: 30px
+    font-size: 14px
+
+.infoMessageWrapper
+  padding: 40px 0 20px 40px
+
+  p
+    font-family: #{$baseFont}
+    font-style: normal
+    font-weight: 400
+    font-size: 16px
+    line-height: 156%
+    letter-spacing: -0.408px
+    color: #E5E5EA
+
+  @media screen and (max-width: #{$xs})
+    padding-left: 0
+    padding: 20px 0 20px 0
+
+    p
+      font-size: 12px
+
+
+.email,
+.phone,
+.location,
+.time
+  display: flex
+  align-items: center
+  gap: 11px
+  font-family: #{$baseFont}
+  font-style: normal
+  font-weight: 600
+  font-size: 21px
+  line-height: 150%
+  letter-spacing: -0.3px
+  color: #FFFFFF
+
+  @media screen and (max-width: #{$xs})
+    font-size: 10px
+    margin-bottom: 5px
+
+.phone,
+.time
+  margin-bottom: 16px
+
+.time
+  svg path
+    fill: currentColor

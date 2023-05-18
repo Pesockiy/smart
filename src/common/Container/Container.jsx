@@ -1,17 +1,17 @@
-import React, { forwardRef } from "react";
-import cx from "class-names";
+import React, { forwardRef } from 'react';
+import cx from 'class-names';
 
-import styles from "./Container.module.sass";
+import styles from './Container.module.sass';
 
 const Container = forwardRef(
   (
     {
       style = {},
       fixed = false,
-      className = "",
-      maxWidth = "lg",
+      className = '',
+      maxWidth = 'lg',
       children = null,
-      component = "div",
+      component = 'div',
       disableGutters = false,
     },
     ref
@@ -28,11 +28,7 @@ const Container = forwardRef(
     );
 
     return (
-      <TagName
-        ref={ref}
-        className={classes}
-        style={{ maxWidth: fixed && "100%", ...style }}
-      >
+      <TagName ref={ref} className={classes} style={{ maxWidth: fixed ? fixed : '100%', ...style }}>
         {children}
       </TagName>
     );

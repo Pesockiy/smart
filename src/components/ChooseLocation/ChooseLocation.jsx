@@ -11,6 +11,7 @@ import ClustererView from '../location/Clusterer/ClustererView';
 import { geocoder, getLatLngByPlace } from '@/helpers';
 import useGetMarkerPositionsByLocations from '@/hooks/useGetMarkerPositionsByLocations';
 import { useBookFreeWorkoutContext } from '@/context/BookFreeWorkoutContext';
+import CheckMarkIcon from '../../assets/icons/checkmark.svg';
 
 const libraries = ['places', 'geometry'];
 
@@ -33,7 +34,7 @@ const ChooseLocationMap = ({ locations, isLoaded }) => {
   const context = useBookFreeWorkoutContext();
   const mapRef = useRef(null);
   const [selectedId, setSelectedId] = useState(null);
-  const markerPositions = useGetMarkerPositionsByLocations({ locations });
+  const markerPositions = useGetMarkerPositionsByLocations({ locations, isLoaded });
 
   const zoomByPosition = ({ position, zoom = 13 }) => {
     const map = mapRef.current;
@@ -60,12 +61,19 @@ const ChooseLocationMap = ({ locations, isLoaded }) => {
     }
   };
 
+  const isNextDisabled = context.formValues.location === null;
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <div className={styles.sidebar}>
           <OptionsList onSelect={onSelect} options={locations} selectedId={selectedId} />
-          <Button variant="primary" className={styles.nextBtn} onClick={context.handleNext}>
+          <Button
+            variant="primary"
+            className={styles.nextBtn}
+            onClick={context.handleNext}
+            disabled={isNextDisabled}
+          >
             Next
           </Button>
         </div>

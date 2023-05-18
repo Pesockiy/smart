@@ -1,14 +1,17 @@
 export const getGenderSelectStyles = (isError) => {
   return {
-    option: (provided, state) => ({
-      ...provided,
-      padding: 20,
-      backgroundColor: state.isSelected
-        ? 'rgba(26, 188, 156, 0.6)'
-        : state.isFocused
-        ? 'rgba(189, 195, 199, 0.2)'
-        : undefined,
-    }),
+    option: (provided, state) => {
+      console.log({ state });
+      return {
+        ...provided,
+        padding: 20,
+        backgroundColor: state.isSelected
+          ? 'rgba(189, 195, 199, 0.2)'
+          : state.isFocused
+          ? 'rgba(189, 195, 199, 0.05)'
+          : undefined,
+      };
+    },
     control: (provided) => ({
       ...provided,
       borderWidth: 1,
@@ -29,7 +32,12 @@ export const getGenderSelectStyles = (isError) => {
       const opacity = state.isDisabled ? 0.5 : 1;
       const transition = 'opacity 300ms';
 
-      return { ...provided, opacity, transition, color: '#FFF' };
+      return {
+        ...provided,
+        opacity,
+        transition,
+        color: '#FFF',
+      };
     },
     input: (base) => ({
       ...base,

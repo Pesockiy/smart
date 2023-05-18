@@ -30,9 +30,9 @@ export const getCountrySelectStyles = (isError) => {
     option: (base, state) => ({
       ...base,
       backgroundColor: state.isSelected
-        ? 'rgba(26, 188, 156, 0.6)'
-        : state.isFocused
         ? 'rgba(189, 195, 199, 0.2)'
+        : state.isFocused
+        ? 'rgba(189, 195, 199, 0.05)'
         : undefined,
     }),
     menu: (base) => ({

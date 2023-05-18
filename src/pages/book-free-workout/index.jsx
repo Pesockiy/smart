@@ -12,6 +12,7 @@ import BookFreeWorkoutProvider, {
 import SelectTime from '@/components/SelectTime/SelectTime';
 import ContactInfo from '@/components/ContactInfo/ContactInfo';
 import VerificationAndBook from '@/components/Verification/VerificationAndBook';
+import FreeWorkoutThankYou from '@/components/FreeWorkoutThankYou/FreeWorkoutThankYou';
 
 const BookFreeWorkout = () => {
   return (
@@ -39,6 +40,7 @@ const FormItems = () => {
   const isSecondStep = context.activeStep === 2;
   const isThirdStep = context.activeStep === 3;
   const isFourthStep = context.activeStep === 4;
+  const isThankYouStep = context.activeStep === 5;
 
   return (
     <>
@@ -46,13 +48,13 @@ const FormItems = () => {
       {isSecondStep && <ContactInfo />}
       {isThirdStep && <SelectTime />}
       {isFourthStep && <VerificationAndBook />}
+      {isThankYouStep && <FreeWorkoutThankYou />}
     </>
   );
 };
 
 const StepperView = () => {
   const context = useBookFreeWorkoutContext();
-
   return <Stepper steps={context.steps} activeStep={context.activeIdx} />;
 };
 

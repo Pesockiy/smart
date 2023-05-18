@@ -1,0 +1,63 @@
+.wrapper
+  display: flex
+  gap: 30px
+  margin-top: 80px
+
+  @media screen and (max-width: #{$sm})
+    width: 100%
+    flex-direction: column
+    margin-top: 40px
+
+.inputWrapper
+  margin: 32px 0
+
+.title
+  margin-bottom: 45px
+  font-family: #{$baseFont}
+  font-style: normal
+  font-weight: 700
+  font-size: 27px
+  line-height: 132%
+
+.verifyNumber
+  font-family: #{$baseFont}
+  font-style: normal
+  font-weight: 600
+  font-size: 21px
+  line-height: 150%
+  letter-spacing: -0.3px
+  color: #FFFFFF
+
+.verifyInfo
+  display: flex
+  flex-direction: column
+  gap: 10px
+  margin-bottom: 40px
+
+  p
+    font-family: #{$secondFont}
+    font-style: normal
+    font-weight: 400
+    font-size: 14px
+    line-height: 156%
+    letter-spacing: -0.408px
+    color: #E5E5EA
+
+.left
+  max-width: 426px
+  width: 100%
+
+  @media screen and (max-width: #{$sm})
+    max-width: 538px
+
+.right
+  max-width: 538px
+  width: 100%
+
+.validateBtn
+  max-width: 312px
+  width: 100%
+
+.phoneInput
+  display: flex
+  gap: 45px

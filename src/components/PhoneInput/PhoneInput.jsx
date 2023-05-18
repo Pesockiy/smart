@@ -1,6 +1,7 @@
 import Select from 'react-select';
 import InputMask from 'react-input-mask';
 import cx from 'class-names';
+import { forwardRef } from 'react';
 
 import styles from './PhoneInput.module.sass';
 import { useHandleCountryPhoneOptions } from '@/hooks';
@@ -8,7 +9,7 @@ import { createCountryOption } from '../CountryFlag/CountryFlag';
 import AttentionSVG from '@/assets/icons/attention.svg';
 import { getCountrySelectStyles } from './getCountrySelectStyles';
 
-const PhoneInput = ({ error, id, classNames, label, name = 'phone', ...field }) => {
+const PhoneInput = forwardRef(({ error, id, label, name = 'phone', ...field }, ref) => {
   const { countryList, option, setOption } = useHandleCountryPhoneOptions();
   const countryOptions = convertCountryListToOptions(countryList);
 
@@ -16,10 +17,12 @@ const PhoneInput = ({ error, id, classNames, label, name = 'phone', ...field }) 
   const placeholder = `${code} ( ●●● ) ●●● ●●●●`;
   const mask = `${code} (999) 999-9999`;
 
+  const wrapperClasses = cx(styles.wrapper, { [styles.defaultWrapper]: !label });
+
   return (
     <div className={styles.container}>
-      <span className={styles.labelTitle}>{label}</span>
-      <div className={styles.wrapper}>
+      {label && <span className={styles.labelTitle}>{label}</span>}
+      <div className={wrapperClasses}>
         <Select
           placeholder="flag"
           value={option}
@@ -30,6 +33,7 @@ const PhoneInput = ({ error, id, classNames, label, name = 'phone', ...field }) 
 
         <InputMask
           {...field}
+          ref={ref}
           id={id}
           maskChar=" "
           autoComplete="off"
@@ -43,7 +47,7 @@ const PhoneInput = ({ error, id, classNames, label, name = 'phone', ...field }) 
       {error && <div className={styles.error}>{error.message}</div>}
     </div>
   );
-};
+});
 
 const convertCountryListToOptions = (list) => {
   return list.map((country) => createCountryOption(country));

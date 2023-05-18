@@ -30,6 +30,7 @@ const BookFreeWorkoutProvider = ({ children }) => {
     location: null,
     contacts: null,
     time: null,
+    date: null,
   });
   const [activeStep, setActiveStep] = useState(1);
   const [activeIdx, setActiveIdx] = useState(0);
@@ -68,6 +69,12 @@ const BookFreeWorkoutProvider = ({ children }) => {
     }
   };
 
+  const onLastStepComplete = () => {
+    setActiveIdx(STEPS.length);
+    setActiveStep(STEPS.length + 1);
+    setSteps((prev) => prev.map((item) => ({ ...item, status: STATUS.completed })));
+  };
+
   const setValues = (values) => {
     setFormValues((prev) => ({ ...prev, ...values }));
   };
@@ -80,6 +87,7 @@ const BookFreeWorkoutProvider = ({ children }) => {
     steps,
     formValues,
     setValues,
+    onLastStepComplete,
   };
 
   return (

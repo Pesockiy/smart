@@ -51,7 +51,8 @@ const ContactInfo = () => {
   });
 
   const onSubmit = (data) => {
-    // TODO: save data;
+    context.setValues({ contacts: data });
+    context.handleNext();
   };
 
   return (
@@ -118,13 +119,7 @@ const ContactInfo = () => {
         </div>
 
         <div className={styles.nextBtnContainer}>
-          <Button
-            type="submit"
-            outlined
-            className={styles.nextBtn}
-            variant="primary"
-            onClick={context.handleNext}
-          >
+          <Button type="submit" outlined className={styles.nextBtn} variant="primary">
             Next
           </Button>
         </div>

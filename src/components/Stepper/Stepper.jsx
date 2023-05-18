@@ -2,6 +2,7 @@ import { useWindowDimensions } from '@/hooks';
 import cx from 'class-names';
 
 import styles from './Stepper.module.sass';
+import CheckMarkIcon from '../../assets/icons/checkmark.svg';
 
 export const STATUS = {
   active: 'active',
@@ -12,8 +13,10 @@ export const STATUS = {
 const Stepper = ({ steps, activeStep }) => {
   const size = useWindowDimensions();
 
+  const stepNumber = steps.length === activeStep ? steps.length - 1 : activeStep;
+
   const moveStyles = {
-    transform: size.width <= 950 ? `translateX(calc(50% - ${activeStep * 260 + 'px'}))` : 'none',
+    transform: size.width <= 950 ? `translateX(calc(50% - ${stepNumber * 260 + 'px'}))` : 'none',
   };
 
   return (
@@ -23,7 +26,12 @@ const Stepper = ({ steps, activeStep }) => {
         const isCompleted = step.status === STATUS.completed;
         const isCurrent = idx === activeStep;
 
-        const stepContent = isCompleted && activeStep > idx ? <CheckMark /> : stepNumber;
+        const stepContent =
+          isCompleted && activeStep > idx ? (
+            <CheckMarkIcon className={styles.checkMark} />
+          ) : (
+            stepNumber
+          );
 
         const stepListItemClasses = cx(styles.stepListItem, {
           [styles.completed]: isCompleted && activeStep > idx,
@@ -49,10 +57,6 @@ const Stepper = ({ steps, activeStep }) => {
       })}
     </ul>
   );
-};
-
-const CheckMark = () => {
-  return <div className={styles.checkMark}></div>;
 };
 
 export default Stepper;

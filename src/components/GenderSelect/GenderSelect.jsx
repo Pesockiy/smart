@@ -1,9 +1,9 @@
 import Select from 'react-select';
+import { forwardRef } from 'react';
 
 import FormTooltip from '../FormTooltip/FormTooltip';
 import AttentionSVG from '@/assets/icons/attention.svg';
 import styles from './GenderSelect.module.sass';
-
 import { getGenderSelectStyles } from './getGenderSelectStyles';
 
 export const GENDER_OPTIONS = [
@@ -12,7 +12,7 @@ export const GENDER_OPTIONS = [
   { label: 'Not specified', value: 'not specified' },
 ];
 
-const GenderSelect = ({ error, label, id, ...field }) => {
+const GenderSelect = forwardRef(({ error, label, id, ...field }, ref) => {
   return (
     <label htmlFor={id}>
       {label && (
@@ -26,6 +26,7 @@ const GenderSelect = ({ error, label, id, ...field }) => {
 
       <div className={styles.selectContainer}>
         <Select
+          ref={ref}
           {...field}
           id={id}
           isClearable
@@ -39,6 +40,6 @@ const GenderSelect = ({ error, label, id, ...field }) => {
       {error && <div className={styles.error}>{error.message}</div>}
     </label>
   );
-};
+});
 
 export default GenderSelect;
