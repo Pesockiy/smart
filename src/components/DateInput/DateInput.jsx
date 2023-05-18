@@ -1,5 +1,6 @@
 import InputMask from 'react-input-mask';
 import cx from 'class-names';
+import { forwardRef } from 'react';
 
 import AttentionSVG from '@/assets/icons/attention.svg';
 import styles from './DateInput.module.sass';
@@ -16,7 +17,7 @@ const formatChars = {
   y: '[0-9]',
 };
 
-const DateInput = ({ error, label, ...props }) => {
+const DateInput = forwardRef(({ error, label, ...props }, ref) => {
   return (
     <label className={cx(styles.label, { [styles.fieldError]: !!error })}>
       {label && (
@@ -31,6 +32,7 @@ const DateInput = ({ error, label, ...props }) => {
 
       <div className={styles.inputWrapper}>
         <InputMask
+          ref={ref}
           {...props}
           id={props.id}
           name={props.name}
@@ -48,7 +50,7 @@ const DateInput = ({ error, label, ...props }) => {
       {error && <div className={styles.error}>{error.message}</div>}
     </label>
   );
-};
+});
 
 function findFirstPlaceholderIndex(value) {
   const placeholderPositions = [value.indexOf('m'), value.indexOf('d'), value.indexOf('y')].filter(
@@ -93,6 +95,10 @@ function replaceMaskWithLetter(value, letter, length) {
   if (!value) value = '';
 
   value = value.replace(/[^0-9]/g, '');
+
+  if (letter === 'D' && length === 2 && Number(value) > 31) {
+    return '31' + repeat(letter, length - value.length);
+  }
 
   return value + repeat(letter, length - value.length);
 }
