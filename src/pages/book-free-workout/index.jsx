@@ -13,8 +13,9 @@ import SelectTime from '@/components/SelectTime/SelectTime';
 import ContactInfo from '@/components/ContactInfo/ContactInfo';
 import VerificationAndBook from '@/components/Verification/VerificationAndBook';
 import FreeWorkoutThankYou from '@/components/FreeWorkoutThankYou/FreeWorkoutThankYou';
+import { FirebaseService } from '@/lib/firebase';
 
-const BookFreeWorkout = () => {
+const BookFreeWorkout = ({ locations }) => {
   return (
     <BookFreeWorkoutProvider>
       <header className={styles.header}>
@@ -27,13 +28,23 @@ const BookFreeWorkout = () => {
       </header>
 
       <div className={styles.mainContainer}>
-        <FormItems />
+        <FormItems locations={locations} />
       </div>
     </BookFreeWorkoutProvider>
   );
 };
 
-const FormItems = () => {
+export const getStaticProps = async () => {
+  const locations = await FirebaseService.getLocations();
+
+  return {
+    props: {
+      locations,
+    },
+  };
+};
+
+const FormItems = ({ locations }) => {
   const context = useBookFreeWorkoutContext();
 
   const isFirstStep = context.activeStep === 1;
@@ -44,7 +55,7 @@ const FormItems = () => {
 
   return (
     <div className={styles.stepsContainer}>
-      {isFirstStep && <ChooseLocation />}
+      {isFirstStep && <ChooseLocation locations={locations} />}
       {isSecondStep && <ContactInfo />}
       {isThirdStep && <SelectTime />}
       {isFourthStep && <VerificationAndBook />}

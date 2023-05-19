@@ -14,16 +14,21 @@ import { useBookFreeWorkoutContext } from '@/context/BookFreeWorkoutContext';
 
 const libraries = ['places', 'geometry'];
 
-const ChooseLocation = ({ locations = locationsMock }) => {
+const ChooseLocation = ({ locations = [] }) => {
   const { isLoaded } = useLoadScript({
     libraries,
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
   });
 
+  const locationWithAddress = locations.map((location) => ({
+    ...location,
+    address: `${location.addressLine1} ${location.addressLine2} ${location.city}`,
+  }));
+
   return (
     <div className={styles.container}>
       <div className={styles.innerWrapper}>
-        <ChooseLocationMap locations={locations} isLoaded={isLoaded} />
+        <ChooseLocationMap locations={locationWithAddress} isLoaded={isLoaded} />
       </div>
     </div>
   );
@@ -33,6 +38,7 @@ const ChooseLocationMap = ({ locations, isLoaded }) => {
   const context = useBookFreeWorkoutContext();
   const mapRef = useRef(null);
   const [selectedId, setSelectedId] = useState(null);
+
   const markerPositions = useGetMarkerPositionsByLocations({ locations, isLoaded });
 
   const zoomByPosition = ({ position, zoom = 13 }) => {
@@ -47,7 +53,7 @@ const ChooseLocationMap = ({ locations, isLoaded }) => {
   const onSelect = async (id) => {
     setSelectedId(null);
 
-    const location = locations.find((item) => item.id === id);
+    const location = locations.find((item) => item.DocID === id);
 
     const point = await geocoder({ address: location.address });
 
@@ -55,7 +61,7 @@ const ChooseLocationMap = ({ locations, isLoaded }) => {
       const position = getLatLngByPlace(point.results[0]);
 
       zoomByPosition({ position });
-      setSelectedId(location.id);
+      setSelectedId(location.DocID);
       context.setValues({ location });
     }
   };
@@ -112,19 +118,21 @@ const OptionsList = ({ options, selectedId, onSelect }) => {
       <ul className={styles.list}>
         {options.map((item) => {
           return (
-            <li key={item.id} className={styles.listItem}>
-              <label htmlFor={item.id} className={styles.optionLabel}>
+            <li key={item.addressLine2} className={styles.listItem}>
+              <label htmlFor={item.DocID} className={styles.optionLabel}>
                 <input
-                  id={item.id}
+                  id={item.DocID}
                   type="checkbox"
-                  checked={selectedId === item.id}
-                  onChange={() => onSelect(item.id)}
+                  checked={selectedId === item.DocID}
+                  onChange={() => onSelect(item.DocID)}
                 />
               </label>
 
               <div className={styles.optionContent}>
-                <h2>{item.title}</h2>
-                <p>{item.address}</p>
+                <h2>{item.locationName ?? item.city}</h2>
+                <p>
+                  {item.addressLine2}, {item.addressLine1} {item.city}
+                </p>
               </div>
             </li>
           );
