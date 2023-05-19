@@ -26,7 +26,7 @@ const BookFreeWorkout = () => {
         </Container>
       </header>
 
-      <div className={styles.container}>
+      <div className={styles.mainContainer}>
         <FormItems />
       </div>
     </BookFreeWorkoutProvider>
@@ -43,13 +43,13 @@ const FormItems = () => {
   const isThankYouStep = context.activeStep === 5;
 
   return (
-    <>
+    <div className={styles.stepsContainer}>
       {isFirstStep && <ChooseLocation />}
       {isSecondStep && <ContactInfo />}
       {isThirdStep && <SelectTime />}
       {isFourthStep && <VerificationAndBook />}
       {isThankYouStep && <FreeWorkoutThankYou />}
-    </>
+    </div>
   );
 };
 

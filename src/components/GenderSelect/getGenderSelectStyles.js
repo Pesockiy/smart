@@ -1,15 +1,34 @@
 export const getGenderSelectStyles = (isError) => {
   return {
     option: (provided, state) => {
-      console.log({ state });
       return {
         ...provided,
+        position: 'relative',
         padding: 20,
-        backgroundColor: state.isSelected
-          ? 'rgba(189, 195, 199, 0.2)'
-          : state.isFocused
-          ? 'rgba(189, 195, 199, 0.05)'
-          : undefined,
+        cursor: 'pointer',
+        borderTop: '1px solid transparent',
+        borderBottom: '1px solid transparent',
+        transition: 'all 0.4s ease-out',
+        paddingRight: '35px',
+        backgroundColor: state.isFocused ? 'rgba(189, 195, 199, 0.1)' : 'transparent',
+
+        '&:active': {
+          backgroundColor: 'rgba(189, 195, 199, 0.1)',
+        },
+        '&:hover': {
+          borderTop: '1px solid #71717C',
+          borderBottom: '1px solid #71717C',
+        },
+        '&::after': {
+          content: "''",
+          width: '10px',
+          height: '17px',
+          position: 'absolute',
+          right: '15px',
+          borderTop: state.isSelected ? '2px solid #FF5F28' : 'none',
+          borderLeft: state.isSelected ? '2px solid #FF5F28' : 'none',
+          transform: 'rotate(-140deg)',
+        },
       };
     },
     control: (provided) => ({
@@ -55,6 +74,22 @@ export const getGenderSelectStyles = (isError) => {
       backgroundColor: '#141417',
       border: '1px solid #71717C',
       borderRadius: 8,
+    }),
+    menuList: (base) => ({
+      ...base,
+      '&::-webkit-scrollbar': {
+        width: 4,
+      },
+
+      '&::-webkit-scrollbar-track': {
+        boxShadow: 'inset 0 0 5px #808080',
+        borderRadius: 24,
+      },
+
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: '#FF5F28',
+        borderRadius: 24,
+      },
     }),
     valueContainer: (base) => ({
       ...base,

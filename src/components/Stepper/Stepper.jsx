@@ -2,7 +2,6 @@ import { useWindowDimensions } from '@/hooks';
 import cx from 'class-names';
 
 import styles from './Stepper.module.sass';
-import CheckMarkIcon from '../../assets/icons/checkmark.svg';
 
 export const STATUS = {
   active: 'active',
@@ -56,6 +55,26 @@ const Stepper = ({ steps, activeStep }) => {
         );
       })}
     </ul>
+  );
+};
+
+const CheckMarkIcon = () => {
+  return (
+    <svg
+      className={styles.checkMark}
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 130.2 130.2"
+    >
+      <polyline
+        fill="none"
+        stroke="#fff"
+        strokeWidth="14"
+        strokeLinecap="round"
+        strokeMiterlimit="10"
+        points="100.2,40.2 51.5,88.8 29.8,67.5"
+      />
+    </svg>
   );
 };
 

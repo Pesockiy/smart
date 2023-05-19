@@ -29,11 +29,16 @@ export const getCountrySelectStyles = (isError) => {
     }),
     option: (base, state) => ({
       ...base,
+      cursor: 'pointer',
       backgroundColor: state.isSelected
         ? 'rgba(189, 195, 199, 0.2)'
         : state.isFocused
-        ? 'rgba(189, 195, 199, 0.05)'
+        ? 'rgba(189, 195, 199, 0.1)'
         : undefined,
+
+      '&:active': {
+        backgroundColor: 'rgba(189, 195, 199, 0.1)',
+      },
     }),
     menu: (base) => ({
       ...base,

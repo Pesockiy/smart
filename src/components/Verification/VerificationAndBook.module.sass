@@ -2,10 +2,18 @@
   display: flex
   gap: 30px
   margin-top: 80px
+  margin-bottom: 40px
+  grid-column-start: 2
 
-  @media screen and (max-width: #{$sm})
+  @media screen and (max-width: 1250px)
+    grid-column: 1 / 3
+    margin-left: auto
+    margin-right: auto
+
+  @media screen and (max-width: 850px)
     width: 100%
     flex-direction: column
+    align-items: center
     margin-top: 40px
 
 .inputWrapper
@@ -47,7 +55,7 @@
   max-width: 426px
   width: 100%
 
-  @media screen and (max-width: #{$sm})
+  @media screen and (max-width: 850px)
     max-width: 538px
 
 .right
@@ -57,7 +65,15 @@
 .validateBtn
   max-width: 312px
   width: 100%
+  margin-bottom: 40px
+
+  @media screen and (max-width: 850px)
+    max-width: initial
+
 
 .phoneInput
   display: flex
   gap: 45px
+
+.saveBtn
+  color: #{$accentColor}

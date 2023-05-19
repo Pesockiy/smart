@@ -6,8 +6,9 @@ import MessageIcon from '@/common/MessageIcon/MessageIcon';
 import LocationIcon from '@/common/LocationIcon/LocationIcon';
 import CalendarIcon from '@/assets/icons/calendar.svg';
 import { formatDate } from '@/helpers';
+import Button from '@/common/Button/Button';
 
-const YourAppointmentDetails = () => {
+const YourAppointmentDetails = ({ hasAddToCalendarBtn = false }) => {
   const context = useBookFreeWorkoutContext();
 
   const { location, time, date } = context.formValues;
@@ -50,6 +51,12 @@ const YourAppointmentDetails = () => {
         <MessageIcon />
         {location.email}
       </p>
+
+      {hasAddToCalendarBtn && (
+        <Button outlined className={styles.addToCalendarBtn}>
+          Add to calendar
+        </Button>
+      )}
     </div>
   );
 };

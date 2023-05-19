@@ -2,12 +2,7 @@ import cx from 'class-names';
 
 import styles from './ButtonGroup.module.sass';
 
-const BlogButtonGroup = ({
-  onClick,
-  options,
-  wrapperClassName = '',
-  defaultOption = null,
-}) => {
+const BlogButtonGroup = ({ onClick, options, wrapperClassName = '', defaultOption = null }) => {
   const className = cx(styles.wrapper, wrapperClassName);
 
   return (
@@ -16,11 +11,7 @@ const BlogButtonGroup = ({
         const isActive = defaultOption.value === option.value;
 
         return (
-          <BlogButton
-            key={option.value}
-            isActive={isActive}
-            onClick={() => onClick(option)}
-          >
+          <BlogButton key={option.value} isActive={isActive} onClick={() => onClick(option)}>
             {option.label}
           </BlogButton>
         );
@@ -30,11 +21,7 @@ const BlogButtonGroup = ({
 };
 
 const BlogButton = ({ children, isActive, onClick }) => (
-  <button
-    type="button"
-    className={isActive ? styles.active : ''}
-    onClick={onClick}
-  >
+  <button type="button" className={isActive ? styles.active : ''} onClick={onClick}>
     {children}
   </button>
 );

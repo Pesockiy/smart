@@ -32,7 +32,6 @@ const DateInput = forwardRef(({ error, label, ...props }, ref) => {
 
       <div className={styles.inputWrapper}>
         <InputMask
-          ref={ref}
           {...props}
           id={props.id}
           name={props.name}
@@ -96,8 +95,18 @@ function replaceMaskWithLetter(value, letter, length) {
 
   value = value.replace(/[^0-9]/g, '');
 
-  if (letter === 'D' && length === 2 && Number(value) > 31) {
+  const MAX_DAY = 31;
+  const isDayPart = letter === 'D';
+
+  if (isDayPart && length === 2 && Number(value) > MAX_DAY) {
     return '31' + repeat(letter, length - value.length);
+  }
+
+  const isItMonthLetter = letter === 'M';
+  const MAX_MONTH = 12;
+
+  if (isItMonthLetter && length === 2 && Number(value) > MAX_MONTH) {
+    return MAX_MONTH + repeat(letter, length - value.length);
   }
 
   return value + repeat(letter, length - value.length);

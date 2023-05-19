@@ -13,15 +13,23 @@
     flex-direction: column
     gap: 30px
 
-.container
-  +dFlex(flex, flex-start, center)
-  +colGap(50px)
-  max-width: 1440px
+.mainContainer
+  display: flex
+  justify-content: flex-start
+  align-items: center
+  flex-direction: row
+  flex-wrap: nowrap
+  column-gap: 50px
+  max-width: 1540px
   margin: auto
-  padding-left: 330px
   padding-right: 0
   margin-bottom: 0
+  margin-left: 0
+  padding: 0 clamp(10px, 5vw, 60px)
 
-  @media screen and (max-width: #{$xl})
-    justify-content: center
-    padding: 0 50px
+.stepsContainer
+  display: grid
+  grid-auto-columns: 236px 1fr
+  margin-left: 0
+  width: 100%
+  column-gap: 50px

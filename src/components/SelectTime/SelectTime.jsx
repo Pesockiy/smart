@@ -174,7 +174,7 @@ const InfoModal = ({ onClose = () => {}, phone = '', email = '' }) => {
           please text/sms or email us directly.
         </p>
 
-        <p className={styles.contact}>
+        <p className={cx(styles.contact, styles.email)}>
           <MessageIcon />
           {email}
           <EmailLink className={styles.message} email={email} />

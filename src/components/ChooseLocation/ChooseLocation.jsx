@@ -11,7 +11,6 @@ import ClustererView from '../location/Clusterer/ClustererView';
 import { geocoder, getLatLngByPlace } from '@/helpers';
 import useGetMarkerPositionsByLocations from '@/hooks/useGetMarkerPositionsByLocations';
 import { useBookFreeWorkoutContext } from '@/context/BookFreeWorkoutContext';
-import CheckMarkIcon from '../../assets/icons/checkmark.svg';
 
 const libraries = ['places', 'geometry'];
 
