@@ -5,7 +5,6 @@ import Heading from '@/common/Heading/Heading';
 import Text from '@/common/Text/Text';
 import { useLoadScript } from '@react-google-maps/api';
 import styles from './ChooseLocation.module.sass';
-import { locationsMock } from '@/mock/locations';
 import MapContainer from '../location/MapContainer/MapContainer';
 import ClustererView from '../location/Clusterer/ClustererView';
 import { geocoder, getLatLngByPlace } from '@/helpers';
@@ -20,15 +19,17 @@ const ChooseLocation = ({ locations = [] }) => {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
   });
 
-  const locationWithAddress = locations.map((location) => ({
+  const locationItems = locations.map((location) => ({
     ...location,
     address: `${location.addressLine1} ${location.addressLine2} ${location.city}`,
+    email: location.contactEmail,
+    phone: location.contactNumber,
   }));
 
   return (
     <div className={styles.container}>
       <div className={styles.innerWrapper}>
-        <ChooseLocationMap locations={locationWithAddress} isLoaded={isLoaded} />
+        <ChooseLocationMap locations={locationItems} isLoaded={isLoaded} />
       </div>
     </div>
   );

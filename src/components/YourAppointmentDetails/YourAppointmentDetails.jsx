@@ -35,22 +35,29 @@ const YourAppointmentDetails = ({ hasAddToCalendarBtn = false }) => {
         {location.address}
       </p>
 
-      <div className={styles.infoMessageWrapper}>
-        <p>
-          Did not receive the code? Please verify that your number is correct. If you have any
-          questions please don’t hesitate to text/call us at {location.phone} or via email
+      {location.email && location.phone && (
+        <div className={styles.infoMessageWrapper}>
+          <p>
+            Did not receive the code? Please verify that your number is correct. If you have any
+            questions please don’t hesitate to text/call us at {location.phone} or via email
+            {location.email}
+          </p>
+        </div>
+      )}
+
+      {location.phone && (
+        <p className={styles.phone}>
+          <PhoneIcon />
+          {location.phone}
+        </p>
+      )}
+
+      {location.email && (
+        <p className={styles.email}>
+          <MessageIcon />
           {location.email}
         </p>
-      </div>
-
-      <p className={styles.phone}>
-        <PhoneIcon />
-        {location.phone}
-      </p>
-      <p className={styles.email}>
-        <MessageIcon />
-        {location.email}
-      </p>
+      )}
 
       {hasAddToCalendarBtn && (
         <Button outlined className={styles.addToCalendarBtn}>
