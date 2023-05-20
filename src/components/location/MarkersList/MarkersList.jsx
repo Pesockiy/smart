@@ -15,14 +15,14 @@ const MarkersList = ({ markers, clusterer, onClick, locations, selectedId }) => 
 
   const onMarkerClick = (marker, idx) => {
     onClick(marker);
-    setActiveId(locations[idx].DocID);
+    setActiveId(locations[idx].id);
   };
 
   return (
     <>
       {markers.map((marker, idx) => {
         const location = locations[idx];
-        const isPopUpActive = location.DocID === activeId || selectedId === location.DocID;
+        const isPopUpActive = location.id === activeId || selectedId === location.id;
         return (
           <MarkerF
             key={idx}

@@ -21,6 +21,7 @@ const ChooseLocation = ({ locations = [] }) => {
 
   const locationItems = locations.map((location) => ({
     ...location,
+    id: location.DocID,
     address: `${location.addressLine1} ${location.addressLine2} ${location.city}`,
     email: location.contactEmail,
     phone: location.contactNumber,
@@ -54,7 +55,7 @@ const ChooseLocationMap = ({ locations, isLoaded }) => {
   const onSelect = async (id) => {
     setSelectedId(null);
 
-    const location = locations.find((item) => item.DocID === id);
+    const location = locations.find((item) => item.id === id);
 
     const point = await geocoder({ address: location.address });
 
@@ -62,7 +63,7 @@ const ChooseLocationMap = ({ locations, isLoaded }) => {
       const position = getLatLngByPlace(point.results[0]);
 
       zoomByPosition({ position });
-      setSelectedId(location.DocID);
+      setSelectedId(location.id);
       context.setValues({ location });
     }
   };
@@ -120,12 +121,12 @@ const OptionsList = ({ options, selectedId, onSelect }) => {
         {options.map((item) => {
           return (
             <li key={item.addressLine2} className={styles.listItem}>
-              <label htmlFor={item.DocID} className={styles.optionLabel}>
+              <label htmlFor={item.id} className={styles.optionLabel}>
                 <input
-                  id={item.DocID}
+                  id={item.id}
                   type="checkbox"
-                  checked={selectedId === item.DocID}
-                  onChange={() => onSelect(item.DocID)}
+                  checked={selectedId === item.id}
+                  onChange={() => onSelect(item.id)}
                 />
               </label>
 
