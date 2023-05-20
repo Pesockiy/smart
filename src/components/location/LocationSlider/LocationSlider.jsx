@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/navigation';
 import 'swiper/css';
@@ -8,7 +8,7 @@ import LocationItem from '../LocationItem/LocationItem';
 import { geocoder, getLatLngByPlace } from '@/helpers';
 import getLocationsSortedByDistance from '@/helpers/getLocationsSortedByDistance';
 
-const LocationSlider = ({ locations, map, onSelect, setActiveMarkerId }) => {
+const LocationSlider = ({ locations, map, onSelect, setActiveMarkerId, moveToPosition }) => {
   const [selectedId, setSelectedId] = useState(null);
 
   const sortedLocations = getLocationsSortedByDistance({ locations });
@@ -20,32 +20,32 @@ const LocationSlider = ({ locations, map, onSelect, setActiveMarkerId }) => {
   }, [map]);
 
   const handleLocationClick = async (location) => {
-    const place = await geocoder({ address: location.address });
+    try {
+      const place = await geocoder({ address: location.address });
+      const coordinates = place.results[0].geometry.location;
 
-    const coordinates = place.results[0].geometry.location;
-
-    if (map) {
-      map.panTo(coordinates);
-      map.setZoom(13);
-      map.panBy(0, 200);
-
+      moveToPosition({ position: coordinates, zoom: 13, panBy: { x: 0, y: 200 } });
       setSelectedId(location.id);
       onSelect(location.id);
+    } catch (error) {
+      setSelectedId(null);
     }
   };
 
   const onSlideChange = async (params) => {
-    const location = sortedLocations[params.activeIndex];
+    try {
+      const location = sortedLocations[params.activeIndex];
 
-    const point = await geocoder({ address: location.address });
-    const coordinates = getLatLngByPlace(point.results[0]);
+      const point = await geocoder({ address: location.address });
+      const coordinates = getLatLngByPlace(point.results[0]);
 
-    map.panTo(coordinates);
-    map.setZoom(11);
-    map.panBy(0, 170);
-
-    setActiveMarkerId(location.id);
-    setSelectedId(location.id);
+      moveToPosition({ position: coordinates, zoom: 11, panBy: { x: 0, y: 170 } });
+      setActiveMarkerId(location.id);
+      setSelectedId(location.id);
+    } catch (error) {
+      setActiveMarkerId(null);
+      setSelectedId(null);
+    }
   };
 
   return (

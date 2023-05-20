@@ -5,37 +5,36 @@ import LocationItem from '../LocationItem/LocationItem';
 import styles from './LocationsList.module.sass';
 import getLocationsSortedByDistance from '@/helpers/getLocationsSortedByDistance';
 
-function LocationsList({ locations, map, onSelect, setActiveMarkerId }) {
+function LocationsList({ locations, onSelect, setActiveMarkerId, moveToPosition }) {
   const listRef = useRef(null);
   const [selectedId, setSelectedId] = useState(null);
 
   const sortedLocations = getLocationsSortedByDistance({ locations });
 
   const onLocationClick = async (location) => {
-    const place = await geocoder({ address: location.address });
+    try {
+      const place = await geocoder({ address: location.address });
+      const coordinates = place.results[0].geometry.location;
 
-    const coordinates = place.results[0].geometry.location;
-
-    if (map) {
-      map.panTo(coordinates);
-      map.setZoom(13);
-
+      moveToPosition({ position: coordinates, zoom: 13, panBy: { x: -120, y: 0 } });
       setSelectedId(location.id);
       onSelect(location.id);
+    } catch (error) {
+      setSelectedId(null);
     }
   };
 
   const onScroll = (evt) => {
-    if (listRef.current !== undefined) {
-      const itemHeight = Math.ceil(listRef.current.scrollHeight / sortedLocations.length - 1);
-      const scrollTop = evt.target.scrollTop + evt.target.clientHeight;
-      const idx = Math.floor(scrollTop / itemHeight) - 1;
+    if (listRef.current === undefined) return;
 
-      const location = sortedLocations[idx];
+    const itemHeight = Math.ceil(listRef.current.scrollHeight / sortedLocations.length - 1);
+    const scrollTop = evt.target.scrollTop + evt.target.clientHeight;
+    const idx = Math.floor(scrollTop / itemHeight) - 1;
 
-      map.panTo(location.position);
-      map.setZoom(13);
+    const location = sortedLocations[idx];
 
+    if (location.position) {
+      moveToPosition({ position: location.position, zoom: 13 });
       setSelectedId(location.id);
       setActiveMarkerId(location.id);
     }

@@ -29,7 +29,11 @@ const LocationPage = (props) => {
       </Heading>
 
       <div className={styles.wrapper}>
-        {isLoaded && <StoresMap mapContainerClassName={styles.map} locations={props.locations} />}
+        <StoresMap
+          mapContainerClassName={styles.map}
+          locations={props.locations}
+          isLoaded={isLoaded}
+        />
       </div>
     </Container>
   );

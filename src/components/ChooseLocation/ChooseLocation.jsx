@@ -43,28 +43,28 @@ const ChooseLocationMap = ({ locations, isLoaded }) => {
 
   const markerPositions = useGetMarkerPositionsByLocations({ locations, isLoaded });
 
-  const zoomByPosition = ({ position, zoom = 13 }) => {
-    const map = mapRef.current;
-
+  const moveToPosition = ({ position, zoom = 13 }) => {
     if (mapRef.current === undefined) return;
 
-    map.panTo(position);
-    map.setZoom(zoom);
+    mapRef.current.panTo(position);
+    mapRef.current.setZoom(zoom);
   };
 
   const onSelect = async (id) => {
-    setSelectedId(null);
+    try {
+      const location = locations.find((item) => item.id === id);
 
-    const location = locations.find((item) => item.id === id);
+      setSelectedId(location.id);
 
-    const point = await geocoder({ address: location.address });
-
-    if (point !== null) {
+      const point = await geocoder({ address: location.address });
       const position = getLatLngByPlace(point.results[0]);
 
-      zoomByPosition({ position });
+      moveToPosition({ position });
       setSelectedId(location.id);
       context.setValues({ location });
+    } catch (error) {
+      setSelectedId(null);
+      context.setValues({ location: null });
     }
   };
 
@@ -89,15 +89,13 @@ const ChooseLocationMap = ({ locations, isLoaded }) => {
           <MapContainer
             mapContainerClassName={styles.map}
             zoom={10}
-            onLoad={(map) => {
-              mapRef.current = map;
-            }}
+            onLoad={(map) => (mapRef.current = map)}
           >
             <ClustererView
               markersLatLng={markerPositions}
               locations={locations}
               selectedId={selectedId}
-              zoomByPosition={zoomByPosition}
+              moveToPosition={moveToPosition}
             />
           </MapContainer>
         ) : (

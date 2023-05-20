@@ -13,13 +13,11 @@ const CLUSTERER_OPTIONS = {
   ],
 };
 
-const ClustererView = ({ markersLatLng, locations, zoomByPosition, activeMarkerId = null }) => {
-  const hasNoMarkers = markersLatLng.length === 0;
-
-  if (hasNoMarkers) return null;
+const ClustererView = ({ markersLatLng, locations, moveToPosition, activeMarkerId = null }) => {
+  if (markersLatLng.length === 0) return null;
 
   const onMarkerClick = (position) => {
-    zoomByPosition({ position });
+    moveToPosition({ position });
   };
 
   return (

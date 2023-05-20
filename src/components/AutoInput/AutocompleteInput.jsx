@@ -4,12 +4,7 @@ import Highlighter from 'react-highlight-words';
 
 import styles from './AutocompleteInput.module.sass';
 import CloseIcon from '@/common/CloseIcon/CloseIcon';
-import {
-  geocoder,
-  getLatLngByPlace,
-  getPlacePredictions,
-  isEmpty,
-} from '@/helpers';
+import { geocoder, getLatLngByPlace, getPlacePredictions, isEmpty } from '@/helpers';
 
 const AutocompleteInput = ({
   className = '',
@@ -22,32 +17,40 @@ const AutocompleteInput = ({
   const [suggestions, setSuggestions] = useState([]);
   const [isActive, setIsActive] = useState(true);
 
-  const handleChange = async (evt) => {
-    setIsActive(true);
-    setValue(evt.target.value);
-
-    if (!isEmpty(evt.target.value)) {
-      const predictions = await getPlacePredictions(evt.target.value);
-
-      setSuggestions(predictions);
-    } else {
-      setSuggestions([]);
-    }
-  };
-
-  const handleSelect = async (address) => {
-    const point = await geocoder({ address });
-    const coordinates = getLatLngByPlace(point.results[0]);
-
-    onPlaceSelect(coordinates);
-    setValue(address);
-    setSuggestions([]);
-  };
-
   const handleClear = () => {
     setSuggestions([]);
     setValue('');
     onClear();
+  };
+
+  const handleChange = async (evt) => {
+    try {
+      setIsActive(true);
+      setValue(evt.target.value);
+
+      if (!isEmpty(evt.target.value)) {
+        const predictions = await getPlacePredictions(evt.target.value);
+
+        setSuggestions(predictions);
+      } else {
+        setSuggestions([]);
+      }
+    } catch (error) {
+      handleClear();
+    }
+  };
+
+  const handleSelect = async (address) => {
+    try {
+      const point = await geocoder({ address });
+      const coordinates = getLatLngByPlace(point.results[0]);
+
+      onPlaceSelect(coordinates);
+      setValue(address);
+      setSuggestions([]);
+    } catch (error) {
+      handleClear();
+    }
   };
 
   const handleSearch = async () => {
@@ -55,7 +58,6 @@ const AutocompleteInput = ({
       setIsSearching(true);
 
       const point = await geocoder({ address: value });
-
       const coordinates = getLatLngByPlace(point.results[0]);
 
       onPlaceSelect(coordinates);
@@ -88,11 +90,7 @@ const AutocompleteInput = ({
           onFocus={() => setIsActive(true)}
         />
         {!isEmpty(value) && (
-          <button
-            type="button"
-            className={styles.clearBtn}
-            onClick={handleClear}
-          >
+          <button type="button" className={styles.clearBtn} onClick={handleClear}>
             <CloseIcon />
           </button>
         )}
@@ -110,10 +108,7 @@ const AutocompleteInput = ({
         <ul className={styles.suggestionList}>
           {suggestions.map((suggestion) => {
             return (
-              <li
-                key={suggestion.place_id}
-                onClick={() => handleSelect(suggestion.description)}
-              >
+              <li key={suggestion.place_id} onClick={() => handleSelect(suggestion.description)}>
                 <Highlighter
                   highlightClassName={styles.highlight}
                   searchWords={[value]}
