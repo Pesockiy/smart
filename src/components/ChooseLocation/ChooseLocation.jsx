@@ -94,7 +94,7 @@ const ChooseLocationMap = ({ locations, isLoaded }) => {
             }}
           >
             <ClustererView
-              markers={markerPositions}
+              markersLatLng={markerPositions}
               locations={locations}
               selectedId={selectedId}
               zoomByPosition={zoomByPosition}

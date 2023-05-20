@@ -11,6 +11,7 @@ import calculateDistance from './calculateDistance';
 import calculateRoutesDistance from './calculateRoutesDistance';
 import getLatLngByLocations from './getLatLngByLocations';
 import { formatDate } from './formatDate';
+import getPlaceDetails from './getPlaceDetails';
 
 export {
   truncateTextByLength,
@@ -27,4 +28,5 @@ export {
   calculateRoutesDistance,
   getLatLngByLocations,
   formatDate,
+  getPlaceDetails,
 };

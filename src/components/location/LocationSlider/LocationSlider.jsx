@@ -5,15 +5,17 @@ import 'swiper/css';
 
 import styles from './LocationSlider.module.sass';
 import LocationItem from '../LocationItem/LocationItem';
-import { geocoder } from '@/helpers';
+import { geocoder, getLatLngByPlace } from '@/helpers';
 import getLocationsSortedByDistance from '@/helpers/getLocationsSortedByDistance';
 
-const LocationSlider = ({ locations, map, onSelect, distances = [] }) => {
+const LocationSlider = ({ locations, map, onSelect, setActiveMarkerId }) => {
   const [selectedId, setSelectedId] = useState(null);
+
+  const sortedLocations = getLocationsSortedByDistance({ locations });
 
   useEffect(() => {
     if (map) {
-      map.panBy(0, 100);
+      map.panBy(0, 150);
     }
   }, [map]);
 
@@ -32,14 +34,34 @@ const LocationSlider = ({ locations, map, onSelect, distances = [] }) => {
     }
   };
 
-  const sortedLocations = getLocationsSortedByDistance({ locations, distances });
+  const onSlideChange = async (params) => {
+    const location = sortedLocations[params.activeIndex];
+
+    const point = await geocoder({ address: location.address });
+    const coordinates = getLatLngByPlace(point.results[0]);
+
+    map.panTo(coordinates);
+    map.setZoom(11);
+    map.panBy(0, 170);
+
+    setActiveMarkerId(location.id);
+    setSelectedId(location.id);
+  };
 
   return (
-    <Swiper className={styles.slider} slidesPerView="auto" spaceBetween={16}>
+    <Swiper
+      className={styles.slider}
+      slidesPerView="auto"
+      centeredSlides
+      centeredSlidesBounds
+      spaceBetween={16}
+      onSlideChange={onSlideChange}
+    >
       {sortedLocations.map((location) => {
         return (
           <SwiperSlide key={location.id} className={styles.slide}>
             <LocationItem
+              tag="div"
               hasBookFreeBtn
               location={location}
               className={styles.locationItem}

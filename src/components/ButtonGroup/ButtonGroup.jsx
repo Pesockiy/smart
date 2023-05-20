@@ -2,7 +2,7 @@ import cx from 'class-names';
 
 import styles from './ButtonGroup.module.sass';
 
-const BlogButtonGroup = ({ onClick, options, wrapperClassName = '', defaultOption = null }) => {
+const ButtonGroup = ({ onClick, options, wrapperClassName = '', defaultOption = null }) => {
   const className = cx(styles.wrapper, wrapperClassName);
 
   return (
@@ -26,4 +26,4 @@ const BlogButton = ({ children, isActive, onClick }) => (
   </button>
 );
 
-export default BlogButtonGroup;
+export default ButtonGroup;

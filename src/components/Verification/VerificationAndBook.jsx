@@ -64,14 +64,9 @@ const VerificationAndBook = () => {
           {isPhoneInput && (
             <div className={styles.phoneInput}>
               <PhoneInput value={contacts.phone} onChange={onChangeNumber} />
-              <Button
-                className={styles.saveBtn}
-                outlined
-                variant="secondary"
-                onClick={handleSaveNumber}
-              >
+              <button type="button" className={styles.saveBtn} onClick={handleSaveNumber}>
                 Save
-              </Button>
+              </button>
             </div>
           )}
           {!isPhoneInput && <VerifyCodeInputs />}
