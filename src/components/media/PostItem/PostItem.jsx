@@ -10,8 +10,10 @@ import s from '../Post.module.sass';
 import Heading from '@/common/Heading/Heading';
 import { PostChip } from '../PostChip/PostChip';
 
-const PostItem = ({ post, isImgCover, positionIdx = null }) => {
+const PostItem = ({ post, isImgCover, positionIdx = null, tag: RootTag = 'li' }) => {
   const router = useRouter();
+
+  // const Tag = tag;
 
   const description = truncateTextByLength({
     text: post.description,
@@ -21,7 +23,7 @@ const PostItem = ({ post, isImgCover, positionIdx = null }) => {
   const isDefaultType = post.type !== 'post';
 
   return (
-    <li className={styles.listItem}>
+    <RootTag className={styles.listItem}>
       {isDefaultType && (
         <div className={styles.chipWrapper}>
           <PostChip type={post.type} />
@@ -50,7 +52,7 @@ const PostItem = ({ post, isImgCover, positionIdx = null }) => {
           </Link>
         </p>
       </div>
-    </li>
+    </RootTag>
   );
 };
 

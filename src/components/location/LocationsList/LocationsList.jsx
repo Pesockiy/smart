@@ -9,6 +9,8 @@ function LocationsList({ locations, map, onSelect, setActiveMarkerId }) {
   const listRef = useRef(null);
   const [selectedId, setSelectedId] = useState(null);
 
+  const sortedLocations = getLocationsSortedByDistance({ locations });
+
   const onLocationClick = async (location) => {
     const place = await geocoder({ address: location.address });
 
@@ -22,8 +24,6 @@ function LocationsList({ locations, map, onSelect, setActiveMarkerId }) {
       onSelect(location.id);
     }
   };
-
-  const sortedLocations = getLocationsSortedByDistance({ locations });
 
   const onScroll = (evt) => {
     if (listRef.current !== undefined) {

@@ -61,6 +61,7 @@ const LocationSlider = ({ locations, map, onSelect, setActiveMarkerId }) => {
         return (
           <SwiperSlide key={location.id} className={styles.slide}>
             <LocationItem
+              tag="div"
               hasBookFreeBtn
               location={location}
               className={styles.locationItem}

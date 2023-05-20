@@ -94,7 +94,7 @@ const Post = ({ post, nextPost }) => {
 
         <div className={styles.nextPostContainer}>
           <h3 className={styles.infoTitle}>Next Post</h3>
-          <PostItem post={nextPost} isImgCover />
+          <PostItem tag="div" post={nextPost} isImgCover />
         </div>
       </div>
     </Container>
