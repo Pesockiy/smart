@@ -17,13 +17,14 @@ const isPlaceAvailable = (place) => place !== null;
 
 const StoresMap = ({ mapContainerClassName, locations }) => {
   const [locationsWithDistances, setLocationsWithDistances] = useState(
-    locations.map((item) => ({ ...item, distance: null }))
+    locations.map((item) => ({ ...item, distance: null, position: null }))
   );
   const mapRef = useRef(null);
-  const [selectedId, setSelectedId] = useState(null);
+  const [activeMarkerId, setActiveMarkerId] = useState(null);
   const [notFound, setNotFound] = useState(false);
   const [notFoundValue, setNotFoundValue] = useState('');
   const markerPositions = useGetMarkerPositionsByLocations({ locations });
+
   const [currentLatLng, setCurrentLatLng] = useState(null);
   const [place, setPlace] = useState(null);
 
@@ -75,6 +76,11 @@ const StoresMap = ({ mapContainerClassName, locations }) => {
     setLocationsWithDistances((prev) => prev.map((item) => ({ ...item, distance: null })));
   };
 
+  const locationItems = locationsWithDistances.map((location, idx) => ({
+    ...location,
+    position: markerPositions[idx],
+  }));
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.sidebar}>
@@ -98,13 +104,19 @@ const StoresMap = ({ mapContainerClassName, locations }) => {
         />
 
         <LocationsList
-          locations={locationsWithDistances}
+          locations={locationItems}
           map={mapRef.current}
           onSelect={onSelect}
+          setActiveMarkerId={setActiveMarkerId}
         />
       </div>
 
-      <LocationSlider map={mapRef.current} locations={locationsWithDistances} onSelect={onSelect} />
+      <LocationSlider
+        map={mapRef.current}
+        locations={locationItems}
+        onSelect={onSelect}
+        setActiveMarkerId={setActiveMarkerId}
+      />
 
       <div className={styles.mapContainer}>
         {notFound && <PlaceNotFound name={notFoundValue} />}
@@ -124,7 +136,7 @@ const StoresMap = ({ mapContainerClassName, locations }) => {
             <ClustererView
               markersLatLng={markerPositions}
               locations={locationsWithDistances}
-              selectedId={selectedId}
+              activeMarkerId={activeMarkerId}
               zoomByPosition={zoomByPosition}
             />
           </>

@@ -8,12 +8,14 @@ import LocationItem from '../LocationItem/LocationItem';
 import { geocoder, getLatLngByPlace } from '@/helpers';
 import getLocationsSortedByDistance from '@/helpers/getLocationsSortedByDistance';
 
-const LocationSlider = ({ locations, map, onSelect }) => {
+const LocationSlider = ({ locations, map, onSelect, setActiveMarkerId }) => {
   const [selectedId, setSelectedId] = useState(null);
+
+  const sortedLocations = getLocationsSortedByDistance({ locations });
 
   useEffect(() => {
     if (map) {
-      map.panBy(0, 100);
+      map.panBy(0, 150);
     }
   }, [map]);
 
@@ -33,14 +35,18 @@ const LocationSlider = ({ locations, map, onSelect }) => {
   };
 
   const onSlideChange = async (params) => {
-    const point = await geocoder({ address: sortedLocations[params.activeIndex].address });
+    const location = sortedLocations[params.activeIndex];
+
+    const point = await geocoder({ address: location.address });
     const coordinates = getLatLngByPlace(point.results[0]);
 
     map.panTo(coordinates);
     map.setZoom(11);
-  };
+    map.panBy(0, 170);
 
-  const sortedLocations = getLocationsSortedByDistance({ locations });
+    setActiveMarkerId(location.id);
+    setSelectedId(location.id);
+  };
 
   return (
     <Swiper

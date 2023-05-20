@@ -3,7 +3,7 @@ import { InfoWindow, MarkerF } from '@react-google-maps/api';
 
 import styles from './MarkersList.module.sass';
 
-const MarkersList = ({ markersLatLng, clusterer, onClick, locations, selectedId }) => {
+const MarkersList = ({ markersLatLng, clusterer, onClick, locations, activeMarkerId }) => {
   const [activeId, setActiveId] = useState(null);
 
   const icon = {
@@ -22,7 +22,7 @@ const MarkersList = ({ markersLatLng, clusterer, onClick, locations, selectedId 
     <>
       {markersLatLng.map((marker, idx) => {
         const location = locations[idx];
-        const isPopUpActive = location.id === activeId || selectedId === location.id;
+        const isPopUpActive = location.id === activeId || activeMarkerId === location.id;
 
         return (
           <MarkerF

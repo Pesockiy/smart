@@ -13,7 +13,7 @@ const CLUSTERER_OPTIONS = {
   ],
 };
 
-const ClustererView = ({ markersLatLng, locations, zoomByPosition, selectedId = null }) => {
+const ClustererView = ({ markersLatLng, locations, zoomByPosition, activeMarkerId = null }) => {
   const hasNoMarkers = markersLatLng.length === 0;
 
   if (hasNoMarkers) return null;
@@ -30,7 +30,7 @@ const ClustererView = ({ markersLatLng, locations, zoomByPosition, selectedId = 
             markersLatLng={markersLatLng}
             locations={locations}
             clusterer={clusterer}
-            selectedId={selectedId}
+            activeMarkerId={activeMarkerId}
             onClick={onMarkerClick}
           />
         );
