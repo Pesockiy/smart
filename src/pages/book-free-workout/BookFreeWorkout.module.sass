@@ -1,0 +1,35 @@
+.header
+  padding: 37px 0 33px
+  overflow: hidden
+
+.headerInner
+  +dFlex(flex, flex-start, center)
+  +colGap(50px)
+  max-width: 1440px
+  padding-left: 40px
+  padding-right: 40px
+
+  @media screen and (max-width: 1250px)
+    flex-direction: column
+    gap: 30px
+
+.mainContainer
+  display: flex
+  justify-content: flex-start
+  align-items: center
+  flex-direction: row
+  flex-wrap: nowrap
+  column-gap: 50px
+  max-width: 1540px
+  margin: auto
+  padding-right: 0
+  margin-bottom: 0
+  margin-left: 0
+  padding: 0 clamp(10px, 5vw, 60px)
+
+.stepsContainer
+  display: grid
+  grid-auto-columns: 236px 1fr
+  margin-left: 0
+  width: 100%
+  column-gap: 50px

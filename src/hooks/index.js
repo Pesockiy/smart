@@ -6,9 +6,10 @@ import useOnClickOutside from './useOnClickOutside';
 import useCopy from './useCopy';
 import useIsMounted from './useIsMounted';
 import usePostInfiniteScroll from './usePostInfiniteScroll';
-import usePlaceService from './usePlaceService';
 import useHandleCountryPhoneOptions from './useHandleCountryPhoneOptions';
 import useLocalStorage from './useLocalStorage';
+import { useWindowDimensions } from './useWindowDimensions';
+import useTimer from './useTimer';
 
 export {
   useToggle,
@@ -19,7 +20,8 @@ export {
   usePostInfiniteScroll,
   useCopy,
   useIsMounted,
-  usePlaceService,
+  useTimer,
+  useWindowDimensions,
   useHandleCountryPhoneOptions,
   useLocalStorage
 };

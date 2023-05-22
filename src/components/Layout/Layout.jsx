@@ -3,16 +3,17 @@ import Footer from '@/components/Footer/Footer';
 import ScrollTop from '@/components/ScrollTop/ScrollTop';
 import CustomHead from '@/components/CustomHead/CustomHead';
 
-import { CONTENT_TYPE_FOOTER, CONTENT_TYPE, getIndexPageData } from '@/contentful/pages';
-
-const Layout = ({ data, children }) => {
+const Layout = ({ children, hasHeader = true, hasFooter = true }) => {
   return (
     <>
       <CustomHead />
-      <Header />
+
+      {hasHeader && <Header />}
+
       <main>{children}</main>
 
-      <Footer />
+      {hasFooter && <Footer />}
+
       <ScrollTop />
     </>
   );

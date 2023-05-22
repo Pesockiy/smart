@@ -1,0 +1,48 @@
+.tooltipIcon
+  &:hover
+    cursor: pointer
+
+.tooltip
+  position: relative
+  display: inline-block
+  font-family: #{$thirdFont}
+  font-style: normal
+  font-weight: 400
+  font-size: 14px
+  line-height: 156%
+
+.tooltip .tooltipText
+  visibility: hidden
+  width: 210px
+  min-height: 70px
+  background-color: black
+  color: #141417
+  border-radius: 6px
+  padding: 12px
+  position: absolute
+  z-index: 1
+  top: -21px
+  left: 24px
+  background: #FFFFFF
+  border-radius: 20px
+
+  &:hover
+    cursor: pointer
+
+.tooltip .tooltipText::after
+  content: ""
+  position: absolute
+  top: 30px
+  right: 100%
+  margin-top: -5px
+  border-width: 5px
+  border-style: solid
+  border-color: transparent #FFFFFF transparent transparent
+
+.tooltip:hover .tooltipText
+  visibility: visible
+
+.tooltipText
+  span
+    color:#FF5F28
+      background-color: transparent

@@ -1,12 +1,15 @@
 import Head from 'next/head';
+import Head from 'next/head';
 
+import Layout from '@/components/Layout/Layout';
+import CustomScripts from '@/components/CustomScripts/CustomScripts';
 import Layout from '@/components/Layout/Layout';
 import CustomScripts from '@/components/CustomScripts/CustomScripts';
 
 import '@/styles/index.sass';
+import '@/styles/index.sass';
 
 const App = ({ Component, pageProps }) => {
-  const getLayout = (page) => <Layout>{page}</Layout>;
 
   return (
     <>
@@ -15,7 +18,7 @@ const App = ({ Component, pageProps }) => {
       </Head>
       <CustomScripts />
 
-      {getLayout(<Component {...pageProps} />)}
+      {renderWithLayout(<Component {...pageProps} />)}
     </>
   );
 };

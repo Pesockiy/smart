@@ -5,6 +5,7 @@ import Img from '@/common/Img/Img';
 import { formatPostDate, truncateTextByLength } from '@/helpers';
 import styles from './BlogPinned.module.sass';
 import s from '../../Post.module.sass';
+import Heading from '@/common/Heading/Heading';
 
 const BlogPinned = ({ posts }) => {
   const [mainPost] = posts;
@@ -28,24 +29,17 @@ const BlogMainPost = ({ post }) => {
 
   return (
     <div className={styles.post}>
-      <Img
-        className={styles.image}
-        src={post.image}
-        width={874}
-        height={429}
-        alt={post.title}
-      />
+      <Img className={styles.image} src={post.image} width={874} height={429} alt={post.title} />
 
       <div className={styles.content}>
         <div className={s.createdAt}>{createdAt}</div>
 
         <div className={styles.postInfoWrapper}>
-          <Link
-            className={cx(s.titleLink, styles.mainTitleLink)}
-            href={postPath}
-          >
-            {post.title}
-          </Link>
+          <Heading as="h2" className={s.title}>
+            <Link className={cx(s.titleLink, styles.mainTitleLink)} href={postPath}>
+              {post.title}
+            </Link>
+          </Heading>
 
           <p className={s.description}>
             {description}{' '}
@@ -76,9 +70,11 @@ const BlogPinnedPostItem = ({ post }) => {
     <li key={post.id} className={styles.listItem}>
       <div className={s.createdAt}>{createdAt}</div>
 
-      <Link className={s.titleLink} href={`/media/${post.id}`}>
-        {post.title}
-      </Link>
+      <Heading as="h2" className={s.title}>
+        <Link className={s.titleLink} href={`/media/${post.id}`}>
+          {post.title}
+        </Link>
+      </Heading>
     </li>
   );
 };

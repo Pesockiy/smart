@@ -12,6 +12,7 @@ import LinkIcon from '@/common/LinkIcon/LinkIcon';
 import ArrowIcon from '@/assets/icons/arrow.svg';
 import styles from './LocationItem.module.sass';
 import Button from '@/common/Button/Button';
+import { EmailLink } from '@/common/EmailLink/EmailLink';
 
 const LocationItem = ({
   location,
@@ -21,12 +22,13 @@ const LocationItem = ({
   hasBookFreeBtn = false,
   className = styles.listItem,
   detailsContainerClassName = '',
+  tag: RootTag = 'li',
 }) => {
   const isLocationActive = (location) => location.id === selectedId;
   const wrapperClassName = cx(styles.listItem, className);
 
   return (
-    <li className={wrapperClassName}>
+    <RootTag className={wrapperClassName}>
       <header className={styles.header}>
         <Heading size="sm" className={styles.title}>
           <Text as="span" gradient={isLocationActive(location)}>
@@ -92,15 +94,7 @@ const LocationItem = ({
           Book a free session
         </Button>
       )}
-    </li>
-  );
-};
-
-const EmailLink = ({ email }) => {
-  return (
-    <a href={`mailto:${email}`}>
-      <LinkIcon />
-    </a>
+    </RootTag>
   );
 };
 

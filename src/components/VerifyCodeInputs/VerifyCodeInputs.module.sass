@@ -1,0 +1,32 @@
+$inputGradient:linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%)
+
+.inputsContainer
+  display: flex
+  gap: 8px
+
+  input
+    width: 44px
+    height: 50px
+    padding: 12px
+    border: 1px solid #ADADAD
+    border-radius: 8px
+    background: #{$inputGradient}
+    font-family: #{$baseFont}
+    font-style: normal
+    font-weight: 400
+    font-size: 16px
+    line-height: 156%
+    text-align: center
+    color: #fff
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button
+      -webkit-appearance: none
+      margin: 0
+
+  input[type=number]
+    -moz-appearance: textfield
+
+  @media screen and (max-width: 390px)
+    input
+      width: 30px

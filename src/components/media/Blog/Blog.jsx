@@ -1,8 +1,8 @@
 import Pagination from '../Pagination';
-import MobilePagination from '../Pagination/MobilePagination';
 import BlogPinned from '../Pinned/Blog';
 import PostsList from '../PostsList/PostsList';
 
+import styles from './Blog.module.sass';
 import { smoothScroll } from '@/helpers';
 import { useServePagination } from '@/hooks/useServePagination';
 
@@ -25,13 +25,7 @@ const BlogView = ({ pinned, posts, pageSize = 6, count = 0 }) => {
       {shouldHavePagination && (
         <>
           <Pagination
-            totalCount={count}
-            currentPage={currentPage}
-            onPageChange={onPageClick}
-            pageSize={pageSize}
-          />
-
-          <MobilePagination
+            className={styles.paginationWrapper}
             totalCount={count}
             currentPage={currentPage}
             onPageChange={onPageClick}

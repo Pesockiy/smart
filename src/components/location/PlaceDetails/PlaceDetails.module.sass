@@ -5,36 +5,36 @@ $blackGradient: linear-gradient(56.68deg, rgba(255, 255, 255, 0.01) 0%, rgba(255
   z-index: 5
   top: 50
   top: 50%
-  transform: translateY(-50%)
   left: 24px
+  display: flex
+  flex-direction: column
   width: 331px
   min-height: 455px
   border-radius: 20px
   overflow: hidden
-  display: flex
-  flex-direction: column
   background-image: #{$blackGradient}
   background-color: rgba(38, 37, 41, 0.9)
+  transform: translateY(-50%)
 
   @media screen and (max-width: #{$lg})
     display: none
 
 .infoBoxImg
-  border-radius: 20px
   width: 100%
   height: 222px
+  border-radius: 20px
   object-fit: cover
 
 .infoBoxContent
+  display: flex
+  flex-direction: column
+  gap: 10px
+  flex-grow: 1
   padding: 25px
-  font-family: 'Inter'
+  font-family: #{$baseFont}
   font-style: normal
   font-weight: 400
   font-size: 16px
-  flex-grow: 1
-  gap: 10px
-  display: flex
-  flex-direction: column
 
   h2
     font-size: 27px
@@ -47,12 +47,12 @@ $blackGradient: linear-gradient(56.68deg, rgba(255, 255, 255, 0.01) 0%, rgba(255
 
 .googleDetails
   display: flex
-  flex-grow: 1
   gap: 16px
+  flex-grow: 1
 
 .bookFreeBtn
-  margin: auto
   width: 100%
+  margin: auto
 
 .ratingWrapper
   display: flex
@@ -64,7 +64,7 @@ $blackGradient: linear-gradient(56.68deg, rgba(255, 255, 255, 0.01) 0%, rgba(255
   color: #636479
 
 .placeholder
-  height: 222px
   display: flex
   justify-content: center
   align-items: center
+  height: 222px

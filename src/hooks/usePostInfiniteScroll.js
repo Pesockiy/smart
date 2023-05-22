@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 
 const usePostInfiniteScroll = ({ initial }) => {
   const [currentPosts, setCurrentPosts] = useState(() => [initial.post]);
-  const [nextPostMap, setNextPostMap] = useState(
-    new Map([[initial.post.id, initial.next]])
-  );
+  const [nextPostMap, setNextPostMap] = useState(new Map([[initial.post.id, initial.next]]));
 
   useEffect(() => {
     let isLoading = false;
@@ -12,8 +10,7 @@ const usePostInfiniteScroll = ({ initial }) => {
     const handleScroll = async () => {
       if (isLoading) return;
 
-      const { scrollHeight, scrollTop, clientHeight } =
-        document.documentElement;
+      const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
 
       const SCROLL_PERCENTAGE = 0.99;
 
@@ -26,10 +23,7 @@ const usePostInfiniteScroll = ({ initial }) => {
 
         setCurrentPosts((prev) => prev.concat(post.current));
         setNextPostMap((prevNextPostMap) => {
-          return new Map([
-            ...prevNextPostMap.entries(),
-            [post.current.id, post.next],
-          ]);
+          return new Map([...prevNextPostMap.entries(), [post.current.id, post.next]]);
         });
 
         isLoading = false;

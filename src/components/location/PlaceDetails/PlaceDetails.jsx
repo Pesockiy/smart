@@ -27,9 +27,7 @@ const PlaceDetails = ({ place, onClose }) => {
             )}
 
             {place.reviews && (
-              <p className={styles.reviews}>
-                {place.reviews.length} Google reviews
-              </p>
+              <p className={styles.reviews}>{place.reviews.length} Google reviews</p>
             )}
           </div>
         )}
@@ -41,11 +39,7 @@ const PlaceDetails = ({ place, onClose }) => {
         </Button>
       </div>
 
-      <button
-        className={styles.infoBoxCloseBtn}
-        type="button"
-        onClick={onClose}
-      >
+      <button className={styles.infoBoxCloseBtn} type="button" onClick={onClose}>
         <CloseIcon />
       </button>
     </div>

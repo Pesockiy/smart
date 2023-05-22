@@ -1,12 +1,15 @@
 import Select from 'react-select';
 import InputMask from 'react-input-mask';
+import cx from 'class-names';
+import { forwardRef } from 'react';
 
 import styles from './PhoneInput.module.sass';
-import { countrySelectStyles } from './countrySelectStyles';
 import { useHandleCountryPhoneOptions } from '@/hooks';
 import { createCountryOption } from '../CountryFlag/CountryFlag';
+import AttentionSVG from '@/assets/icons/attention.svg';
+import { getCountrySelectStyles } from './getCountrySelectStyles';
 
-const PhoneInput = ({ onChange, name = 'phone' }) => {
+const PhoneInput = forwardRef(({ error, id, label, name = 'phone', ...field }, ref) => {
   const { countryList, option, setOption } = useHandleCountryPhoneOptions();
   const countryOptions = convertCountryListToOptions(countryList);
 
@@ -14,30 +17,38 @@ const PhoneInput = ({ onChange, name = 'phone' }) => {
   const placeholder = `${code} ( ●●● ) ●●● ●●●●`;
   const mask = `${code} (999) 999-9999`;
 
+  const wrapperClasses = cx(styles.wrapper, { [styles.defaultWrapper]: !label });
+
   return (
     <div className={styles.container}>
-      Phone
-      <div className={styles.wrapper}>
+      {label && <span className={styles.labelTitle}>{label}</span>}
+      <div className={wrapperClasses}>
         <Select
+          instanceId={id}
           placeholder="flag"
           value={option}
-          styles={countrySelectStyles}
+          styles={getCountrySelectStyles(!!error)}
           options={countryOptions}
           onChange={(selectedOption) => setOption(selectedOption)}
         />
 
         <InputMask
+          {...field}
+          ref={ref}
+          id={id}
           maskChar=" "
+          autoComplete="off"
           name={name}
-          onChange={(evt) => onChange(evt.target.value)}
-          className={styles.input}
+          className={cx(styles.input, { [styles.fieldError]: !!error })}
           mask={mask}
           placeholder={placeholder}
         />
+        {error && <AttentionSVG className={styles.attentionIcon} />}
       </div>
+      {error && <div className={styles.error}>{error.message}</div>}
     </div>
   );
-};
+});
 
 const convertCountryListToOptions = (list) => {
   return list.map((country) => createCountryOption(country));
