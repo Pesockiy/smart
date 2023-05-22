@@ -16,7 +16,7 @@ import PersonalTraining from '@/components/PersonalTraining/PersonalTraining';
 import Comments from '@/components/Comments/Comments';
 import ReferralProgram from '@/components/ReferralProgram/ReferralProgram';
 import Listen from '@/components/Listen/Listen';
-// import SectionMedia from '@/components/SectionMedia/SectionMedia';
+import SectionMedia from '@/components/SectionMedia/SectionMedia';
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
@@ -56,11 +56,12 @@ const Home = ({ data }) => {
 
   return (
     <Animation targets={pushAnimateRef.current}>
-      <Hero slideType="1" data={data} />
+      <SectionMedia />
+      {/* <Hero slideType="1" data={data} />
       <Overlay>
         <ScienceBased />
         <BenefitFrom />
-      </Overlay>
+      </Overlay> */}
       {/* <SectionService />
       <SmartfitApp />
       <Trainers />

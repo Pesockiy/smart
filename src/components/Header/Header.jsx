@@ -77,13 +77,38 @@ const Header = () => {
             />
             <Nav ref={pushAnimateRef} classNames={headerNavClasses} />
 
-            <Button outlined variant="primary" className={styles.headerButton}>
+            <Button ref={pushAnimateRef} outlined variant="primary" className={styles.headerButton}>
               Book a free
             </Button>
           </div>
-          <button className={styles.headerMenuButton} >
+          <button
+            ref={pushAnimateRef}
+            className={styles.headerMenuButton}
+            onClick={menuToggleHandler}
+          >
             {isMenuOpen ? <IconMenuClose /> : <IconMenuOpen />}
           </button>
+          <Alert
+            isLayer={isTablet}
+            isVisible={isLocationOpen}
+            onClose={locationToggleHandler}
+            closeButton
+            className={styles.headerAlert}
+          >
+            <Text className={styles.headerAlertText}>
+              Are you located in <span>Cardiff?</span>
+            </Text>
+            <Button
+              variant="primary"
+              onClick={locationToggleHandler}
+              className={styles.headerAlertBtn}
+            >
+              Yes
+            </Button>
+            <button onClick={locationToggleHandler} className={styles.headerAlertChangeBtn}>
+              Change
+            </button>
+          </Alert>
         </Container>
       </Animation>
     </header>
