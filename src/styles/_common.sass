@@ -1,6 +1,6 @@
 html
-    scroll-behavior: smooth
     overflow-x: hidden
+    scroll-behavior: smooth
     // scrollbar-width: none
     // &::-webkit-scrollbar
     background: rgba(255, 255, 255, 0.0)
@@ -14,7 +14,8 @@ body,
     min-height: 100%
 
 body
-    font: 400 #{$fontSizeBase}/1.2 $baseFont
+    // overflow-x: hidden
+    font: 400 #{$baseFontSize}/1.2 $baseFont
     letter-spacing: -0.04em
     color: $whiteColor
     background: $blackColor url($path + 'icons/body-shape.svg') no-repeat center fixed
@@ -37,9 +38,3 @@ section
 
 button
     cursor: pointer
-
-.outer
-    overflow: hidden
-
-.inner
-    width: 100vw

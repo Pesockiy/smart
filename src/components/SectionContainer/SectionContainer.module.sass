@@ -5,13 +5,17 @@
 
 .sectionContainerWrap
     display: grid
-    grid-template-columns: repeat(3, minmax(120px, 1fr))
-
+    grid-template-columns: repeat(3, minmax(100px, 1fr))
+    
 .sectionContainerTop
     +dFlex(flex, space-between, center, 52px 70px, row, wrap)
     flex-basis: auto
     padding-left: 0!important
     padding-right: 0!important
+
+    +mediaMax($md)
+        row-gap: 24px
+
 
 // .sectionContainerTop,
 // .sectionContainerTopBlock

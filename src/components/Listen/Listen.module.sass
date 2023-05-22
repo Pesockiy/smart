@@ -1,0 +1,60 @@
+.listen
+
+    .listenText
+        display: block
+
+.listenItem
+    --img-width: 180px
+    +borderGradient(1px,  14px, $inputGrayGradient)
+    
+    display: flex
+    flex-flow: column wrap
+    gap: 16px
+    width: 100%
+    max-width: 650px
+    padding: 16px
+
+    border-radius: 20px
+    background: linear-gradient(56.68deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 147.05%), rgba(38, 37, 41, 0.3)
+
+    +mediaMin($sm)
+        height: 228px
+
+    +mediaMax($sm)
+        min-height: 623px
+
+    .listenItemImg
+        +cover
+        overflow: hidden
+        flex-basis: 100%
+
+        border-radius: 14px
+
+        +mediaMin($sm)
+            max-width: var(--img-width)
+    
+    .listenItemTitle
+        +mediaMax($sm)
+            width: 100%
+        +mediaMin($sm)
+            width: calc(100% - var(--img-width))
+        
+    .listenItemText
+        color: $whiteColorDarken
+
+    .listenItemButton
+        padding: 12px
+
+    .listenItemButtons
+        display: flex
+        flex-wrap: wrap
+        justify-content: flex-start
+        gap: 12px
+        margin-top: auto
+
+    .listenItemSubtitle
+        font-size: 15px
+        line-height: 156%
+        letter-spacing: 0.02em
+        text-transform: uppercase
+        color: $textGrayColor

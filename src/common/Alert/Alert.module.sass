@@ -1,0 +1,29 @@
+.alert
+    --offset: 16px
+    --radius: 14px
+    --blur: 4px
+    --gradient: #{$grayGradient}
+    +borderGradient(1px,  var(--radius), var(--gradient))
+
+    position: absolute
+    z-index: 100
+
+    width: 100%
+    max-width: 310px
+    padding: var(--offset)
+    
+    backdrop-filter: blur(var(--blur))
+    background-color: $halfTransparentBlack
+
+    .alertCloseButton
+        position: absolute
+        top: var(--offset)
+        right: var(--offset)
+
+.alertLayer
+    position: fixed
+    inset: 0
+    z-index: 99
+
+    background-color: rgba(0,0,0,0.6)
+

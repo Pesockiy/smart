@@ -1,0 +1,38 @@
+.layout
+    
+.alert
+    --offset: 24px 54px 30px 60px
+    --gradient: linear-gradient(rgba(80, 173, 71, 1),rgba(80, 173, 71, 0))
+    +borderGradient(1px,  20px, var(--gradient))
+    position: fixed
+    z-index: 9999
+    left: 100px
+    top: 100px
+    
+    width: 100%
+    max-width: 448px
+    display: grid
+    gap: 26px
+
+
+    background-color: $halfTransparentBlack
+
+    .alertTitle
+        line-height: 1.5
+
+        span
+            color: $accentColor
+
+    .alertIconSuccess
+        position: absolute
+        top: 25px
+        left: 25px
+        
+    .alertIconClassName
+        top: 25px
+        right: 25px
+
+    .aleftButton
+        width: max-content
+        padding: 13px 16px
+    

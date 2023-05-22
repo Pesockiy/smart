@@ -1,0 +1,73 @@
+.testimonials
+
+    .testimonialsText
+        display: block
+
+    
+    .testimonialWrapper
+        +mediaMax($md)
+            margin: 0 clamp(-60px, -5vw, -10px)
+            width: 125%
+
+.testimonialItem
+    display: flex
+    max-width: 100%
+
+    border-radius: 20px 
+    background: linear-gradient(0deg, rgba(22, 20, 30, 0.7), rgba(22, 20, 30, 0.7)), rgba(38, 37, 41, 0.3)
+
+    +mediaMax($sm)
+        flex-direction: column-reverse
+
+    .testimonialItemInfo
+        margin-bottom: 16px
+
+    .testimonialItemImage
+        flex-shrink: 0
+        flex-basis: 335px
+
+        +mediaMax($xl)
+            background-color: $whiteColor
+            aspect-ratio: 343 / 324
+            img
+                object-fit: contain
+
+    .testimonialItemBody
+        padding: 60px 65px 60px 48px
+        +mediaMax($xl)
+            padding: 20px 20px 24px 20px
+
+    .infoBlock
+        display: flex
+        gap: 32px 56px
+        margin-top: 40px
+
+        +mediaMax($xl)
+            flex-wrap: wrap
+            margin-top: 32px    
+
+
+        .infoItem
+            flex: 1 1 max-content
+            min-width: 110px
+
+            &:last-of-type
+                +mediaMax($sm)
+                    flex-basis: 100%
+
+        .infoItemTitle
+            margin-bottom: 2px
+            
+            font-size: 15px
+            line-height: 1.56
+            letter-spacing: 0.02em
+            text-transform: uppercase
+            color: $textGrayColor
+
+        .infoItemText
+            font-size: 16px
+            line-height: 1.56
+            color: $whiteColorDarken
+
+    .infoText
+        color: $textGrayColor

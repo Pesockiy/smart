@@ -6,9 +6,26 @@
         max-width: 660px
 
     .benefitFromItems
-        +dGrid(grid, 180px, fit, 14px 40px)
+        +dGrid(grid, 140px, fit, 14px 40px)
         width: 100%
 
     .benefitFromButton
         width: 100%
-        max-width: 312px
+        +mediaMin($sm)
+            max-width: 312px
+
+
+.iconPlus1,
+.iconPlus2
+    position: absolute
+
+    +mediaMax($md)
+        display: none
+
+.iconPlus1
+    bottom: 0
+    left: -12%
+
+.iconPlus2
+    bottom: 0
+    right: 0

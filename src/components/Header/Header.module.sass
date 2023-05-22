@@ -2,15 +2,23 @@
 .header
     position: sticky
     inset: 0
-    z-index: 99
+    z-index: 999
 
     padding: 37px 0 33px
+
     transition: background-color .3s
 
     +mediaMax($lg)
         height: 80px
         padding: 20px 0
+        
         background-color: $blackColor
+
+    +mediaMax($md)
+        position: fixed
+        height: 64px
+        padding-top: 12px
+        padding-bottom: 12px
 
     &.isHeaderScroled
         background-color: $blackColor
@@ -30,7 +38,7 @@
             display: none
             position: fixed
             inset: 0
-            top: 80px
+            top: 62px
             padding: 60px $adaptiveGutters 60px
 
             background-color: $darkGrayColor
@@ -95,8 +103,42 @@
     .headerMenuButton
         +mediaMax($lg)
             position: fixed
-            top: 25px
+            top: 16px
             right: $adaptiveGutters
 
         +mediaMin($lg)
             display: none
+
+.headerAlert
+    position: fixed
+    z-index: 99
+    top: 55px
+    left: 20%
+
+    display: grid
+    gap: 16px
+    width: 310px
+
+    +mediaMax($md)
+        position: fixed
+        left: 50%
+        top: 50%
+        transform: translate(-50%, -50%)
+
+    .headerAlertText
+        font-size: 21px
+        line-height: 1.5
+
+    .headerAlertText span,
+    .headerAlertChangeBtn
+        color: $accentColor
+
+    .headerAlertBtn
+        padding: 8px
+
+    .headerAlertChangeBtn
+        text-decoration: underline transparent
+        transition: .2s text-decoration-color
+        
+        &:hover
+            text-decoration-color: currentColor

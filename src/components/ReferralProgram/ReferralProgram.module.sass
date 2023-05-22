@@ -1,0 +1,137 @@
+.referralProgram
+
+    .referralProgramWrapper
+        position: relative
+        display: flex
+        align-items: center
+        justify-content: space-between
+        gap: 53px
+        padding: 32px
+
+        aspect-ratio: 1320 / 550
+        background: url("../../assets/icons/dots.svg") 0 / cover, linear-gradient(180deg, #7765E0 -73.27%, #D8D9F5 36.91%)
+
+        +mediaMax($md)
+            padding-left: 20px
+            padding-right: 20px
+            
+        +mediaMax(820px)
+            flex-wrap: wrap
+
+        &::after
+            // content: ''
+            // the design is going to some smoke...
+            // the gradients in the design drew as separate layouts :(
+            position: absolute
+            top: 10%
+            left: 30%
+
+            width: 223px
+            height: 202px
+
+            mix-blend-mode: soft-light
+            filter: blur(69px)
+
+            background-image:  radial-gradient(50% 50% at 50% 50%, #F26628 0%, #F26628 60.37%, #F26628 100%)
+
+    .referralProgramImgWrapper
+        position: relative
+        max-width: 618px
+        
+        img
+            border-radius: 20px
+
+        +mediaMax(820px)
+            max-width: 100%
+            width: 100%
+
+            img
+                width: 100%
+
+    .referralProgramTitle,
+    .referralProgramText
+        color: $blackColor
+        
+    .referralProgramText
+        max-width: 390px
+        margin-top: 24px
+
+        font: 400 21px/1.5 $baseFont
+
+    .referralProgramButton
+        min-width: 255px
+        margin-top: 32px
+        padding: 16px
+
+        text-align: center
+
+        +mediaMax(820px)
+            margin-top: 75px
+            &.desktop
+                display: none
+
+        +mediaMin(820px)
+            &.mobile
+                display: none
+
+
+    .referralProgramAlert
+        --radius: 16px
+        --blur: 2.5px
+        position: absolute
+        display: grid
+        gap: 8px
+        width: 204px
+        height: auto
+
+        font: 400 14px/1.56 $thirdFont
+
+        &:nth-of-type(1)
+            left: -29px
+            top: 20px
+
+        &:nth-of-type(2)
+            left: 92px
+            bottom: 38px
+
+            .referralProgramChip
+                order: 0
+
+        &:nth-of-type(3)
+            top: -12px
+            right: -16px
+
+        &.accent
+            width: 228px
+
+            .referralProgramChip
+                color: $brownColor
+                background-color: $whiteColor
+
+        +mediaMax(820px)
+            .referralProgramChip
+                padding-left: 8px
+                padding-right: 8px
+
+            &:nth-of-type(1)
+                top: -49px
+                left: auto
+                right: -9px
+                width: 172px
+
+            &:nth-of-type(2)
+                left: -20px
+                bottom: -100px
+
+            &:nth-of-type(3)
+                display: none
+
+    .referralProgramChip
+        justify-content: flex-start
+        padding: 2px 12px
+
+        font: inherit
+
+        color: $darkGreen
+        border-radius: 6px
+        background-color: $lightGreen

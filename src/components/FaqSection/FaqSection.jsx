@@ -1,4 +1,4 @@
-import { useRef, forwardRef} from 'react';
+import { useRef, forwardRef } from 'react';
 import cx from 'class-names';
 
 import SectionContainer from '../SectionContainer/SectionContainer';
@@ -36,36 +36,45 @@ const faqItems = [
   },
 ];
 
-const FaqSection = forwardRef(({innerRef}, ref) => {
+const FaqSection = forwardRef(({ innerRef }, ref) => {
   const faqRefs = useRef([]);
 
   return (
-    <section ref={ref} className={cx(styles.faq)}>
-      <SectionContainer ref={innerRef} wrapper vCenter count="05" subtitle={'FAQ’s'}>
-        <Animation targets={faqRefs.current} duration={0.5} stagger={0.2}>
-          <div className={styles.faqTextWrap}>
-            <Heading ref={(item) => faqRefs.current.push(item)} size="xxl" className={styles.faqTitle}>
-              <Text as="span" gradient>
-                Your Questions.
-              </Text>{' '}
-              Answered.
-            </Heading>
-          </div>
-          <div className={styles.faqContainer}>
-            {faqItems.map(({ title, body }) => (
-              <Accordion
-                ref={(item) => faqRefs.current.push(item)}
-                key={title}
-                title={title}
-                className={styles.faqItem}
-              >
-                {body}
-              </Accordion>
-            ))}
-          </div>
-        </Animation>
-      </SectionContainer>
-    </section>
+    <SectionContainer
+      ref={ref}
+      className={cx(styles.faq)}
+      wrapper
+      verticalCenter
+      count="05"
+      subtitle={'FAQ’s'}
+    >
+      <Animation targets={faqRefs.current} duration={0.5} stagger={0.2}>
+        <div className={styles.faqTextWrap}>
+          <Heading
+            ref={(item) => faqRefs.current.push(item)}
+            size="xxl"
+            className={styles.faqTitle}
+          >
+            <Text as="span" gradient>
+              Your Questions.
+            </Text>{' '}
+            Answered.
+          </Heading>
+        </div>
+        <div className={styles.faqContainer}>
+          {faqItems.map(({ title, body }) => (
+            <Accordion
+              ref={(item) => faqRefs.current.push(item)}
+              key={title}
+              title={title}
+              className={styles.faqItem}
+            >
+              {body}
+            </Accordion>
+          ))}
+        </div>
+      </Animation>
+    </SectionContainer>
   );
 });
 

@@ -8,6 +8,12 @@
     cursor: pointer
     transition: opacity .3s ease-in-out
 
+    +mediaMax($sm)
+        right: auto
+        left: 50%
+        transform: translateX(-50%)
+
+
     &.isVisible
         opacity: 1
 

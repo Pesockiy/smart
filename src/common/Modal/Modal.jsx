@@ -1,51 +1,36 @@
-import React, { useEffect } from "react";
-import cx from "class-names";
+import { useState } from 'react';
+import cx from 'class-names';
 
-import { useToggle } from "@/hooks";
+import IconClose from '@/assets/icons/close.svg';
 
-import Portal from "@/components/Portal/Portal";
-import IconClose from "@/assets/icons/Icon-close.svg";
-import styles from "./Modal.module.sass";
+import styles from './Modal.module.sass';
 
 const Modal = ({
-  className,
-  active,
-  closeButton,
-  center = false,
-  setActive = () => {},
-  onOnSuccess = () => {},
   children,
+  className,
+  isVisible = true,
+  closeButton = true,
+  onClose = () => {},
 }) => {
-  const classes = cx(styles.modal, className, {
-    [styles.center]: center,
-  });
+  const classes = cx(styles.modal, className);
 
-  useEffect(() => {
-    if (open) {
-      document.documentElement.classList.add("isHidden");
-    }
-    return () => {
-      document.documentElement.classList.remove("isHidden");
-    };
-  }, []);
+  const [visible, setVisible] = useState(isVisible);
 
-  const closeHandler = setActive();
+  const closeHandler = () => {
+    onClose(setVisible(false));
+  };
 
-  if(!isMenuOpen) return null;
+  if (!visible) return;
 
   return (
-    <Portal>
-      <div className={classes} onClick={setActive}>
-        <div className={styles.modalDialog}>
-          {children}
-          {closeButton && (
-            <button className={styles.modalButton} onClick={setActive}>
-              <IconClose />
-            </button>
-          )}
-        </div>
-      </div>
-    </Portal>
+    <div className={classes}>
+      <div className={styles.modalDialog}>{children}</div>
+      {closeButton && (
+        <button onClick={closeHandler} className={styles.modalCloseButton}>
+          <IconClose />
+        </button>
+      )}
+    </div>
   );
 };
 

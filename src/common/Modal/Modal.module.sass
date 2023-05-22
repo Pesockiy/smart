@@ -1,26 +1,52 @@
 .modal
-    +dFlex(flex, flex-strart, flex-start)
 
     position: fixed
     z-index: 100
     inset: 0
 
-    background-color: rgba($blackColor, .8)
-    &.center
-        justify-content: center
-        align-items: center
+    .modalDialog
+        --borderRadius: 20px
+        --offset: 32px
+        --gradient: #{$grayGradient}
+        +borderGradient(1px,  var(borderRadius), var(--gradient))
+        width: 1000px
+        height: 6000px
 
-.modalDialog
-    overflow: hidden
-    position: relative
-    max-width: 960px
-    border-radius: 20px
-    // pointer-events: none
+    // background-color: rgba($blackColor, .8)
+    // &.center
+        // justify-content: center
+        // align-items: center
 
-.modalButton
-    padding: 10px
-    top: 24px
-    right: 24px
-    cursor: pointer
-    position: absolute
-    pointer-events: initial
+// .modalDialog
+//     overflow: hidden
+//     position: relative
+//     max-width: 960px
+//     border-radius: 20px
+//     // pointer-events: none
+
+// .modalButton
+//     padding: 10px
+//     top: 24px
+//     right: 24px
+//     cursor: pointer
+//     position: absolute
+//     pointer-events: initial
+
+
+.modal
+    
+
+    // width: 310px
+    // height: 200px
+    padding: var(--offset)
+    
+    // backdrop-filter: blur(4px)
+    // background-color: $halfTransparentBlack
+    // border-radius: 14px
+
+    .modalCloseButton
+        position: absolute
+        top: var(--offset)
+        right: var(--offset)
+
+

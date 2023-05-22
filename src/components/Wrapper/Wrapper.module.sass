@@ -25,7 +25,8 @@
 
     .wrapperSideText
         position: absolute
-        left: $offsetLeft
+        // left: $offsetLeft
+        left: 60px
         top: calc(50% + 70px)
 
         transform: rotate(90deg) translate(-50%, -100%)
@@ -46,9 +47,11 @@
         background: linear-gradient(to right, rgba(99, 100, 121, 1),rgba(99, 100, 121, 0) 100%)
 
 
-.wrapperInner
+    .wrapperTopBlock
+        padding-left: 110px
+            
+    &.wrapperInner
 
-    .wrapperTopBlock,
-    .wrapperContent
-        +mediaMin($md)
-            padding-left: 110px
+        .wrapperContent
+            +mediaMin($md)
+                padding-left: 110px

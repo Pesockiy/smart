@@ -8,6 +8,7 @@ import useIsMounted from './useIsMounted';
 import usePostInfiniteScroll from './usePostInfiniteScroll';
 import usePlaceService from './usePlaceService';
 import useHandleCountryPhoneOptions from './useHandleCountryPhoneOptions';
+import useLocalStorage from './useLocalStorage';
 
 export {
   useToggle,
@@ -20,4 +21,5 @@ export {
   useIsMounted,
   usePlaceService,
   useHandleCountryPhoneOptions,
+  useLocalStorage
 };

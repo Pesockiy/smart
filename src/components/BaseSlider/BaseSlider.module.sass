@@ -1,0 +1,52 @@
+.baseSlider
+    --swiper-pagination-top: auto
+    --swiper-pagination-bottom: -40px
+    --swiper-pagination-bullet-width: 6px
+    --swiper-pagination-bullet-height: 6px
+    --swiper-pagination-bullet-inactive-color: #{$grayColor}
+    --swiper-pagination-color: #{$whiteColor}
+
+    .baseSliderPagination
+        position: absolute
+        width: 100px
+        left: 50%
+        
+        transform: translateX(-50%)
+
+    .baseSliderButtons
+        +dFlex(flex,space-between, center, 20px)
+        position: absolute
+        top: 40px
+        right: 0
+
+        +mediaMax($md)
+            top: auto
+            bottom: -150px
+            width: 100%
+
+    .baseSliderButton
+        +dFlex(flex, center, center)
+        +borderGradient(1px,  20px, $inputGrayGradient)
+        width: 91px
+        height: 91px
+        padding: 30px
+
+        background-color: $lightGrayColor
+        transition: opacity .3s
+        
+        &.disabled,
+        &:hover
+            opacity: 0.5
+
+        .baseSliderArrowPrev,
+        .baseSliderArrowNext
+            width: 30px
+            height: 30px
+
+        .baseSliderArrowPrev
+            transform: rotate(90deg)
+
+        .baseSliderArrowNext
+            transform: rotate(-90deg)
+
+

@@ -1,0 +1,47 @@
+.personalTraining
+
+    .personalTrainingContent
+        display: flex
+        align-items: center
+        flex-wrap: nowrap
+        width: 100%
+
+        +mediaMax($sm)
+            flex-wrap: wrap-reverse
+
+    .personalTrainingBody
+        position: relative
+        min-width: 400px
+
+        transform: translateX(-5%)
+
+    .personalTrainingImg
+        width: 100%
+
+        // aspect-ratio: attr(width) / attr(height)
+
+    .personalTrainingTexts
+        display: flex
+        flex-direction: column
+        gap: 32px
+        width: 100%
+        max-width: 550px
+
+    .personalTrainingButton
+        align-self: flex-start
+
+    .personalTrainingButtonText
+        display: block
+
+    .btnDesktop
+        display: flex
+        +mediaMax($sm)
+            display: none
+
+    .btnMobile
+        display: none
+        +mediaMax($sm)
+            order: -1
+            margin-top: 30px
+            display: flex
+

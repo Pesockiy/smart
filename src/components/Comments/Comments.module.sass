@@ -1,0 +1,73 @@
+.comments
+    width: 100%
+    gap: 24px 40px
+
+    .commentsInner
+        flex-direction: column
+
+    .commentsTop
+        display: flex
+        justify-content: space-between
+        margin-bottom: 40px
+
+    .commentsText
+        display: block
+
+    .commentsRating
+        display: flex
+        align-items: center
+        align-self: flex-end
+
+        +mediaMax($sm)
+            margin-bottom: 15px
+
+    .commentsRatingText
+        margin-left: 12px
+
+        color: $textGrayColor
+        letter-spacing: -0.04em
+
+        &.top
+            +mediaMax($sm)
+                text-decoration: underline
+
+    .commentsRatingCount
+        margin-right: 10px
+
+.commentsItem
+    --offset: 32px
+    position: relative
+    max-width: 610px
+    padding: var(--offset)
+
+    background: linear-gradient(179.55deg, rgba(138, 135, 135, 0.2) -3.48%, rgba(75, 78, 91, 0.3) 48.02%, rgba(109, 110, 113, 0.2) 99.61%)
+    border-radius: 20px
+
+    +mediaMax($sm)
+        --offset: 16px
+
+    .commentsItemTitle
+        padding-right: 30px
+
+    .commentsItemAuthor
+        display: flex
+
+    .commentsItemText
+        margin-top: 27px
+        line-height: 1.5
+
+        +mediaMax($sm)
+            font-size: 16px
+
+        a
+            text-decoration-color: transparent
+            color: $accentColor
+            transition: text-decoration-color .3s
+            &:hover
+                text-decoration-color: currentcolor
+
+    .commentItemIcon
+        position: absolute
+        top: var(--offset)
+        right: var(--offset)
+

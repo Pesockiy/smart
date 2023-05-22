@@ -1,30 +1,38 @@
 .hero
     justify-content: flex-start
     height: auto
-    padding-top: 20px
+    min-height: 0
+    padding-top: 0
+    padding-bottom: 20px
+
+    +mediaMax($md)
+        padding-top: 70px
+
     .heroTextWrap
         +dFlex(flex, space-between, flex-start, 40px 24px, column)
-        flex: 1 1 45%
-        
-        +mediaMin($lg)
-            max-width: 585px
-
+       
     .heroVideoWrap
         +dFlex(flex, flex-end)
         overflow: hidden
         position: relative
         flex: 1
-        min-width: 500px
+
         max-width: 650px
         height: 100%
         max-height: 550px
+
         border-radius: 20px
 
         img
             width: 100%
 
+        +mediaMin($md)
+            min-width: 360px
+            
         +mediaMax($lg)
             +mxAuto
+            max-width: 100%
+            aspect-ratio: 343 / 182
 
     .heroTextWrap,
     .heroVideoWrap
@@ -33,6 +41,9 @@
 
     .heroTextsBottom
         +dFlex(flex, flex-start, center, 20px 54px, row, wrap)
+
+        +mediaMin($lg)
+            max-width: 585px
 
         p
             flex: 1 1 40%
@@ -57,6 +68,20 @@
         span
             color: $whiteColor
 
+    .heroTitleText
+        display: block
+
 .heroSlider
-    align-self: start
-    max-width: 100%
+    position: relative
+    padding-bottom: 200px
+    margin-bottom: 20px
+
+    +mediaMin($xl)
+        transform: translateX($offsetLeft)
+
+    +mediaMax($xl)
+        transform: translateX($adaptiveGutters)
+
+.heroSlide
+    max-width: 315px
+

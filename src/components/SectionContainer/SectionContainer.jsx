@@ -1,38 +1,49 @@
 import { forwardRef } from 'react';
+import cx from 'class-names';
 
 import Container from '@/common/Container/Container';
 import Wrapper from '@/components/Wrapper/Wrapper';
 
 import styles from './SectionContainer.module.sass';
 
-const SectionContainer = forwardRef(({
-  wrapper = false,
-  rtl = false,
-  vCenter = false,
-  children = null,
-  count = '02',
-  subtitle,
-}, ref) => {
-  return (
-    <Wrapper
-      ref={ref}
-      wrapper={wrapper}
-      className={styles.sectionContainerWrap}
-      count={count}
-      subtitle={subtitle}
-    >
-      <Container
-        disableGutters={wrapper}
-        className={styles.sectionContainerTop}
-        style={{
-          flexDirection: rtl ? 'row-reverse' : 'row',
-          alignItems: vCenter ? 'center' : 'flex-start',
-        }}
-      >
-        {children}
-      </Container>
-    </Wrapper>
-  );
-});
+const SectionContainer = forwardRef(
+  (
+    {
+      children,
+      count,
+      containerClassName,
+      subtitle,
+      className,
+      scrollText,
+      wrapper,
+      rtl,
+      verticalCenter,
+    },
+    ref
+  ) => {
+    return (
+      <section ref={ref} className={className}>
+        <Wrapper
+          wrapper={wrapper}
+          className={cx(styles.sectionContainerWrap, className)}
+          count={count}
+          subtitle={subtitle}
+          scrollText={scrollText}
+        >
+          <Container
+            disableGutters={wrapper}
+            className={cx(styles.sectionContainerTop, containerClassName)}
+            style={{
+              flexDirection: rtl ? 'row-reverse' : 'row',
+              alignItems: verticalCenter ? 'center' : 'flex-start',
+            }}
+          >
+            {children}
+          </Container>
+        </Wrapper>
+      </section>
+    );
+  }
+);
 
 export default SectionContainer;

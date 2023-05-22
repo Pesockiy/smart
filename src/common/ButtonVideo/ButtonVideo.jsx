@@ -1,17 +1,18 @@
+import { forwardRef } from 'react';
 import cx from 'class-names';
 
 import Button from '@/common/Button/Button';
 
 import styles from './ButtonVideo.module.sass';
 
-const ButtonVideo = ({ className, children }) => {
+const ButtonVideo = forwardRef(({ className, children, ...rest },   ref) => {
   const classes = cx(styles.buttonVideo, className);
   return (
-    <Button base className={classes}>
+    <Button ref={ref} base className={classes} {...rest}>
       {children} <PlayIcon />
     </Button>
   );
-};
+});
 
 const PlayIcon = () => {
   return (

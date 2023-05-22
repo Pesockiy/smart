@@ -1,0 +1,60 @@
+.trainers
+    height: auto
+    .trainersContent
+        +dGrid(grid, 315px, fit, 20px)
+        width: 100%
+        +mediaMax($sm)
+            grid-template-columns: repeat(2, calc(50% - 20px))
+        
+
+.trainerCard
+    --gradient: #{$grayGradient}
+    +borderGradient(1px,  20px, var(--gradient))
+    margin: auto
+
+    background: linear-gradient(56.68deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 147.05%), rgba(38, 37, 41, 0.3)
+
+
+    .trainerCardBody
+        +clamp(gap, 7px, 5vw, 15px)
+        display: flex
+        flex-wrap: wrap
+        align-items: center
+        min-height: 164px
+        padding: 18px 16px 20px
+
+    .trainerCardTitle
+        flex-basis: 57%
+        color: $whiteColor
+        hyphens: auto
+        word-break: break-word
+
+        +mediaMax($md)
+            flex-basis: 100%
+
+    .trainerCardTitle,
+    .trainerCardContact
+        min-width: 100px
+
+    .trainerCardContact
+        flex-basis: 35%
+        display: flex
+        align-items: center
+        justify-content: space-between
+        gap: 4px
+
+        svg path
+            fill: $textGrayColor
+
+        +mediaMax($sm)
+            flex-basis: 100%
+            order: 1
+
+    .trainerCardLine
+        background: linear-gradient(90deg, rgba(173, 176, 208, 0) 3.65%, #636479 100%)
+
+    .trainerCardText
+        align-self: flex-start
+        flex-basis: 100%   
+
+        color: $whiteColorDarken

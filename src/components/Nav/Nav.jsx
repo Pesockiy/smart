@@ -14,7 +14,12 @@ const Nav = forwardRef(({ classNames }, ref) => {
     <nav className={cx(nav, classNames?.navClassName)}>
       <ul className={cx(navList, classNames?.navListClassName)}>
         {navLinks.map((navItem) => (
-          <NavItem ref={ref} key={navItem.name} navItem={navItem} className={classNames?.navItemClassName} />
+          <NavItem
+            ref={ref}
+            key={navItem.name}
+            navItem={navItem}
+            className={classNames?.navItemClassName}
+          />
         ))}
       </ul>
     </nav>

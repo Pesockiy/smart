@@ -1,28 +1,19 @@
 .heading
-    +headingFont
 
     &.xxl
-        --max: #{$fontSizeXxl}
-        --min: #{$fontSizeXxlMob}
+        +headingFont(64, 40)
 
     &.xl
-        --max: #{$fontSizeXl}
-        --min: #{$fontSizeXlMob}
+        +headingFont(56, 40)
 
     &.lg
-        --max: #{$fontSizeLg}
-        --min: #{$fontSizeLgMob}
-        line-height: 1.5
-        letter-spacing: -0.14em
+        +headingFont(48, 32, 1.31)
 
     &.md
-        --max: #{$fontSizeMd}
-        --min: #{$fontSizeMdMob}
+        +headingFont(40, 27, 1.32)
 
     &.sm
-        --max: #{$fontSizeSm}
-        --min: #{$fontSizeSmMob}
+        +headingFont(27, 21, 1.5)
 
     &.xs
-        --max: #{$fontSizeXs}
-        --min: #{$fontSizeXsMob}
+        +headingFont(21, 18)

@@ -1,34 +1,34 @@
 import { forwardRef } from 'react';
-
-import Img from '@/common/Img/Img';
 import cx from 'class-names';
 
-import styles from './Socials.module.sass';
+import Img from '@/common/Img/Img';
 
 import IconInstagram from '@/assets/icons/Instagram-Icon.svg';
 import IconFacebook from '@/assets/icons/Facebook-Icon.svg';
+
+import styles from './Socials.module.sass';
 
 const socialLinks = [
   {
     id: '1',
     href: '#',
     label: 'Instagram',
-    icon: IconInstagram,
+    src: '/images/inst.png',
   },
   {
     id: '2',
     href: '#',
     label: 'Facebook',
-    icon: IconFacebook,
+    src: '/images/facebook.png',
   },
 ];
 
 const Socials = forwardRef(({ links = socialLinks, className }, ref) => {
   return (
     <div ref={ref} className={cx(styles.socials, className)}>
-      {links.map(({href, label = 3, id, icon}) => (
+      {links.map(({ href, label = 3, id, src }) => (
         <a key={id} href={href}>
-          {/* {icon && <Img src={icon} width={20} height={20} alt="icon" />} */}
+          <Img className={styles.icon} src={src} width={24} height={24} alt="icon" />
           {label}
         </a>
       ))}

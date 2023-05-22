@@ -5,8 +5,10 @@ import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const Animation = ({
+  scrub,
+  start,
+  end,
   targets = null,
-  children = null,
   stagger = 0.05,
   delay = 0.1,
   duration = 0.5,
@@ -14,10 +16,10 @@ const Animation = ({
   toX = false,
   startY = 40,
   startX = 40,
-  scrub,
+  children = null,
   toggleActions = '',
-  // toggleActions = 'play pause resume pause',
 }) => {
+
   useEffect(() => {
     if (targets?.length) {
       gsap.set(targets, {
@@ -29,7 +31,7 @@ const Animation = ({
         x: toX ? startX : 0,
       });
     }
-  }, [children]);
+  }, []);
 
   useEffect(() => {
     ScrollTrigger.batch(targets, {
@@ -43,9 +45,11 @@ const Animation = ({
           stagger,
           ease,
           scrub,
+          start,
+          end,
         }),
     });
-  }, [children]);
+  }, []);
 
   return <>{children}</>;
 };

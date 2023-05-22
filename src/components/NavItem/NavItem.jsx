@@ -1,4 +1,4 @@
-import React, { memo, forwardRef } from 'react';
+import { memo, forwardRef } from 'react';
 import Link from 'next/link';
 
 import styles from './NavItem.module.sass';

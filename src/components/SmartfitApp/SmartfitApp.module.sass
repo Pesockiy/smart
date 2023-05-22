@@ -1,0 +1,105 @@
+.smartfitApp
+    overflow: hidden
+    padding-top: 320px
+    padding-bottom: 120px
+
+    .smartfitAppInner
+        position: relative
+        display: flex
+        flex-direction: column
+        align-items: center
+        padding: 50px 0
+
+        &::after
+            --gradient-size: 84% 50% at 50% 60%
+            content: ''
+            z-index: 0
+            position: absolute
+            inset: 0
+            background: radial-gradient(var(--gradient-size), rgba(20, 20, 23, 0) 1.93%, rgba(20, 20, 23, 0.4) 50.71%, #141417 69.42%) no-repeat top center
+
+            +mediaMax($md)
+                --gradient-size: 80% 40% at 50% 57%
+                left: -6%
+                right: -6%
+
+
+    .smartfitAppContent
+        position: relative
+        overflow: hidden
+        width: 100%
+        display: grid
+        grid-template-columns: repeat(2, 1fr) 1.3fr repeat(2, 1fr)
+
+        +mediaMax($md)
+            align-content: center
+            width: auto
+            height: 450px
+            margin: 0 -5%
+
+    .smartfitAppCol
+        &:first-of-type,
+        &:last-of-type
+            +mediaMin($md)
+                position: relative
+                top: -100px
+
+        +mediaMax($md)
+            height: 100%    
+            width: 230px
+
+        +mediaMax($sm)
+            width: 190px
+
+        +mediaMax($xs)
+            width: 140px
+
+    .smartfitAppImg
+        +mxAuto
+        display: block
+        width: 100%
+        height: auto
+        padding: 5px    
+
+    .smartfitAppAccentImg
+        align-self: center
+        width: 380px
+        
+        +mediaMin($md)
+            padding: 20px
+            filter: drop-shadow( 0 0 1px #fff)
+
+        +mediaMax($md)
+            +clamp(width, 200px, 3vw, 300px)
+            position: absolute
+            z-index: 1
+            left: calc(50% - 100px)
+            max-width: 300px
+            height: auto
+
+    .smartfitAppTitle
+        margin-bottom: 24px
+
+    .smartfitAppTexts
+        max-width: 505px
+        margin-bottom: 32px
+        line-height: 1.56
+        color: $whiteColorDarken
+
+        +mediaMin($md)
+            margin-bottom: 45px
+            text-align: center
+
+    .smartfitAppButtons
+        display: flex
+        gap: 20px
+
+        +mediaMax($md)
+            order: 1
+            margin-top: 50px
+
+    .smartfitAppTitle,
+    .smartfitAppTexts,
+    .smartfitAppButtons
+        position: relative
+        z-index: 1

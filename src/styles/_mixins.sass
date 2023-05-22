@@ -55,7 +55,7 @@
 =colGap($val)
     column-gap: $val
 
-=clamp($prop, $min, $res, $max)
+=clamp($prop, $min: 5vw, $res, $max)
     #{$prop}: clamp($min, $res, $max)
 
 =posCenter
@@ -74,10 +74,14 @@
     transition: $props
 
 =buttonFont()
-    font: 600 #{$fontSizeBase}/1.24 $baseFont
+    font: 600 #{$baseFontSize}/1.24 $baseFont
 
-=headingFont($w: 600, $f: $headingFont, $l: 1.24)
-    font: $w clamp(var(--min, 40px), 7vw, var(--max, 64px))/$l $f
+=headingFont($max, $min, $l: 1.16, $ls: normal, $w: 600, $ff: $headingFont)
+    font: $w clamp(#{$min + "px"}, 7vw, #{$max + "px"})/$l $ff
+    letter-spacing: $ls
+
+// =headingFont($w: 600, $f: $headingFont, $l: 1.24)
+//     font: $w clamp(var(--min, 40px), 7vw, var(--max, 64px))/$l $f
 
 =text-overflow($lines: 1)
     overflow: hidden

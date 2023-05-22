@@ -33,7 +33,7 @@ const nextConfig = {
     CONTENTFUL_ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN,
     GOOGLE_ANALITICS_TOKEN: process.env.GOOGLE_ANALITICS_TOKEN,
   },
-  reactStrictMode: false,
+  reactStrictMode: true,
   images: {
     domains: ['https://flagsapi.com']
   },

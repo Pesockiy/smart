@@ -1,17 +1,17 @@
-import React, { forwardRef } from "react";
-import cx from "class-names";
+import React, { forwardRef } from 'react';
+import cx from 'class-names';
 
-import styles from "./Container.module.sass";
+import styles from './Container.module.sass';
 
 const Container = forwardRef(
   (
     {
       style = {},
       fixed = false,
-      className = "",
-      maxWidth = "lg",
-      children = null,
-      component = "div",
+      className,
+      maxWidth = 'lg',
+      children,
+      component = 'div',
       disableGutters = false,
     },
     ref

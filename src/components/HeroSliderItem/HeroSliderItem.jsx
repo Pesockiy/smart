@@ -1,11 +1,11 @@
-import React, { useRef, forwardRef } from "react";
-import { useSwiper, useSwiperSlide } from "swiper/react";
-import cx from "class-names";
+import { forwardRef, useCallback, memo } from 'react';
+import { useSwiper, useSwiperSlide } from 'swiper/react';
+import cx from 'class-names';
 
-import Heading from "@/common/Heading/Heading";
-import Video from "@/common/Video/Video";
+import Heading from '@/common/Heading/Heading';
+import Video from '@/common/Video/Video';
 
-import styles from "./HeroSliderItem.module.sass";
+import styles from './HeroSliderItem.module.sass';
 
 const {
   heroSliderItem,
@@ -17,16 +17,12 @@ const {
   heroVideoButton,
 } = styles;
 
-const HeroSliderItem = forwardRef(({
-  slideData,
-  index,
-  className,
-  onClick = () => {},
-}, ref) => {
+const HeroSliderItem = forwardRef(({ data, className }, ref) => {
+  const { index } = data;
+
   const swiper = useSwiper();
 
   const swiperSlide = useSwiperSlide();
-  const playerRef = useRef(null);
 
   const classes = cx(
     heroSliderItem,
@@ -36,39 +32,42 @@ const HeroSliderItem = forwardRef(({
     className
   );
 
-  const slideNextHandler = () => {
+  const slideNextHandler = useCallback(() => {
     swiper.slideNext();
-  };
+  }, [swiperSlide]);
+
+  const videoNextHandler = useCallback(() => {
+    swiper.slideTo(index - 1);
+    swiper.updateSlides();
+  }, [swiperSlide]);
 
   return (
-    <div ref={ref} className={classes}>
-      <div className={heroSliderVideoWrap}>
-        <Video
-          showButtons
-          className={heroSliderVideo}
-          buttonClassName={heroVideoButton}
-          ref={playerRef}
-          play={swiperSlide.isActive}
-          progressBar={swiperSlide.isActive}
-          onEnd={slideNextHandler}
-          onClick={() => {
-            swiper.slideTo(index - 1);
-            swiper.updateSlides();
-          }}
-          params={{
-            muted: true,
-            src: slideData.fields.file.url,
-          }}
-        />
+    <>
+      <div ref={ref} className={classes}>
+        <div className={heroSliderVideoWrap}>
+          <Video
+            showButtons
+            play={swiperSlide.isActive}
+            onEnd={slideNextHandler}
+            onClick={videoNextHandler}
+            className={heroSliderVideo}
+            buttonClassName={heroVideoButton}
+            progressBar={swiperSlide.isActive}
+            params={{
+              muted: true,
+              src: data?.fields.file?.url,
+            }}
+          />
+        </div>
+        <div className={heroSliderTextWrap}>
+          {index && <div className={heroSliderNumberSlide}>/{index}</div>}
+          <Heading size="sm" className={heroSliderHeading}>
+            {data?.fields.description}
+          </Heading>
+        </div>
       </div>
-      <div className={heroSliderTextWrap}>
-        <div className={heroSliderNumberSlide}>/{index}</div>
-        <Heading size="sm" className={heroSliderHeading}>
-          {slideData.fields?.description}
-        </Heading>
-      </div>
-    </div>
+    </>
   );
 });
 
-export default HeroSliderItem;
+export default memo(HeroSliderItem);
