@@ -56,7 +56,7 @@ const Hero = forwardRef(({ data, slideType, withSlder = true }, ref) => {
   const SlideItemVariant = useMemo(
     () => (data) => {
       if (slideType == 1) {
-        return <HeroSliderItem data={data} ref={pushAnimateSliderRef}/>;
+        return <HeroSliderItem data={data} ref={pushAnimateSliderRef} />;
       } else if (slideType == 2) {
         return <SlideVariant2 data={data} />;
       } else {
@@ -74,7 +74,7 @@ const Hero = forwardRef(({ data, slideType, withSlder = true }, ref) => {
             duration={0.1}
             stagger={0.1}
             toX
-            startX={100}
+            startX={'-100'}
             scrub={1}
             targets={sliderItemsRefs.current}
           >

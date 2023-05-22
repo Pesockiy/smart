@@ -23,46 +23,19 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 import { CONTENT_TYPE } from '@/contentful/pages';
 
+import { Posts } from './media';
+
 gsap.registerPlugin(ScrollTrigger);
 
-const Home = ({ data }) => {
-  const animationRefs = useRef([]);
-  const pushAnimateRef = (item) => animationRefs.current.push(item);
-
-  // useEffect(() => {
-  //   ScrollTrigger.batch(animationRefs.current, {
-  //     once: true,
-  //     onEnter: (elements) => {
-  //       return gsap.fromTo(
-  //         elements,
-  //         {
-  //           start: '0 top',
-  //           end: 'top 0',
-  //         },
-  //         {
-  //           translateY: '-60%',
-  //           duration: 0.4,
-  //           scrollTrigger: {
-  //             trigger: elements,
-  //             scrub: 4,
-  //             start: '0 top',
-  //             end: 'top -5%',
-  //           },
-  //         }
-  //       );
-  //     },
-  //   });
-  // }, []);
-
+const Home = ({ data, posts }) => {
   return (
-    <Animation targets={pushAnimateRef.current}>
-      <SectionMedia />
-      {/* <Hero slideType="1" data={data} />
+    <>
+      <Hero slideType="1" data={data} />
       <Overlay>
         <ScienceBased />
         <BenefitFrom />
-      </Overlay> */}
-      {/* <SectionService />
+      </Overlay>
+      <SectionService />
       <SmartfitApp />
       <Trainers />
       <Testimonials />
@@ -72,15 +45,20 @@ const Home = ({ data }) => {
       </Overlay>
       <Comments />
       <ReferralProgram />
-      <Listen /> */}
-    </Animation>
+      <SectionMedia posts={posts} />
+      <Listen />
+    </>
   );
 };
 
 export const getServerSideProps = async () => {
   const data = await getIndexPageData(CONTENT_TYPE);
 
-  return { props: { data: data[0].fields } };
+  const response = await Promise.all([Posts.get({ limit: 10 })]);
+
+  const [posts] = await Promise.all(response.map((res) => res.json()));
+
+  return { props: { data: data[0].fields, posts: posts.items } };
 };
 
 export default Home;

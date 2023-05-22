@@ -4,6 +4,7 @@ import { useState } from 'react';
 import styles from './ButtonGroup.module.sass';
 
 const ButtonGroup = ({
+  className,
   options,
   onClick = () => {},
   wrapperClassName = '',
@@ -16,10 +17,10 @@ const ButtonGroup = ({
     onClick(option);
   };
 
-  const className = cx(styles.wrapper, { [wrapperClassName]: !!wrapperClassName });
+  const classes = cx(styles.wrapper, { [wrapperClassName]: !!wrapperClassName }, className);
 
   return (
-    <div className={className}>
+    <div className={classes}>
       {options.map((option) => {
         const isActive = activeOption.value === option.value;
 

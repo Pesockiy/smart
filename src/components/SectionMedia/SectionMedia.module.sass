@@ -1,14 +1,32 @@
 .sectionMedia
-
+    overflow: hidden
+    height: auto
 
     .sectionMediaTop
+        width: 100%
         display: flex
         flex-wrap: wrap
         align-items: center
         justify-content: space-between
         gap: 50px
-        margin-bottom: 32px
+        margin-bottom: -9px
+
+        +mediaMax($md)
+            gap: 26px
+
+
+    .sectionMediaSliderWrap
+        height: 100%
 
     .sectionMediaTitle
         flex-basis: 100%
+
+    .sectionMediaButton
+        min-width: 224px
+
+        +mediaMax($sm)
+            display: none
+
+    .sectionMediaPost
+        height: 100%
         

@@ -139,31 +139,31 @@ const SectionService = forwardRef(({}, ref) => {
   const testRef = useRef([]);
   const testRef1 = useRef([]);
 
-  useEffect(() => {
-    let tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        pin: mainRef.current,
-        scrub: 0.1,
-        stagger: 20,
-        snap: 0.1 / (animationRefs.current.length - 1),
-        end: `+=${600 * animationRefs.current.length}`,
-        duration: 1,
-        start: 'bottom bottom',
-        // markers: true,
-      },
-    });
-    tl.to(animationRefs.current, {
-      yPercent: -100 * (animationRefs.current.length - 1),
-    });
-    tl.set(
-      animationRefs.current,
-      {
-        stagger: 0.05 / animationRefs.current.length,
-      },
-      0
-    );
-  }, []);
+  // useEffect(() => {
+  //   let tl = gsap.timeline({
+  //     scrollTrigger: {
+  //       trigger: sectionRef.current,
+  //       pin: ref.current,
+  //       scrub: 0.1,
+  //       stagger: 20,
+  //       snap: 0.1 / (animationRefs.current.length - 1),
+  //       end: `+=${600 * animationRefs.current.length}`,
+  //       duration: 1,
+  //       start: 'bottom bottom',
+  //       // markers: true,
+  //     },
+  //   });
+  //   tl.to(animationRefs.current, {
+  //     yPercent: -100 * (animationRefs.current.length - 1),
+  //   });
+  //   tl.set(
+  //     animationRefs.current,
+  //     {
+  //       stagger: 0.05 / animationRefs.current.length,
+  //     },
+  //     0
+  //   );
+  // }, []);
 
   const pushAnimateInnerRef = (item) => animationRefs.current.push(item);
   const pushTestRef = (item) => testRef.current.push(item);
@@ -171,7 +171,7 @@ const SectionService = forwardRef(({}, ref) => {
 
   return (
     <SectionContainer
-      ref={mainRef}
+      ref={ref}
       subtitle={'Services'}
       count="3"
       containerClassName={styles.sectionService}

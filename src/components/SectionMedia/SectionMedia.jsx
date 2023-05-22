@@ -6,17 +6,32 @@ import SectionContainer from '@/components/SectionContainer/SectionContainer';
 import Heading from '@/common/Heading/Heading';
 import Text from '@/common/Text/Text';
 import Button from '@/common/Button/Button';
-import Card from '@/common/Card/Card';
 import PostItem from '../media/PostItem/PostItem';
+import ButtonGroup from '../ButtonGroup/ButtonGroup';
+import Container from '@/common/Container/Container';
 
-import { Posts } from '@/pages/media';
+import generatePostsByAmount from '@/mock/blog/posts';
 
-import PostsList from '../media/PostsList/PostsList';
+import { TYPE_OF_FRANCHISING_OPTIONS } from './../../utilits/variables';
 
 import styles from './SectionMedia.module.sass';
 
-const SectionMedia = forwardRef(({ posts }, ref) => {
+const defaultValues = {
+  cashToInvest: null,
+  email: '',
+  fullName: '',
+  howDoYouHearAboutUs: null,
+  isAgree: false,
+  phone: '',
+  sourcesOfIncome: '',
+  stateOfInterest: null,
+  territory: '',
+  whyAreYouInterested: '',
+  typeOfFranchising: TYPE_OF_FRANCHISING_OPTIONS[0],
+};
 
+const SectionMedia = forwardRef(({ posts }, ref) => {
+  const postsMock = generatePostsByAmount({ amount: 6 });
 
   return (
     <SectionContainer ref={ref} className={styles.sectionMedia}>
@@ -26,51 +41,66 @@ const SectionMedia = forwardRef(({ posts }, ref) => {
             Media
           </Text>
         </Heading>
+        <ButtonGroup
+          options={TYPE_OF_FRANCHISING_OPTIONS}
+          wrapperClassName={styles.typesBtnGroup}
+          defaultOption={defaultValues.typeOfFranchising}
+        />
 
-        <Button href="/media" variant="outlined" className={styles.heroButton}>
+        <Button href="/media" variant="outlined" className={styles.sectionMediaButton}>
           See all media
         </Button>
       </div>
 
-      {/* <BaseSlider
-        breakpoints={{
-          320: {
-            width: 320,
-            slidesPerView: 1.1,
-          },
-          1200: {
-            width: 1200,
-            slidesPerGroup: 3,
-          },
-        }}
-        spaceBetween={20}
-        data={posts}
-        renderSlide={(posts) => <PostItem data={posts} />}
-      /> */}
+      <Container disableGutters className={styles.sectionMediaSliderWrap}>
+        <BaseSlider
+          breakpoints={{
+            320: {
+              width: 320,
+              slidesPerView: 1.1,
+            },
+            560: {
+              width: 560,
+              slidesPerView: 1.5,
+            },
+            992: {
+              width: 992,
+              slidesPerView: 2,
+            },
+            1200: {
+              width: 1200,
+              slidesPerView: 2.75,
+            },
+          }}
+          spaceBetween={20}
+          data={posts}
+          renderSlide={(posts) => (
+            <PostItem className={styles.sectionMediaPost} tag="div" post={posts} />
+          )}
+        />
+      </Container>
     </SectionContainer>
   );
 });
 
 export default SectionMedia;
 
-
-const posts = [
-  {
-    description: 'Apr 19/22',
-    url: '/images/media/1.jpg',
-    date: 'Apr 19/22',
-    title: 'LiveO2 and EWOT therapy–the latest way the Smart Fit Method works for you.',
-    text: 'What would your body do with extra oxygen during exercise if it had it? Quite a lot, it turns out. With added O2, our blood… Read more',
-  },
-  {
-    description: 'Apr 19/22',
-    url: '/images/media/1.jpg',
-    date: 'Apr 19/22',
-    title: 'LiveO2 and EWOT therapy–the latest way the Smart Fit Method works for you.',
-    text: 'What would your body do with extra oxygen during exercise if it had it? Quite a lot, it turns out. With added O2, our blood… Read more',
-  },
-];
-
+// const posts = [
+//   {
+//     description: 'Apr 19/22',
+//     url: '/images/media/1.jpg',
+//     date: 'Apr 19/22',
+//     title: 'LiveO2 and EWOT therapy–the latest way the Smart Fit Method works for you.',
+//     text: 'What would your body do with extra oxygen during exercise if it had it? Quite a lot, it turns out. With added O2, our blood… Read more',
+//   },
+//   {
+//     description: 'Apr 19/22',
+//     url: '/images/media/1.jpg',
+//     date: 'Apr 19/22',
+//     title: 'LiveO2 and EWOT therapy–the latest way the Smart Fit Method works for you.',
+//     text: 'What would your body do with extra oxygen during exercise if it had it? Quite a lot, it turns out. With added O2, our blood… Read more',
+//   },
+// ];
 
 const sectionMediaData = [
   {

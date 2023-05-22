@@ -22,7 +22,6 @@ const Container = forwardRef(
       styles.container,
       {
         [styles.disableGutters]: disableGutters,
-        [styles.maxWidth]: maxWidth,
       },
       className
     );

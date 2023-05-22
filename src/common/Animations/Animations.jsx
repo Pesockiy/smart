@@ -5,6 +5,7 @@ import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const Animation = ({
+  children,
   scrub,
   start,
   end,
@@ -16,7 +17,6 @@ const Animation = ({
   toX = false,
   startY = 40,
   startX = 40,
-  children = null,
   toggleActions = '',
 }) => {
 
