@@ -13,8 +13,6 @@ import { PostChip } from '../PostChip/PostChip';
 const PostItem = ({ post, isImgCover, positionIdx = null, tag: RootTag = 'li' }) => {
   const router = useRouter();
 
-  // const Tag = tag;
-
   const description = truncateTextByLength({
     text: post.description,
     length: 20,
