@@ -16,7 +16,6 @@ const useHandleCountryPhoneOptions = () => {
       const option = result.find(
         (item) => item.cca2.toUpperCase() === 'US' && item.cca3.toUpperCase() === 'USA'
       );
-
       setOption(createCountryOption(option));
       setCountryList(result);
     };

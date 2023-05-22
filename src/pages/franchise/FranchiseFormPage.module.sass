@@ -1,0 +1,114 @@
+.franchiseFormContainer
+  min-height: 100vh
+  margin-top: 80px
+
+.innerWrapper
+  +dGrid(grid, 427px, false, 40px 20px)
+  max-width: 880px
+  margin: auto
+  padding-bottom: 120px
+
+  @media screen and (max-width: #{$xs})
+    +dGrid(grid, 100%, false, 40px 20px)
+
+.title
+  font-family: #{$headingFont}
+  font-style: normal
+  font-weight: 600
+  font-size: 64px
+  line-height: 116%
+
+.description
+  max-width: 427px
+  font-family: #{$baseFont}
+  font-style: normal
+  font-weight: 400
+  font-size: 17px
+  line-height: 156%
+  letter-spacing: -0.04em
+  color: #E5E5EA
+
+.typesBtnGroup
+  height: 52px !important
+  align-self: end
+
+.form
+  +dGrid(grid, 427px, false, 20px)
+  align-items: start
+  grid-column: 1 / -1
+
+  @media screen and (max-width: #{$xs})
+    +dGrid(grid, 100%, false, 20px)
+
+
+.submitBtn,
+.agreeContainer
+  grid-column: 1 / -1
+
+.agreeContainer
+  display: flex
+  gap: 15px
+  align-items: flex-start
+
+.submitBtn
+  margin-top: 40px
+
+.label
+  font-family: #{$thirdFont}
+  font-style: normal
+  font-weight: 400
+  font-size: 16px
+  line-height: 22px
+  color: #ADB0D0
+  padding-left: 12px
+
+.agreement
+  position: relative
+  width: max-content
+  display: flex
+  font-family: #{$thirdFont}
+  font-style: normal
+  font-weight: 400
+  font-size: 16px
+  line-height: 22px
+  color: #E5E5EA
+  border-radius: 4px
+
+  input
+    appearance: none
+    width: 20px
+    height: 20px
+
+    border: 2px solid #{$accentColor}
+    border-radius: 4px
+
+    &:hover
+      cursor: pointer
+
+  &:has(input:checked)
+    background-color: #{$accentColor}
+
+  &:has(input:checked)::before
+    content: ""
+    position: absolute
+    top: 40%
+    left: 50%
+    width: 7px
+    height: 10px
+    display: flex
+    justify-content: center
+    border-left: 2px solid #fff
+    border-top: 2px solid #fff
+    background-color: transparent
+    transform: translate(-50%, -50%) rotate(224deg)
+
+.error
+  margin-top: 5px
+  color: #F04141
+
+.link
+  color: #{$accentColor}
+  text-decoration: none
+
+  &:hover
+    text-decoration: underline

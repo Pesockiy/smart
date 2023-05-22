@@ -24,6 +24,7 @@ const PhoneInput = forwardRef(({ error, id, label, name = 'phone', ...field }, r
       {label && <span className={styles.labelTitle}>{label}</span>}
       <div className={wrapperClasses}>
         <Select
+          instanceId={id}
           placeholder="flag"
           value={option}
           styles={getCountrySelectStyles(!!error)}

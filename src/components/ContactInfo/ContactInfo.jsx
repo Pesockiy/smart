@@ -9,8 +9,9 @@ import Button from '@/common/Button/Button';
 import PhoneInput from '@/components/PhoneInput/PhoneInput';
 import DateInput from '@/components/DateInput/DateInput';
 import CustomInput from '@/components/CustomInput/CustomInput';
-import GenderSelect, { GENDER_OPTIONS } from '@/components/GenderSelect/GenderSelect';
 import { useBookFreeWorkoutContext } from '@/context/BookFreeWorkoutContext';
+import CustomSelect from '../CustomSelect/CustomSelect';
+import { GENDER_OPTIONS } from '@/utilits/variables';
 
 const errors = {
   firstName: 'Please provide a valid First Name.',
@@ -103,7 +104,14 @@ const ContactInfo = () => {
           name="gender"
           control={control}
           render={({ field }) => (
-            <GenderSelect id="gender" label="Gender" error={errors.gender} {...field} />
+            <CustomSelect
+              id="gender"
+              label="Gender"
+              options={GENDER_OPTIONS}
+              error={errors.gender}
+              placeholder="Select Gender"
+              {...field}
+            />
           )}
         />
 

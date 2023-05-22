@@ -1,4 +1,4 @@
-export const getGenderSelectStyles = (isError) => {
+export const getCustomSelectStyles = (isError) => {
   return {
     option: (provided, state) => {
       return {
