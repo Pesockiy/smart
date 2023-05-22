@@ -11,7 +11,7 @@ import CustomInput from '@/components/CustomInput/CustomInput';
 import PhoneInput from '@/components/PhoneInput/PhoneInput';
 import CustomSelect from '@/components/CustomSelect/CustomSelect';
 import Button from '@/common/Button/Button';
-import ButtonGroup from '@/components/ButtonGroupUpdated/ButtonGroup';
+import ButtonGroup from '@/components/ButtonGroup/ButtonGroup';
 import Layout from '@/components/Layout/Layout';
 import {
   CASH_TO_INVEST,

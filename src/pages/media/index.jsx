@@ -9,6 +9,7 @@ import BlogView from '@/components/media/Blog/Blog';
 import { useIsMounted } from '@/hooks';
 import styles from './MediaPage.module.sass';
 import Text from '@/common/Text/Text';
+import ButtonGroup from '@/components/ButtonGroup/ButtonGroup';
 
 const DEFAULT_POSTS_LIMIT = 6;
 const DEFAULT_PRESS_LIMIT = 15;
@@ -75,7 +76,7 @@ const Media = ({ posts, count, pinned, type }) => {
           <Text gradient>Media</Text>
         </Heading>
 
-        <BlogButtonGroup
+        <ButtonGroup
           wrapperClassName={styles.btnGroupWrapper}
           options={options}
           defaultOption={activeOption}
