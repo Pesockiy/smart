@@ -18,10 +18,5 @@ const Layout = ({ children, hasHeader = true, hasFooter = true }) => {
     </>
   );
 };
-export const getServerSideProps = async () => {
-  const data = await getIndexPageData(CONTENT_TYPE_FOOTER);
-
-  return { props: { data } };
-};
 
 export default Layout;

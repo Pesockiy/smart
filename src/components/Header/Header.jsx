@@ -77,14 +77,15 @@ const Header = () => {
             />
             <Nav ref={pushAnimateRef} classNames={headerNavClasses} />
 
-          <Button outlined variant="primary" className={styles.headerButton}>
-            Book a free
-          </Button>
-        </div>
-        <button className={styles.headerMenuButton} onClick={menuToggler}>
-          {isMenuOpen ? <IconMenuClose /> : <IconMenuOpen />}
-        </button>
-      </Container>
+            <Button outlined variant="primary" className={styles.headerButton}>
+              Book a free
+            </Button>
+          </div>
+          <button className={styles.headerMenuButton} >
+            {isMenuOpen ? <IconMenuClose /> : <IconMenuOpen />}
+          </button>
+        </Container>
+      </Animation>
     </header>
   );
 };
