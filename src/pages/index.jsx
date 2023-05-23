@@ -51,6 +51,7 @@ const Home = ({ data, posts }) => {
   );
 };
 
+
 export const getServerSideProps = async () => {
   const data = await getIndexPageData(CONTENT_TYPE);
 
