@@ -3,13 +3,17 @@
   "plugins": ["prettier"],
   "parser": "@babel/eslint-parser",
   "ignorePatterns": ["node_modules/*", ".next/*", ".out/*"],
-  "extends": ["eslint:recommended", "prettier"],
+  // "extends": ["eslint:recommended", "prettier"],
   "rules": {
     "no-console": 1,
     "prettier/prettier": 2
   },
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": 2020
+    "ecmaVersion": 2020,
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    }
   }
 }

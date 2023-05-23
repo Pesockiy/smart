@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.21.8",
+    "@babel/preset-react": "^7.18.6",
     "@contentful/rich-text-react-renderer": "^15.16.4",
     "@hookform/resolvers": "^3.1.0",
     "@react-google-maps/api": "^2.18.1",
@@ -36,7 +37,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^7.0.0",
-    "babel-eslint": "^10.1.0",
+    "babel-preset-env": "^1.7.0",
     "prettier": "^2.8.8",
     "react-responsive": "^9.0.2"
   }
