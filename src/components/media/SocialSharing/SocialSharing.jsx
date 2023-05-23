@@ -17,7 +17,7 @@ import styles from './SocialSharing.module.sass';
 const SocialSharing = ({ post }) => {
   const { onCopy } = useCopy();
 
-  const url = `http://localhost:3000/media/${post.id}`;
+  const url = `${HOSTNAME}/media/${post.id}`;
   // FIXME: instagram does not work;
   return (
     <div className={styles.wrapper}>

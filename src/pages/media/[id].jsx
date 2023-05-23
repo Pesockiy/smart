@@ -115,7 +115,7 @@ const VideoPreview = ({ src }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  const response = await fetch(`http://localhost:3000/api/posts/${context.query.id}`);
+  const response = await fetch(`${HOSTNAME}/api/posts/${context.query.id}`);
 
   const result = await response.json();
 

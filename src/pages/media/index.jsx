@@ -28,15 +28,15 @@ const MEDIA_TYPES = options.reduce((prev, curr) => {
 export const Posts = {
   getById({ id, params }) {
     const searchParams = new URLSearchParams(params);
-    return `http://localhost:3000/api/posts/${id}?${searchParams}`;
+    return `${HOSTNAME}/api/posts/${id}?${searchParams}`;
   },
   pinned(params) {
     const searchParams = new URLSearchParams(params);
-    return fetch(`http://localhost:3000/api/posts/pinned?${searchParams}`);
+    return fetch(`${HOSTNAME}/api/posts/pinned?${searchParams}`);
   },
   get(params) {
     const searchParams = new URLSearchParams(params);
-    return fetch(`http://localhost:3000/api/posts?${searchParams}`);
+    return fetch(`${HOSTNAME}/api/posts?${searchParams}`);
   },
 };
 
