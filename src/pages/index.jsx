@@ -51,6 +51,20 @@ const Home = ({ data, posts }) => {
   );
 };
 
+export const getStaticPaths = async () => {
+  const response = await Promise.all([Posts.get({ limit: 10 })]);
+
+  const [posts] = await Promise.all(response.map((res) => res.json()));
+
+  const paths = posts?.items.map((post) => ({
+    params: { id: post.id.toString() },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
 
 export const getStaticProps = async () => {
   const data = await getIndexPageData(CONTENT_TYPE);
@@ -60,7 +74,7 @@ export const getStaticProps = async () => {
   const [posts] = await Promise.all(response.map((res) => res.json()));
 
   // return { props: { data: data[0].fields } };
-  return { props: { data: data[0].fields, posts: posts.items } };
+  return { props: { data: data[0].fields, posts: posts } };
 };
 
 export default Home;

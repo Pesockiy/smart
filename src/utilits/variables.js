@@ -1,4 +1,4 @@
-export const HOSTNAME = process.env.HOSTNAME;
+export const HOSTNAME = process.env.NEXT_PUBLIC_HOSTNAME;
 
 export const navLinks = [
   {
