@@ -45,7 +45,7 @@ const Home = ({ data, posts }) => {
       </Overlay>
       <Comments />
       <ReferralProgram />
-      <SectionMedia posts={posts} />
+      {/* <SectionMedia posts={posts} /> */}
       <Listen />
     </>
   );
@@ -55,11 +55,12 @@ const Home = ({ data, posts }) => {
 export const getServerSideProps = async () => {
   const data = await getIndexPageData(CONTENT_TYPE);
 
-  const response = await Promise.all([Posts.get({ limit: 10 })]);
+  // const response = await Promise.all([Posts.get({ limit: 10 })]);
 
-  const [posts] = await Promise.all(response.map((res) => res.json()));
+  // const [posts] = await Promise.all(response.map((res) => res.json()));
 
-  return { props: { data: data[0].fields, posts: posts.items } };
+  return { props: { data: data[0].fields } };
+  // return { props: { data: data[0].fields, posts: posts.items } };
 };
 
 export default Home;
