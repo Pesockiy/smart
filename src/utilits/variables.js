@@ -1,3 +1,5 @@
+export const HOSTNAME = process.env.HOSTNAME;
+
 export const navLinks = [
   {
     name: 'Location',

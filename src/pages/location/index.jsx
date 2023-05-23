@@ -6,6 +6,8 @@ import Text from '@/common/Text/Text';
 import styles from './Location.module.sass';
 import StoresMap from '@/components/location/StoresMap/StoresMap';
 
+import { HOSTNAME } from '@/utilits/variables';
+
 const Locations = {
   async get() {
     const response = await fetch(`${HOSTNAME}/api/locations`);

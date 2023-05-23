@@ -12,6 +12,8 @@ import Text from '@/common/Text/Text';
 import Heading from '@/common/Heading/Heading';
 import calculateReadTime from '@/helpers/calculateReadTime';
 
+import { HOSTNAME } from '@/utilits/variables';
+
 const PostView = ({ post }) => {
   const [currentPosts, nextPostMap] = usePostInfiniteScroll({
     initial: { post: post.current, next: post.next },

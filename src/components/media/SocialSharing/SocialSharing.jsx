@@ -5,6 +5,8 @@ import {
   WhatsappShareButton,
 } from 'next-share';
 
+import { HOSTNAME } from '@/utilits/variables';
+
 import { useCopy } from '@/hooks';
 import FaceBookIcon from '@/assets/icons/facebook.svg';
 import InstagramIcon from '@/assets/icons/instagram.svg';

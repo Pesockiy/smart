@@ -11,6 +11,8 @@ import styles from './MediaPage.module.sass';
 import Text from '@/common/Text/Text';
 import ButtonGroup from '@/components/ButtonGroup/ButtonGroup';
 
+import { HOSTNAME } from '@/utilits/variables';
+
 const DEFAULT_POSTS_LIMIT = 6;
 const DEFAULT_PRESS_LIMIT = 15;
 const DEFAULT_PAGE = 1;
