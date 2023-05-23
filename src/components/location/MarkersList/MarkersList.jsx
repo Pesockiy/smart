@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { InfoWindow, MarkerF } from '@react-google-maps/api';
+import { InfoWindowF, MarkerF } from '@react-google-maps/api';
 
 import styles from './MarkersList.module.sass';
 
@@ -39,7 +39,7 @@ const MarkersList = ({ markersLatLng, clusterer, onClick, locations, activeMarke
           >
             {isPopUpActive && (
               <MarkerPopUp
-                key={location.city}
+                key={location.id}
                 position={marker}
                 title={`Smart fir method/${title}`}
                 onClose={() => setActiveId(null)}
@@ -54,11 +54,11 @@ const MarkersList = ({ markersLatLng, clusterer, onClick, locations, activeMarke
 
 const MarkerPopUp = ({ position, title, onClose }) => {
   return (
-    <InfoWindow position={position} onCloseClick={onClose}>
+    <InfoWindowF position={position} onCloseClick={onClose}>
       <div className={styles.infoWindow}>
         <h2>{title}</h2>
       </div>
-    </InfoWindow>
+    </InfoWindowF>
   );
 };
 

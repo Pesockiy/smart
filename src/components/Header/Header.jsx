@@ -77,7 +77,13 @@ const Header = () => {
             />
             <Nav ref={pushAnimateRef} classNames={headerNavClasses} />
 
-            <Button ref={pushAnimateRef} outlined variant="primary" className={styles.headerButton}>
+            <Button
+              ref={pushAnimateRef}
+              outlined
+              variant="primary"
+              className={styles.headerButton}
+              onClick={() => router.push('/book-free-workout')}
+            >
               Book a free
             </Button>
           </div>
