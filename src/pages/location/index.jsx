@@ -8,7 +8,7 @@ import StoresMap from '@/components/location/StoresMap/StoresMap';
 
 const Locations = {
   async get() {
-    const response = await fetch('http://localhost:3000/api/locations');
+    const response = await fetch(`${HOSTNAME}/api/locations`);
     return response.json();
   },
 };
