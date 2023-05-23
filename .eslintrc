@@ -6,7 +6,7 @@
   // "extends": ["eslint:recommended", "prettier"],
   "rules": {
     "no-console": 1,
-    "prettier/prettier": 2
+    // "prettier/prettier": 2
   },
   "parserOptions": {
     "sourceType": "module",
@@ -16,6 +16,6 @@
       "presets": ["@babel/preset-react"]
     }
   },
-  "prettier/prettier": ["error", { "endOfLine": "off" }]
+  // "prettier/prettier": ["error", { "endOfLine": "off" }]
   
 }
