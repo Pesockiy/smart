@@ -15,5 +15,7 @@
     "babelOptions": {
       "presets": ["@babel/preset-react"]
     }
-  }
+  },
+  "prettier/prettier": ["error", { "endOfLine": "off" }]
+  
 }
