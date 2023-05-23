@@ -48,7 +48,7 @@ const nextConfig = {
   images: {
     domains: ['https://flagsapi.com']
   },
-  fileExtensions: ['svg'],
+  // fileExtensions: ['svg'],
   disableStaticImages: true,
   sassOptions: {
     additionalData: `
